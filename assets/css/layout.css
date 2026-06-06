@@ -606,7 +606,7 @@
   margin-left: calc(-50vw + 50%) !important;  /* Astuce ultime pour sortir d'un container bloqué */
   margin-right: calc(-50vw + 50%) !important; /* Centrage parfait sur tout l'écran */
   box-sizing: border-box !important;
-  bottom : 0;
+  bottom : 
 }
 
 /* ============================================================
@@ -640,98 +640,51 @@
 }
 
 /* ============================================================
-   FIX : CENTRAGE PARFAIT DE LA CARTE CONTACT BLANCHE SUR MOBILE
+   FIX 3 : CENTRAGE PARFAIT ET LARGEUR OPTIMALE CARTE BLANCHE CONTACT
    ============================================================ */
 @media screen and (max-width: 768px) {
-  /* On cible le parent direct qui gère la grille de contact */
+  /* 1. On libère la section et son conteneur pour occuper tout l'écran */
+  .contact-section .container,
+  .section[aria-labelledby*="contact"] .container,
+  .section[aria-label*="contact"] .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: var(--space-4, 1rem) !important;  /* Marges de sécurité à gauche */
+    padding-right: var(--space-4, 1rem) !important; /* Marges de sécurité à droite */
+    box-sizing: border-box !important;
+  }
+
+  /* 2. On force la grille à s'aligner en colonne bien centrée */
   .contact-section .grid,
   .section[aria-labelledby*="contact"] .grid,
   .section[aria-label*="contact"] .grid {
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important; /* Force l'alignement au centre horizontal */
+    align-items: center !important;
     justify-content: center !important;
     width: 100% !important;
     padding: 0 !important;
     margin: 0 auto !important;
   }
 
-  /* On cible le bloc animé qui contient la carte blanche */
+  /* 3. On libère le bloc d'animation de la carte blanche */
   .section[aria-labelledby*="contact"] .reveal--right,
   .section[aria-label*="contact"] .reveal--right,
   .contact-section .reveal--right {
     display: block !important;
     width: 100% !important;
-    max-width: 92% !important; /* Laisse un espace de sécurité identique à gauche et à droite */
-    transform: none !important; /* Neutralise le décalage de l'animation JS */
-    margin: 0 auto !important; /* Centre parfaitement le bloc */
+    max-width: 100% !important; /* On enlève le bridage des 92% */
+    transform: none !important;
+    margin: 0 auto !important;
     padding: 0 !important;
   }
 
-  /* On s'assure que la carte blanche elle-même n'a pas de marges parasites */
+  /* 4. La carte blanche prend enfin 100% du conteneur pour respirer */
   .section[aria-labelledby*="contact"] .card,
   .contact-section .card {
     width: 100% !important;
+    max-width: 100% !important;
     margin: 0 auto !important;
     float: none !important;
-    position: relative !important;
-    left: 0 !important;
-    right: 0 !important;
-  }
-}
-
-/* ============================================================
-   FIX ULTIME : LARGEUR MAXIMALE DES DEUX CARTES SUR MOBILE
-   (Réservation Rapide & Contact)
-   ============================================================ */
-@media screen and (max-width: 768px) {
-  
-  /* 1. On force les conteneurs parents à sortir de leurs boîtes invisibles */
-  .quick-booking .container,
-  .contact-section .container,
-  .section[aria-label*="contact"] .container,
-  .section[aria-labelledby*="contact"] .container {
-    width: 100vw !important;
-    max-width: 100vw !important;
-    padding: 0 !important;
-    margin-left: calc(-50vw + 50%) !important; /* Astuce pour prendre 100% de l'écran */
-    margin-right: calc(-50vw + 50%) !important;
-    display: flex !important;
-    justify-content: center !important;
-    box-sizing: border-box !important;
-  }
-
-  /* 2. On nettoie les grilles et on tue les animations qui décalent vers la droite */
-  .quick-booking-grid,
-  .quick-booking-grid .reveal--right,
-  .contact-section .grid,
-  .contact-section .reveal--right,
-  .section[aria-label*="contact"] .grid,
-  .section[aria-label*="contact"] .reveal--right,
-  .section[aria-labelledby*="contact"] .grid,
-  .section[aria-labelledby*="contact"] .reveal--right {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    transform: none !important; /* Annule tout décalage */
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-  }
-
-  /* 3. LE RÉGLAGE MAGIQUE : Les deux cartes prennent 94% de l'écran */
-  .quick-booking-grid .card--glass,
-  .contact-section .card,
-  .section[aria-label*="contact"] .card,
-  .section[aria-labelledby*="contact"] .card {
-    width: 94vw !important; /* 94% de l'écran = très large */
-    max-width: 94vw !important;
-    margin: 0 auto !important; /* Centre parfaitement (laisse 3% de vide de chaque côté) */
-    box-sizing: border-box !important;
-    float: none !important;
-    position: relative !important;
-    left: 0 !important;
-    right: 0 !important;
   }
 }
