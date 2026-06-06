@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg"/>
+  <title>Page introuvable — PIMTABHAS</title>
+  <link rel="stylesheet" href="../assets/css/variables.css"/>
+  <link rel="stylesheet" href="../assets/css/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/components.css"/>
+  <link rel="stylesheet" href="../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../assets/css/animations.css"/>
+  <style>
+    body { background:var(--gradient-hero); min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:var(--space-8); }
+    .error-page { position:relative; z-index:2; max-width:600px; }
+    .error-number { font-family:var(--font-display); font-size:clamp(6rem,20vw,12rem); font-weight:var(--weight-black); color:transparent; -webkit-text-stroke:2px rgba(212,175,55,.3); line-height:1; margin-bottom:var(--space-4); }
+    .error-icon { font-size:4rem; margin-bottom:var(--space-4); animation:float 4s ease-in-out infinite; display:block; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)} }
+  </style>
+  <link rel="stylesheet" href="../assets/css/responsive.css"/>
+</head>
+<body>
+  <div style="position:fixed;inset:0;background-image:url('../assets/images/pattern-adinkra.svg');background-size:150px;background-repeat:repeat;opacity:.03;color:white;" aria-hidden="true"></div>
+  <div class="error-page">
+    <div class="error-number">404</div>
+    <span class="error-icon">🌿</span>
+    <h1 style="font-family:var(--font-display);color:var(--color-cream);font-size:clamp(1.75rem,4vw,2.75rem);margin-bottom:var(--space-4)">
+      Page <em style="color:var(--color-gold)">Introuvable</em>
+    </h1>
+    <p style="color:rgba(248,246,240,.7);font-size:var(--text-lg);max-width:45ch;margin:0 auto var(--space-10);line-height:var(--leading-relaxed)">
+      La page que vous cherchez semble s'être égarée dans les savanes africaines. Retournons ensemble vers des territoires connus.
+    </p>
+    <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap">
+      <a href="../index.html" class="btn btn--primary btn--lg">🏠 Retour à l'accueil</a>
+      <a href="boutique.html" class="btn btn--outline-cream btn--lg">🌿 Visiter la boutique</a>
+    </div>
+    <div style="margin-top:var(--space-12);display:flex;gap:var(--space-6);justify-content:center;flex-wrap:wrap">
+      <a href="consultations.html" style="font-family:var(--font-ui);font-size:var(--text-sm);color:rgba(248,246,240,.5);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--color-gold)'" onmouseout="this.style.color='rgba(248,246,240,.5)'">📅 Consultations</a>
+      <a href="blog.html" style="font-family:var(--font-ui);font-size:var(--text-sm);color:rgba(248,246,240,.5);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--color-gold)'" onmouseout="this.style.color='rgba(248,246,240,.5)'">✍️ Blog</a>
+      <a href="contact.html" style="font-family:var(--font-ui);font-size:var(--text-sm);color:rgba(248,246,240,.5);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--color-gold)'" onmouseout="this.style.color='rgba(248,246,240,.5)'">💬 Contact</a>
+    </div>
+  </div>
+</body>
+</html>

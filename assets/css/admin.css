@@ -1,0 +1,36 @@
+/* ============================================================
+   PIMTABHAS — Admin Specific CSS
+   (styles admin non couverts par pages.css)
+   ============================================================ */
+
+/* ── SCROLL-TOP ADMIN ─── */
+#scroll-top.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ── STATUS PILLS ─── */
+.status-pill { display:inline-flex;align-items:center;padding:3px 10px;border-radius:var(--radius-full);font-family:var(--font-ui);font-size:10px;font-weight:var(--weight-semibold); }
+.status-pill--success,.status-pill--confirmed,.status-pill--shipped,.status-pill--delivered,.status-pill--published,.status-pill--approved,.status-pill--active { background:var(--color-success-bg);color:var(--color-success); }
+.status-pill--warning,.status-pill--pending,.status-pill--draft { background:var(--color-warning-bg);color:var(--color-warning); }
+.status-pill--error,.status-pill--cancelled,.status-pill--rejected { background:var(--color-error-bg);color:var(--color-error); }
+.status-pill--info,.status-pill--processing { background:var(--color-info-bg);color:var(--color-info); }
+.status-pill--gray,.status-pill--done { background:var(--color-gray-100);color:var(--color-gray-600); }
+
+/* ── ADMIN SIDEBAR MOBILE OPEN ─── */
+@media (max-width:1024px) {
+  .admin-sidebar.is-open {
+    left: 0;
+    box-shadow: 4px 0 40px rgba(0,0,0,.3);
+  }
+  #admin-burger { display:flex !important; }
+}
+
+/* ── DRAG & DROP ─── */
+.draggable { cursor: grab; }
+.draggable:active { cursor: grabbing; }
+.drag-over { border: 2px dashed var(--color-gold) !important; background: var(--color-gold-pale) !important; }
+
+/* ── PRINT ─── */
+@media print {
+  .admin-sidebar,.admin-topbar,.btn { display:none !important; }
+  .admin-main { grid-column: 1 / -1; }
+  body { background: white; }
+}

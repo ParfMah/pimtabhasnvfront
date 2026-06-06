@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg"/>
+  <title>Rendez-vous — Admin PIMTABHAS</title>
+  <link rel="stylesheet" href="../assets/css/variables.css"/>
+  <link rel="stylesheet" href="../assets/css/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/components.css"/>
+  <link rel="stylesheet" href="../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../assets/css/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/pages.css"/>
+  <style>
+    body{background:var(--color-gray-50);}
+    .rdv-filters{display:flex;gap:var(--space-3);flex-wrap:wrap;align-items:center;}
+    .rdv-filter-input{padding:var(--space-2) var(--space-4);border:1px solid var(--color-gray-200);border-radius:var(--radius-lg);font-family:var(--font-ui);font-size:var(--text-sm);background:var(--color-white);transition:border-color var(--transition-base);}
+    .rdv-filter-input:focus{border-color:var(--color-emerald);}
+    .rdv-card{background:var(--color-white);border-radius:var(--radius-xl);padding:var(--space-5) var(--space-6);border:1px solid var(--color-gray-100);box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:var(--space-5);margin-bottom:var(--space-3);transition:all var(--transition-base);}
+    .rdv-card:hover{box-shadow:var(--shadow-md);transform:translateX(2px);}
+    .rdv-time{font-family:var(--font-mono);font-size:var(--text-lg);font-weight:bold;color:var(--color-emerald);min-width:60px;}
+    .rdv-type-badge{width:44px;height:44px;border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;}
+    .rdv-name{font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night);margin-bottom:2px;}
+    .rdv-meta{font-size:var(--text-xs);color:var(--color-gray-400);}
+    .rdv-actions{display:flex;gap:var(--space-2);margin-left:auto;flex-shrink:0;}
+  </style>
+  <link rel="stylesheet" href="../assets/css/responsive.css"/>
+  <link rel="stylesheet" href="../assets/css/admin.css"/>
+</head>
+<body>
+<div class="toast-container"></div>
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar__logo"><img src="../assets/images/logo.svg" alt="PIMTABHAS"/></div>
+    <nav class="admin-nav">
+      <div class="admin-nav__section">Principal</div>
+      <a href="dashboard.html" class="admin-nav__item"><span class="admin-nav__icon">🏠</span>Tableau de bord</a>
+      <a href="rendez-vous.html" class="admin-nav__item active"><span class="admin-nav__icon">📅</span>Rendez-vous</a>
+      <a href="patients.html" class="admin-nav__item"><span class="admin-nav__icon">👥</span>Patients</a>
+      <div class="admin-nav__section">Boutique</div>
+      <a href="commandes.html" class="admin-nav__item"><span class="admin-nav__icon">📦</span>Commandes</a>
+      <a href="produits.html" class="admin-nav__item"><span class="admin-nav__icon">🌿</span>Produits</a>
+      <div class="admin-nav__section">Contenu</div>
+      <a href="blog.html" class="admin-nav__item"><span class="admin-nav__icon">✍️</span>Blog</a>
+      <a href="messages.html" class="admin-nav__item"><span class="admin-nav__icon">💬</span>Messages</a>
+      <div class="admin-nav__section">Paramètres</div>
+      <a href="../index.html" class="admin-nav__item" target="_blank"><span class="admin-nav__icon">🌐</span>Voir le site</a>
+      <a href="../pages/espace-client.html" class="admin-nav__item" onclick="auth.logout();return false"><span class="admin-nav__icon">🚪</span>Déconnexion</a>
+    </nav>
+  </aside>
+
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <h1 style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-night)">📅 Gestion des Rendez-vous</h1>
+      <button onclick="openNewRdvModal()" class="btn btn--primary btn--sm">+ Nouveau rendez-vous</button>
+    </div>
+
+    <div class="admin-content">
+      <!-- Stats -->
+      <div class="grid grid--4" style="gap:var(--space-4);margin-bottom:var(--space-8)">
+        <div class="admin-stat-card"><div class="admin-stat-icon admin-stat-icon--emerald">📅</div><div><div class="admin-stat-num">4</div><div class="admin-stat-label">Aujourd'hui</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon admin-stat-icon--gold">⏳</div><div><div class="admin-stat-num">12</div><div class="admin-stat-label">Cette semaine</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon admin-stat-icon--bronze">📋</div><div><div class="admin-stat-num">38</div><div class="admin-stat-label">Ce mois</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon admin-stat-icon--blue">✅</div><div><div class="admin-stat-num">94%</div><div class="admin-stat-label">Taux de présence</div></div></div>
+      </div>
+
+      <!-- Filtres -->
+      <div class="admin-table" style="padding:var(--space-5) var(--space-6);margin-bottom:var(--space-6)">
+        <div class="rdv-filters">
+          <input class="rdv-filter-input" type="date" id="filter-date" onchange="filterAppointments()"/>
+          <select class="rdv-filter-input" id="filter-type" onchange="filterAppointments()">
+            <option value="">Tous les types</option>
+            <option value="traditionnelle">Consultation Traditionnelle</option>
+            <option value="spirituelle">Accompagnement Spirituel</option>
+            <option value="divinatoire">Consultation Divinatoire</option>
+          </select>
+          <select class="rdv-filter-input" id="filter-status" onchange="filterAppointments()">
+            <option value="">Tous les statuts</option>
+            <option value="confirmed">Confirmé</option>
+            <option value="pending">En attente</option>
+            <option value="done">Terminé</option>
+            <option value="cancelled">Annulé</option>
+          </select>
+          <select class="rdv-filter-input" id="filter-mode" onchange="filterAppointments()">
+            <option value="">Tous les modes</option>
+            <option value="enligne">En ligne</option>
+            <option value="presentiel">Présentiel</option>
+            <option value="telephone">Téléphone</option>
+          </select>
+          <input class="rdv-filter-input" type="text" id="filter-search" placeholder="🔍 Rechercher un patient…" oninput="filterAppointments()" style="min-width:220px"/>
+          <button onclick="exportRdv()" class="btn btn--outline-gold btn--sm">📤 Exporter</button>
+        </div>
+      </div>
+
+      <!-- Liste des RDV -->
+      <div id="appointments-container">
+        <div style="font-family:var(--font-accent);font-size:var(--text-xs);letter-spacing:.15em;text-transform:uppercase;color:var(--color-emerald);margin-bottom:var(--space-4)">
+          Aujourd'hui — <span id="today-label"></span>
+        </div>
+
+        <div id="rdv-list">
+          <div class="rdv-card" data-status="confirmed" data-type="traditionnelle" data-mode="enligne">
+            <div class="rdv-time">08:00</div>
+            <div class="rdv-type-badge" style="background:var(--color-emerald-pale)">🌿</div>
+            <div style="flex:1">
+              <div class="rdv-name">Aminata DIALLO</div>
+              <div class="rdv-meta">Consultation Traditionnelle · En ligne · 45 min · Dakar, Sénégal</div>
+            </div>
+            <span style="background:var(--color-success-bg);color:var(--color-success);font-size:10px;padding:3px 10px;border-radius:var(--radius-full);font-weight:bold;flex-shrink:0">✓ Confirmé</span>
+            <div class="rdv-actions">
+              <button onclick="startVideoCall('aminata-d')" class="btn btn--secondary btn--sm" title="Démarrer la visio">📹</button>
+              <button onclick="viewPatient('aminata-d')" class="btn btn--outline-gold btn--sm">Voir fiche</button>
+              <button onclick="editRdv('rdv-001')" class="btn btn--ghost btn--sm">✏️</button>
+            </div>
+          </div>
+
+          <div class="rdv-card" data-status="pending" data-type="spirituelle" data-mode="enligne">
+            <div class="rdv-time">10:30</div>
+            <div class="rdv-type-badge" style="background:rgba(124,58,237,.1)">🔮</div>
+            <div style="flex:1">
+              <div class="rdv-name">Moussa TRAORÉ</div>
+              <div class="rdv-meta">Accompagnement Spirituel · En ligne · 90 min · Bamako, Mali</div>
+            </div>
+            <span style="background:var(--color-warning-bg);color:var(--color-warning);font-size:10px;padding:3px 10px;border-radius:var(--radius-full);font-weight:bold;flex-shrink:0">⏳ En attente</span>
+            <div class="rdv-actions">
+              <button onclick="confirmRdv('rdv-002')" class="btn btn--secondary btn--sm">Confirmer</button>
+              <button onclick="viewPatient('moussa-t')" class="btn btn--outline-gold btn--sm">Voir fiche</button>
+              <button onclick="cancelRdv('rdv-002')" class="btn btn--ghost btn--sm" style="color:var(--color-error)">✕</button>
+            </div>
+          </div>
+
+          <div class="rdv-card" data-status="confirmed" data-type="divinatoire" data-mode="telephone">
+            <div class="rdv-time">14:00</div>
+            <div class="rdv-type-badge" style="background:var(--color-gold-pale)">✨</div>
+            <div style="flex:1">
+              <div class="rdv-name">Fatoumata BARRY</div>
+              <div class="rdv-meta">Consultation Divinatoire · Téléphone · 45 min · Paris, France</div>
+            </div>
+            <span style="background:var(--color-success-bg);color:var(--color-success);font-size:10px;padding:3px 10px;border-radius:var(--radius-full);font-weight:bold;flex-shrink:0">✓ Confirmé</span>
+            <div class="rdv-actions">
+              <button onclick="callPatient('+33600000000')" class="btn btn--secondary btn--sm">📞 Appeler</button>
+              <button onclick="viewPatient('fatoumata-b')" class="btn btn--outline-gold btn--sm">Voir fiche</button>
+              <button onclick="editRdv('rdv-003')" class="btn btn--ghost btn--sm">✏️</button>
+            </div>
+          </div>
+
+          <div class="rdv-card" data-status="confirmed" data-type="traditionnelle" data-mode="enligne">
+            <div class="rdv-time">16:00</div>
+            <div class="rdv-type-badge" style="background:var(--color-emerald-pale)">🌿</div>
+            <div style="flex:1">
+              <div class="rdv-name">Grâce MENSAH</div>
+              <div class="rdv-meta">Consultation Traditionnelle · Visioconférence · 60 min · Lyon, France</div>
+            </div>
+            <span style="background:var(--color-success-bg);color:var(--color-success);font-size:10px;padding:3px 10px;border-radius:var(--radius-full);font-weight:bold;flex-shrink:0">✓ Confirmé</span>
+            <div class="rdv-actions">
+              <button onclick="startVideoCall('grace-m')" class="btn btn--secondary btn--sm">📹</button>
+              <button onclick="viewPatient('grace-m')" class="btn btn--outline-gold btn--sm">Voir fiche</button>
+              <button onclick="editRdv('rdv-004')" class="btn btn--ghost btn--sm">✏️</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tableau complet -->
+      <div class="admin-table" style="margin-top:var(--space-8)">
+        <div style="padding:var(--space-5) var(--space-6);border-bottom:1px solid var(--color-gray-100);display:flex;justify-content:space-between;align-items:center">
+          <h3 style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night)">Historique complet</h3>
+          <span style="font-size:var(--text-xs);color:var(--color-gray-400)">147 rendez-vous au total</span>
+        </div>
+        <div style="overflow-x:auto">
+          <table style="min-width:900px">
+            <thead>
+              <tr><th>Date & Heure</th><th>Patient</th><th>Type</th><th>Mode</th><th>Durée</th><th>Statut</th><th>Notes</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span style="font-family:var(--font-mono);font-size:var(--text-xs)">20/01/2025 08:00</span></td><td><strong>Aminata D.</strong><br/><span style="font-size:var(--text-xs);color:var(--color-gray-400)">Dakar, SN</span></td><td><span style="font-size:var(--text-xs)">🌿 Traditionnel</span></td><td><span style="font-size:var(--text-xs)">💻 En ligne</span></td><td style="font-size:var(--text-xs)">45 min</td><td><span style="background:var(--color-success-bg);color:var(--color-success);font-size:10px;padding:2px 8px;border-radius:var(--radius-full);font-weight:bold">Confirmé</span></td><td style="font-size:var(--text-xs);color:var(--color-gray-400);max-width:150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Première consultation</td><td style="white-space:nowrap"><button class="btn btn--ghost btn--sm">✏️</button><button class="btn btn--ghost btn--sm" style="color:var(--color-error)">🗑</button></td></tr>
+              <tr><td><span style="font-family:var(--font-mono);font-size:var(--text-xs)">15/01/2025 14:00</span></td><td><strong>Kofi M.</strong><br/><span style="font-size:var(--text-xs);color:var(--color-gray-400)">Lomé, TG</span></td><td><span style="font-size:var(--text-xs)">🔮 Spirituel</span></td><td><span style="font-size:var(--text-xs)">📍 Présentiel</span></td><td style="font-size:var(--text-xs)">90 min</td><td><span style="background:var(--color-gray-100);color:var(--color-gray-500);font-size:10px;padding:2px 8px;border-radius:var(--radius-full);font-weight:bold">Terminé</span></td><td style="font-size:var(--text-xs);color:var(--color-gray-400)">CR rédigé</td><td style="white-space:nowrap"><button class="btn btn--ghost btn--sm">📋 CR</button><button class="btn btn--ghost btn--sm">✏️</button></td></tr>
+              <tr><td><span style="font-family:var(--font-mono);font-size:var(--text-xs)">12/01/2025 10:00</span></td><td><strong>Saliou K.</strong><br/><span style="font-size:var(--text-xs);color:var(--color-gray-400)">Bamako, ML</span></td><td><span style="font-size:var(--text-xs)">✨ Divinatoire</span></td><td><span style="font-size:var(--text-xs)">📞 Téléphone</span></td><td style="font-size:var(--text-xs)">45 min</td><td><span style="background:var(--color-gray-100);color:var(--color-gray-500);font-size:10px;padding:2px 8px;border-radius:var(--radius-full);font-weight:bold">Terminé</span></td><td style="font-size:var(--text-xs);color:var(--color-gray-400)">Satisfait</td><td style="white-space:nowrap"><button class="btn btn--ghost btn--sm">📋 CR</button><button class="btn btn--ghost btn--sm">✏️</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination" style="padding:var(--space-4) var(--space-6)">
+          <a class="page-btn active" href="#">1</a><a class="page-btn" href="#">2</a><a class="page-btn" href="#">3</a><span class="page-btn">…</span><a class="page-btn" href="#">15</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Nouveau RDV -->
+<div class="modal-backdrop" id="modal-new-rdv">
+  <div class="modal">
+    <div class="modal__header">
+      <h3 class="modal__title">Nouveau Rendez-vous</h3>
+      <button class="modal__close" onclick="modal.close('modal-new-rdv')">✕</button>
+    </div>
+    <div class="modal__body">
+      <form id="new-rdv-form" novalidate>
+        <div class="form-group"><label class="form-label">Patient *</label><input class="form-control" type="text" placeholder="Rechercher un patient…" required/></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)">
+          <div class="form-group"><label class="form-label">Date *</label><input class="form-control" type="date" required/></div>
+          <div class="form-group"><label class="form-label">Heure *</label><input class="form-control" type="time" required/></div>
+        </div>
+        <div class="form-group"><label class="form-label">Type de consultation *</label>
+          <select class="form-control form-select" required>
+            <option value="" disabled selected>Choisir…</option>
+            <option>Consultation Traditionnelle</option><option>Accompagnement Spirituel</option><option>Consultation Divinatoire</option>
+          </select>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)">
+          <div class="form-group"><label class="form-label">Mode</label>
+            <select class="form-control form-select"><option>En ligne</option><option>Présentiel</option><option>Téléphone</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">Durée (min)</label><input class="form-control" type="number" value="60" min="15" step="15"/></div>
+        </div>
+        <div class="form-group"><label class="form-label">Notes</label><textarea class="form-control" rows="3" placeholder="Informations complémentaires…"></textarea></div>
+      </form>
+    </div>
+    <div class="modal__footer">
+      <button onclick="modal.close('modal-new-rdv')" class="btn btn--outline-gold">Annuler</button>
+      <button onclick="saveNewRdv()" class="btn btn--primary">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/admin.js"></script>
+<script>
+requireAdmin();
+document.getElementById('today-label').textContent = new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+function openNewRdvModal(){ modal.open('modal-new-rdv'); }
+function saveNewRdv(){ showToast('Rendez-vous créé avec succès','success'); modal.close('modal-new-rdv'); }
+function filterAppointments(){
+  const search = document.getElementById('filter-search').value.toLowerCase();
+  const status = document.getElementById('filter-status').value;
+  const type   = document.getElementById('filter-type').value;
+  const mode   = document.getElementById('filter-mode').value;
+  document.querySelectorAll('.rdv-card').forEach(card=>{
+    const text   = card.textContent.toLowerCase();
+    const sOk    = !status || card.dataset.status===status;
+    const tOk    = !type   || card.dataset.type===type;
+    const mOk    = !mode   || card.dataset.mode===mode;
+    const qOk    = !search || text.includes(search);
+    card.style.display = (sOk&&tOk&&mOk&&qOk)?'':'none';
+  });
+}
+function confirmRdv(id){ showToast('Rendez-vous confirmé — email envoyé au patient','success'); }
+function cancelRdv(id){ if(confirm('Annuler ce rendez-vous ?')) showToast('Rendez-vous annulé','warning'); }
+function editRdv(id){ modal.open('modal-new-rdv'); }
+function viewPatient(id){ window.location.href='patients.html?patient='+id; }
+function startVideoCall(id){ showToast('Lien visio copié dans le presse-papier','success'); }
+function callPatient(num){ showToast('Appel vers '+num,'info'); }
+function exportRdv(){ showToast('Export CSV en cours de téléchargement…','success'); }
+</script>
+</body>
+</html>

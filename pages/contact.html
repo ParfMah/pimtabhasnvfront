@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Contactez PIMTABHAS — formulaire, téléphone, WhatsApp et adresses de nos représentations en Afrique de l'Ouest."/>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg"/>
+  <title>Contact — PIMTABHAS</title>
+  <link rel="stylesheet" href="../assets/css/variables.css"/>
+  <link rel="stylesheet" href="../assets/css/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/components.css"/>
+  <link rel="stylesheet" href="../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../assets/css/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/pages.css"/>
+  <style>
+    .contact-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:var(--space-16);align-items:start;}
+    .contact-info-card{background:var(--gradient-premium);border-radius:var(--radius-3xl);padding:var(--space-10);border:1px solid rgba(212,175,55,.2);}
+    .contact-method{display:flex;align-items:flex-start;gap:var(--space-4);padding:var(--space-5) 0;border-bottom:1px solid rgba(255,255,255,.06);}
+    .contact-method:last-child{border-bottom:none;}
+    .contact-method-icon{width:48px;height:48px;border-radius:var(--radius-xl);background:rgba(212,175,55,.15);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;}
+    .contact-method-label{font-family:var(--font-accent);font-size:var(--text-xs);letter-spacing:.15em;text-transform:uppercase;color:var(--color-gold);margin-bottom:var(--space-1);}
+    .contact-method-value{font-family:var(--font-ui);font-size:var(--text-sm);color:rgba(248,246,240,.85);}
+    .contact-method-value a{color:rgba(248,246,240,.85);text-decoration:none;transition:color var(--transition-base);}
+    .contact-method-value a:hover{color:var(--color-gold);}
+    .rep-mini{display:flex;gap:var(--space-3);align-items:center;padding:var(--space-3);border-radius:var(--radius-lg);border:1px solid rgba(212,175,55,.1);margin-bottom:var(--space-2);transition:border-color var(--transition-base);}
+    .rep-mini:hover{border-color:rgba(212,175,55,.3);}
+    .rep-mini-flag{font-size:1.5rem;}
+    .map-placeholder{background:var(--gradient-premium);border-radius:var(--radius-2xl);min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-4);border:1px solid rgba(212,175,55,.15);margin-top:var(--space-8);}
+    @media(max-width:1024px){.contact-layout{grid-template-columns:1fr;}}
+  </style>
+  <link rel="stylesheet" href="../assets/css/responsive.css"/>
+</head>
+<body class="preload">
+<div class="toast-container"></div>
+<div id="site-header-placeholder"></div>
+
+<section class="page-hero">
+  <div style="position:absolute;inset:0;background-image:url('../assets/images/pattern-adinkra.svg');background-size:180px;opacity:.04;color:white;" aria-hidden="true"></div>
+  <div class="page-hero__content">
+    <div class="breadcrumb" style="margin-bottom:var(--space-4)"><a href="../index.html">Accueil</a><span class="breadcrumb__sep">›</span><span>Contact</span></div>
+    <p class="section-label" style="margin-bottom:var(--space-4)">Parlons-en</p>
+    <h1 class="page-hero__title">Contactez<br/><em style="color:var(--color-gold)">Notre Équipe</em></h1>
+    <p class="page-hero__subtitle">Notre équipe est à votre écoute du lundi au samedi, de 8h à 20h (heure d'Afrique de l'Ouest).</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-layout">
+
+      <!-- Informations de contact -->
+      <div>
+        <div class="contact-info-card reveal--left">
+          <h2 style="font-family:var(--font-display);color:var(--color-gold);font-size:var(--text-2xl);margin-bottom:var(--space-8)">Nos Coordonnées</h2>
+
+          <div class="contact-method">
+            <div class="contact-method-icon">📞</div>
+            <div><div class="contact-method-label">Téléphone</div><div class="contact-method-value"><a href="tel:+22901957111552">+229 01 95 71 11 52</a><br/><small style="opacity:.6">Lun–Sam, 8h–20h WAT</small></div></div>
+          </div>
+          <div class="contact-method">
+            <div class="contact-method-icon">✉️</div>
+            <div><div class="contact-method-label">Email</div><div class="contact-method-value"><a href="mailto:contact.pimtabhas@gmail.com">contact.pimtabhas@gmail.com</a><br/><small style="opacity:.6">Réponse sous 48h</small></div></div>
+          </div>
+          <div class="contact-method">
+            <div class="contact-method-icon">💬</div>
+            <div><div class="contact-method-label">WhatsApp</div><div class="contact-method-value"><button onclick="openWhatsApp()" style="background:none;border:none;color:var(--color-whatsapp);cursor:pointer;font-size:var(--text-sm);padding:0;font-family:var(--font-ui)">+229 01 95 71 11 52</button><br/><small style="opacity:.6">Réponse rapide</small></div></div>
+          </div>
+          <div class="contact-method">
+            <div class="contact-method-icon">📍</div>
+            <div><div class="contact-method-label">Siège Principal</div><div class="contact-method-value">Quartier Zongo, Cotonou<br/>République du Bénin</div></div>
+          </div>
+          <div class="contact-method">
+            <div class="contact-method-icon">⏰</div>
+            <div><div class="contact-method-label">Horaires</div><div class="contact-method-value">Lundi – Samedi : 8h00 – 20h00<br/>Dimanche : Sur rendez-vous uniquement</div></div>
+          </div>
+        </div>
+
+        <!-- Représentations -->
+        <div class="reveal" style="margin-top:var(--space-8)">
+          <h3 style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-night);margin-bottom:var(--space-5)">Nos Représentations</h3>
+          <div class="rep-mini"><span class="rep-mini-flag">🇧🇯</span><div><div style="font-family:var(--font-ui);font-weight:var(--weight-semibold);font-size:var(--text-sm)">Bénin (Siège)</div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">Cotonou · +229 01 95 71 11 52</div></div></div>
+          <div class="rep-mini"><span class="rep-mini-flag">🇹🇬</span><div><div style="font-family:var(--font-ui);font-weight:var(--weight-semibold);font-size:var(--text-sm)">Togo</div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">Lomé · +228 90 00 00 00</div></div></div>
+          <div class="rep-mini"><span class="rep-mini-flag">🇧🇫</span><div><div style="font-family:var(--font-ui);font-weight:var(--weight-semibold);font-size:var(--text-sm)">Burkina Faso</div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">Ouagadougou · +226 70 00 00 00</div></div></div>
+          <div class="rep-mini"><span class="rep-mini-flag">🇲🇱</span><div><div style="font-family:var(--font-ui);font-weight:var(--weight-semibold);font-size:var(--text-sm)">Mali</div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">Bamako · +223 70 00 00 00</div></div></div>
+          <div class="rep-mini"><span class="rep-mini-flag">🇸🇳</span><div><div style="font-family:var(--font-ui);font-weight:var(--weight-semibold);font-size:var(--text-sm)">Sénégal</div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">Dakar · +221 77 00 00 00</div></div></div>
+        </div>
+
+        <!-- Carte placeholder -->
+        <div class="map-placeholder reveal">
+          <div style="font-size:3rem">🗺️</div>
+          <p style="color:rgba(248,246,240,.5);font-family:var(--font-ui);font-size:var(--text-sm)">Carte interactive des représentations</p>
+          <a href="about.html#representations" class="btn btn--outline-gold btn--sm">Voir toutes nos représentations</a>
+        </div>
+      </div>
+
+      <!-- Formulaire de contact -->
+      <div class="reveal--right">
+        <div class="card" style="padding:var(--space-10)">
+          <h2 style="font-family:var(--font-display);font-size:var(--text-2xl);color:var(--color-night);margin-bottom:var(--space-2)">Envoyez-nous un Message</h2>
+          <p style="font-size:var(--text-sm);color:var(--color-gray-500);margin-bottom:var(--space-8)">Nous vous répondrons sous 24 à 48 heures ouvrables.</p>
+
+          <form id="contact-full-form" novalidate>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)">
+              <div class="form-group">
+                <label class="form-label" for="cf-fname">Prénom *</label>
+                <input class="form-control" type="text" id="cf-fname" name="firstName" required placeholder="Marie"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="cf-lname">Nom *</label>
+                <input class="form-control" type="text" id="cf-lname" name="lastName" required placeholder="DUPONT"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cf-email">Adresse Email *</label>
+              <input class="form-control" type="email" id="cf-email" name="email" required placeholder="votre@email.com"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cf-phone">Téléphone / WhatsApp</label>
+              <input class="form-control" type="tel" id="cf-phone" name="phone" placeholder="+229 01 95 71 11 52"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cf-country">Pays de résidence</label>
+              <select class="form-control form-select" id="cf-country" name="country">
+                <option value="">Sélectionner votre pays…</option>
+                <option>Bénin</option><option>Togo</option><option>Burkina Faso</option>
+                <option>Mali</option><option>Sénégal</option><option>Côte d'Ivoire</option>
+                <option>Niger</option><option>Ghana</option><option>Nigeria</option>
+                <option>France</option><option>Belgique</option><option>Suisse</option>
+                <option>Canada</option><option>États-Unis</option><option>Autre</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cf-subject">Objet de votre message *</label>
+              <select class="form-control form-select" id="cf-subject" name="subject" required>
+                <option value="" disabled selected>Choisir un objet…</option>
+                <option>Demande d'information sur les consultations</option>
+                <option>Question sur un produit</option>
+                <option>Suivi de commande</option>
+                <option>Problème technique / compte</option>
+                <option>Partenariat professionnel</option>
+                <option>Presse et médias</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cf-message">Votre message *</label>
+              <textarea class="form-control" id="cf-message" name="message" rows="5" required placeholder="Décrivez votre demande en détail…"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-check">
+                <input type="checkbox" name="privacy" id="cf-privacy" required/>
+                <span style="font-size:var(--text-xs);color:var(--color-gray-600)">J'accepte que mes données soient utilisées pour traiter ma demande conformément à la <a href="politique-confidentialite.html" style="color:var(--color-emerald)">politique de confidentialité</a>. *</span>
+              </label>
+            </div>
+            <button type="submit" class="btn btn--secondary btn--lg" style="width:100%;justify-content:center">
+              Envoyer le message
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </form>
+        </div>
+
+        <!-- WhatsApp rapide -->
+        <div class="card reveal" style="padding:var(--space-6);margin-top:var(--space-5);display:flex;align-items:center;gap:var(--space-4);border:1px solid rgba(37,211,102,.2);background:rgba(37,211,102,.04)">
+          <div style="font-size:2.5rem;flex-shrink:0">💬</div>
+          <div style="flex:1">
+            <div style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night);margin-bottom:var(--space-1)">Réponse instantanée via WhatsApp</div>
+            <div style="font-size:var(--text-sm);color:var(--color-gray-500)">Pour une réponse plus rapide, écrivez-nous directement sur WhatsApp.</div>
+          </div>
+          <button onclick="openWhatsApp()" class="btn btn--sm" style="background:var(--color-whatsapp);color:white;flex-shrink:0">WhatsApp</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA RDVS -->
+<section class="section section--dark">
+  <div class="container" style="text-align:center">
+    <div class="reveal">
+      <h2 style="font-family:var(--font-display);color:var(--color-cream);font-size:clamp(1.75rem,4vw,3rem);margin-bottom:var(--space-4)">Prêt à Prendre<br/><em class="text-gold">Rendez-vous ?</em></h2>
+      <p style="color:rgba(248,246,240,.7);max-width:48ch;margin:0 auto var(--space-8)">Ne perdez pas de temps — réservez directement votre consultation en ligne en quelques clics.</p>
+      <a href="consultations.html" class="btn btn--primary btn--xl">Réserver une consultation</a>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer-placeholder"></div>
+<script src="../assets/js/components.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+document.getElementById('contact-full-form').addEventListener('submit', async function(e){
+  e.preventDefault();
+  if(!validateForm(this)) return;
+  const btn = this.querySelector('[type="submit"]');
+  btn.disabled=true; btn.classList.add('btn--loading');
+  try{
+    await api.post('/messages',{
+      firstName: document.getElementById('cf-fname').value,
+      lastName:  document.getElementById('cf-lname').value,
+      email:     document.getElementById('cf-email').value,
+      phone:     document.getElementById('cf-phone').value,
+      country:   document.getElementById('cf-country').value,
+      subject:   document.getElementById('cf-subject').value,
+      message:   document.getElementById('cf-message').value,
+    });
+    showToast('✅ Message envoyé ! Nous vous répondrons sous 48h.','success',6000);
+    this.reset();
+  }catch{ showToast('Erreur lors de l\'envoi. Réessayez ou contactez-nous par WhatsApp.','error'); }
+  finally{ btn.disabled=false; btn.classList.remove('btn--loading'); }
+});
+</script>
+</body>
+</html>

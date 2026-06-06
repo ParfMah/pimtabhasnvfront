@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Idelphonse KPALIKA — Grand Maître Spirituel et expert en médecine traditionnelle africaine, fondateur de PIMTABHAS."/>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg"/>
+  <title>Le Fondateur — Idelphonse KPALIKA | PIMTABHAS</title>
+  <link rel="stylesheet" href="../assets/css/variables.css"/>
+  <link rel="stylesheet" href="../assets/css/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/components.css"/>
+  <link rel="stylesheet" href="../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../assets/css/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/pages.css"/>
+  <style>
+    .founder-page-hero{min-height:70vh;background:var(--gradient-hero);display:flex;align-items:center;padding:calc(var(--header-height) + var(--space-16)) var(--space-8) var(--space-16);position:relative;overflow:hidden;}
+    .founder-page-hero::before{content:'';position:absolute;inset:0;background-image:url('../assets/images/pattern-adinkra.svg');background-size:180px;background-repeat:repeat;opacity:.04;color:white;}
+    .founder-page-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:var(--space-16);align-items:center;max-width:var(--container-xl);margin:0 auto;position:relative;z-index:2;}
+    .founder-portrait{position:relative;}
+    .founder-portrait-img{width:100%;max-width:400px;border-radius:var(--radius-3xl);box-shadow:0 30px 80px rgba(0,0,0,.5);border:3px solid rgba(212,175,55,.3);}
+    .portrait-decoration{position:absolute;bottom:-20px;right:-20px;width:180px;height:180px;border:2px solid rgba(212,175,55,.2);border-radius:var(--radius-3xl);z-index:-1;}
+    .portrait-badge{position:absolute;bottom:var(--space-6);left:-var(--space-6);background:var(--gradient-cta);color:var(--color-night);padding:var(--space-3) var(--space-5);border-radius:var(--radius-xl);font-family:var(--font-accent);font-size:var(--text-xs);letter-spacing:.1em;text-transform:uppercase;box-shadow:var(--shadow-gold);}
+    .expertise-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-5);}
+    .expertise-item{background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.2);border-radius:var(--radius-xl);padding:var(--space-5);transition:all var(--transition-base);}
+    .expertise-item:hover{background:rgba(212,175,55,.15);border-color:var(--color-gold);}
+    .expertise-icon{font-size:2rem;margin-bottom:var(--space-3);}
+    .expertise-title{font-family:var(--font-ui);font-weight:var(--weight-semibold);font-size:var(--text-sm);color:var(--color-gold);margin-bottom:var(--space-1);}
+    .expertise-text{font-size:var(--text-xs);color:rgba(248,246,240,.65);}
+    .quote-section{background:var(--color-emerald-pale);border-left:6px solid var(--color-emerald);border-radius:0 var(--radius-2xl) var(--radius-2xl) 0;padding:var(--space-10);margin:var(--space-12) 0;}
+    .quote-text{font-family:var(--font-display);font-size:clamp(1.25rem,2.5vw,1.75rem);font-style:italic;color:var(--color-emerald-dark);line-height:var(--leading-relaxed);margin-bottom:var(--space-4);}
+    .quote-author{font-family:var(--font-ui);font-weight:var(--weight-semibold);font-size:var(--text-sm);color:var(--color-emerald);}
+    @media(max-width:768px){.founder-page-grid{grid-template-columns:1fr;}.expertise-grid{grid-template-columns:1fr;}}
+  </style>
+  <link rel="stylesheet" href="../assets/css/responsive.css"/>
+</head>
+<body class="preload">
+<div class="toast-container"></div>
+<div id="site-header-placeholder"></div>
+
+<!-- HERO FONDATEUR -->
+<section class="founder-page-hero">
+  <div class="founder-page-grid">
+    <div class="founder-portrait reveal--left">
+      <div style="background:linear-gradient(160deg,#1A8A63,#0F172A,#8B5E3C);border-radius:var(--radius-3xl);min-height:500px;display:flex;align-items:center;justify-content:center;width:100%;max-width:400px;">
+        <img src="../assets/images/logo.svg" alt="Grand Maître Idelphonse KPALIKA" style="width:160px;opacity:.4"/>
+      </div>
+      <div class="portrait-decoration"></div>
+      <div class="portrait-badge">Grand Maître Spirituel</div>
+    </div>
+
+    <div class="reveal--right">
+      <p class="section-label" style="margin-bottom:var(--space-4)">Le Fondateur</p>
+      <h1 style="font-family:var(--font-display);font-size:clamp(2.5rem,6vw,5rem);font-weight:var(--weight-bold);color:var(--color-cream);line-height:1.05;margin-bottom:var(--space-3)">
+        Idelphonse<br/>KPALIKA
+      </h1>
+      <p style="font-family:var(--font-body);font-style:italic;font-size:var(--text-xl);color:var(--color-gold);margin-bottom:var(--space-8)">
+        Grand Maître Spirituel &amp; Expert en Médecine Traditionnelle Africaine
+      </p>
+      <p style="color:rgba(248,246,240,.8);line-height:var(--leading-loose);font-size:var(--text-base);margin-bottom:var(--space-6)">
+        Héritier d'une longue lignée de guérisseurs et de sages africains, Idelphonse KPALIKA a consacré sa vie à la préservation, à l'étude et à la transmission des savoirs thérapeutiques et spirituels ancestraux du Bénin et de l'Afrique de l'Ouest.
+      </p>
+      <div style="display:flex;gap:var(--space-8)">
+        <div><div style="font-family:var(--font-display);font-size:var(--text-3xl);color:var(--color-gold);font-weight:var(--weight-bold)">25+</div><div style="font-size:var(--text-xs);color:rgba(248,246,240,.5);text-transform:uppercase;letter-spacing:.1em">Années d'expérience</div></div>
+        <div><div style="font-family:var(--font-display);font-size:var(--text-3xl);color:var(--color-gold);font-weight:var(--weight-bold)">15k+</div><div style="font-size:var(--text-xs);color:rgba(248,246,240,.5);text-transform:uppercase;letter-spacing:.1em">Personnes accompagnées</div></div>
+        <div><div style="font-family:var(--font-display);font-size:var(--text-3xl);color:var(--color-gold);font-weight:var(--weight-bold)">5</div><div style="font-size:var(--text-xs);color:rgba(248,246,240,.5);text-transform:uppercase;letter-spacing:.1em">Pays représentés</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BIOGRAPHIE -->
+<section class="section">
+  <div class="container" style="max-width:var(--container-lg)">
+    <div class="grid grid--2" style="gap:var(--space-16)">
+      <div class="reveal--left">
+        <div class="section-label section-label--dark">Sa Biographie</div>
+        <h2 class="section-title">Un Parcours<br/><span class="text-emerald">Exceptionnel</span></h2>
+        <p style="color:var(--color-gray-700);line-height:var(--leading-loose);margin-bottom:var(--space-5)">
+          Né au Bénin dans une famille de tradipraticiens reconnus, Idelphonse KPALIKA a été initié dès l'enfance aux pratiques de soins traditionnels africains. Sous la guidance de son aïeul, il a appris à identifier les plantes médicinales, à comprendre les principes des déséquilibres vitaux et à accompagner les personnes dans leur processus de rétablissement.
+        </p>
+        <p style="color:var(--color-gray-700);line-height:var(--leading-loose);margin-bottom:var(--space-5)">
+          Après une formation approfondie qui l'a conduit dans plusieurs régions d'Afrique de l'Ouest, il a approfondi sa maîtrise des traditions spirituelles Vodoun, Akan et Mandé, développant une approche holistique qui intègre les dimensions physique, émotionnelle et spirituelle de la personne.
+        </p>
+        <p style="color:var(--color-gray-700);line-height:var(--leading-loose)">
+          En 2000, convaincu que ces savoirs ancestraux méritaient d'être valorisés et rendus accessibles à tous, il a fondé PIMTABHAS, qu'il dirige aujourd'hui avec la même passion et la même rigueur éthique qu'à ses débuts.
+        </p>
+      </div>
+      <div class="reveal--right">
+        <div class="quote-section">
+          <p class="quote-text">
+            « La tradition africaine ne s'oppose pas à la modernité. Elle la complète, l'enrichit et lui offre une profondeur que seuls des siècles de sagesse peuvent apporter. »
+          </p>
+          <div class="quote-author">— Idelphonse KPALIKA, Fondateur de PIMTABHAS</div>
+        </div>
+        <div style="background:var(--color-cream-dark);border-radius:var(--radius-2xl);padding:var(--space-8)">
+          <h3 style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-night);margin-bottom:var(--space-6)">Domaines de Maîtrise</h3>
+          <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+            <div class="credential-item"><span class="credential-icon">🌿</span><span>Phytothérapie et ethnobotanique africaine</span></div>
+            <div class="credential-item"><span class="credential-icon">🔮</span><span>Accompagnement et guidance spirituelle</span></div>
+            <div class="credential-item"><span class="credential-icon">✨</span><span>Divination et lecture des signes traditionnels</span></div>
+            <div class="credential-item"><span class="credential-icon">🧘</span><span>Approches holistiques du bien-être</span></div>
+            <div class="credential-item"><span class="credential-icon">📚</span><span>Formation et transmission des savoirs</span></div>
+            <div class="credential-item"><span class="credential-icon">🤝</span><span>Médiation culturelle et accompagnement social</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOMAINES D'EXPERTISE -->
+<section class="section section--dark">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Savoir-faire</div>
+      <h2 class="section-title section-title--light">Domaines d'Expertise<br/><em class="text-gold">& de Pratique</em></h2>
+    </div>
+    <div class="expertise-grid stagger reveal" style="max-width:var(--container-lg);margin:0 auto">
+      <div class="expertise-item"><div class="expertise-icon">🌱</div><div class="expertise-title">Phytothérapie Africaine</div><div class="expertise-text">Connaissance approfondie des plantes médicinales d'Afrique de l'Ouest, leurs propriétés et leurs usages thérapeutiques traditionnels.</div></div>
+      <div class="expertise-item"><div class="expertise-icon">🔮</div><div class="expertise-title">Guidance Spirituelle</div><div class="expertise-text">Accompagnement spirituel personnalisé fondé sur les traditions africaines pour aider chaque personne à trouver sa voie.</div></div>
+      <div class="expertise-item"><div class="expertise-icon">✨</div><div class="expertise-title">Arts Divinatoires</div><div class="expertise-text">Maîtrise des techniques divinatoires traditionnelles africaines pour apporter éclairage et orientation dans les situations de questionnement.</div></div>
+      <div class="expertise-item"><div class="expertise-icon">🧪</div><div class="expertise-title">Préparations Naturelles</div><div class="expertise-text">Élaboration de préparations, infusions, poudres et huiles médicinales selon des formules ancestrales transmises de génération en génération.</div></div>
+      <div class="expertise-item"><div class="expertise-icon">🧠</div><div class="expertise-title">Approche Psycho-Spirituelle</div><div class="expertise-text">Intégration des dimensions psychologique et spirituelle dans une approche globale du bien-être de la personne.</div></div>
+      <div class="expertise-item"><div class="expertise-icon">📖</div><div class="expertise-title">Enseignement & Formation</div><div class="expertise-text">Transmission des savoirs ancestraux à travers des séminaires, ateliers et programmes de formation pour praticiens.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHIE -->
+<section class="section">
+  <div class="container" style="max-width:var(--container-md);text-align:center">
+    <div class="reveal">
+      <div class="section-label" style="justify-content:center">Sa philosophie</div>
+      <h2 class="section-title" style="margin-bottom:var(--space-8)">Une Approche<br/><span class="text-emerald">Holistique & Responsable</span></h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+      <div class="card reveal" style="padding:var(--space-8);text-align:left">
+        <h3 style="font-family:var(--font-display);color:var(--color-emerald);margin-bottom:var(--space-3)">L'Homme dans sa Totalité</h3>
+        <p style="color:var(--color-gray-700);line-height:var(--leading-relaxed)">Pour le Grand Maître KPALIKA, la personne est un être indivisible dont les dimensions physique, émotionnelle, mentale et spirituelle sont intimement liées. Une approche efficace ne peut être que globale.</p>
+      </div>
+      <div class="card reveal delay-200" style="padding:var(--space-8);text-align:left">
+        <h3 style="font-family:var(--font-display);color:var(--color-emerald);margin-bottom:var(--space-3)">Tradition et Responsabilité</h3>
+        <p style="color:var(--color-gray-700);line-height:var(--leading-relaxed)">Fidèle aux valeurs éthiques qui fondent sa pratique, il présente ses services comme des accompagnements et des conseils personnalisés, sans jamais émettre d'affirmations de guérison garantie. La transparence et l'honnêteté sont des principes intangibles.</p>
+      </div>
+      <div class="card reveal delay-300" style="padding:var(--space-8);text-align:left">
+        <h3 style="font-family:var(--font-display);color:var(--color-emerald);margin-bottom:var(--space-3)">Complémentarité avec la Médecine Conventionnelle</h3>
+        <p style="color:var(--color-gray-700);line-height:var(--leading-relaxed)">Le Grand Maître KPALIKA encourage systématiquement ses clients à maintenir leurs suivis médicaux conventionnels. Les pratiques traditionnelles africaines qu'il propose s'inscrivent dans une démarche complémentaire et non exclusive.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="background:var(--gradient-premium)">
+  <div class="container" style="text-align:center">
+    <div class="reveal">
+      <h2 style="font-family:var(--font-display);color:var(--color-cream);font-size:clamp(1.75rem,4vw,3rem);margin-bottom:var(--space-4)">Consulter le Grand Maître<br/><em class="text-gold">KPALIKA</em></h2>
+      <p style="color:rgba(248,246,240,.75);max-width:50ch;margin:0 auto var(--space-8)">Prenez rendez-vous pour une consultation personnalisée en présentiel ou en ligne et bénéficiez de son expertise unique.</p>
+      <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap">
+        <a href="consultations.html" class="btn btn--primary btn--xl">Prendre rendez-vous</a>
+        <a href="contact.html" class="btn btn--outline-cream btn--xl">Nous contacter</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer-placeholder"></div>
+<script src="../assets/js/components.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

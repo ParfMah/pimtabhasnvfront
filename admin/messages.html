@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg"/>
+  <title>Messages — Admin PIMTABHAS</title>
+  <link rel="stylesheet" href="../assets/css/variables.css"/>
+  <link rel="stylesheet" href="../assets/css/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/components.css"/>
+  <link rel="stylesheet" href="../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../assets/css/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/pages.css"/>
+  <style>
+    body{background:var(--color-gray-50);}
+    .msg-layout{display:grid;grid-template-columns:320px 1fr;height:calc(100vh - 64px);}
+    .msg-sidebar{border-right:1px solid var(--color-gray-100);overflow-y:auto;background:var(--color-white);}
+    .msg-sidebar-header{padding:var(--space-5) var(--space-5) var(--space-4);border-bottom:1px solid var(--color-gray-100);position:sticky;top:0;background:var(--color-white);z-index:1;}
+    .msg-item{display:flex;gap:var(--space-3);padding:var(--space-4) var(--space-5);border-bottom:1px solid var(--color-gray-50);cursor:pointer;transition:background var(--transition-base);}
+    .msg-item:hover,.msg-item.active{background:var(--color-emerald-pale);}
+    .msg-item.unread{border-left:3px solid var(--color-emerald);}
+    .msg-avatar{width:40px;height:40px;border-radius:50%;background:var(--color-emerald);display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:var(--text-sm);flex-shrink:0;}
+    .msg-sender{font-family:var(--font-ui);font-weight:var(--weight-semibold);font-size:var(--text-sm);color:var(--color-night);}
+    .msg-preview{font-size:var(--text-xs);color:var(--color-gray-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;}
+    .msg-time{font-size:10px;color:var(--color-gray-400);white-space:nowrap;}
+    .msg-unread-dot{width:8px;height:8px;border-radius:50%;background:var(--color-emerald);flex-shrink:0;margin-top:4px;}
+    .msg-content{display:flex;flex-direction:column;height:100%;}
+    .msg-content-header{padding:var(--space-6) var(--space-8);border-bottom:1px solid var(--color-gray-100);background:var(--color-white);}
+    .msg-thread{flex:1;overflow-y:auto;padding:var(--space-6) var(--space-8);display:flex;flex-direction:column;gap:var(--space-5);}
+    .msg-bubble{max-width:75%;border-radius:var(--radius-xl);padding:var(--space-4) var(--space-5);}
+    .msg-bubble--in{background:var(--color-gray-100);align-self:flex-start;border-radius:4px var(--radius-xl) var(--radius-xl) var(--radius-xl);}
+    .msg-bubble--out{background:var(--color-emerald);color:white;align-self:flex-end;border-radius:var(--radius-xl) 4px var(--radius-xl) var(--radius-xl);}
+    .msg-reply{padding:var(--space-4) var(--space-6);border-top:1px solid var(--color-gray-100);background:var(--color-white);}
+    .msg-reply-form{display:flex;gap:var(--space-3);align-items:flex-end;}
+    .msg-reply-form textarea{flex:1;resize:none;min-height:60px;padding:var(--space-3) var(--space-4);border:2px solid var(--color-gray-200);border-radius:var(--radius-xl);font-family:var(--font-ui);font-size:var(--text-sm);transition:border-color var(--transition-base);}
+    .msg-reply-form textarea:focus{border-color:var(--color-emerald);}
+    @media(max-width:768px){.msg-layout{grid-template-columns:1fr;}}
+  </style>
+  <link rel="stylesheet" href="../assets/css/responsive.css"/>
+  <link rel="stylesheet" href="../assets/css/admin.css"/>
+</head>
+<body>
+<div class="toast-container"></div>
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar__logo"><img src="../assets/images/logo.svg" alt="PIMTABHAS"/></div>
+    <nav class="admin-nav">
+      <div class="admin-nav__section">Principal</div>
+      <a href="dashboard.html" class="admin-nav__item"><span class="admin-nav__icon">🏠</span>Tableau de bord</a>
+      <a href="rendez-vous.html" class="admin-nav__item"><span class="admin-nav__icon">📅</span>Rendez-vous</a>
+      <a href="patients.html" class="admin-nav__item"><span class="admin-nav__icon">👥</span>Patients</a>
+      <div class="admin-nav__section">Boutique</div>
+      <a href="commandes.html" class="admin-nav__item"><span class="admin-nav__icon">📦</span>Commandes</a>
+      <a href="produits.html" class="admin-nav__item"><span class="admin-nav__icon">🌿</span>Produits</a>
+      <div class="admin-nav__section">Contenu</div>
+      <a href="blog.html" class="admin-nav__item"><span class="admin-nav__icon">✍️</span>Blog</a>
+      <a href="messages.html" class="admin-nav__item active"><span class="admin-nav__icon">💬</span>Messages <span style="background:var(--color-error);color:white;border-radius:var(--radius-full);padding:1px 6px;font-size:10px;margin-left:auto">3</span></a>
+      <div class="admin-nav__section">Paramètres</div>
+      <a href="../index.html" class="admin-nav__item" target="_blank"><span class="admin-nav__icon">🌐</span>Voir le site</a>
+      <a href="../pages/espace-client.html" class="admin-nav__item" onclick="auth.logout();return false"><span class="admin-nav__icon">🚪</span>Déconnexion</a>
+    </nav>
+  </aside>
+
+  <div class="admin-main" style="overflow:hidden">
+    <div class="admin-topbar">
+      <h1 style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-night)">💬 Messagerie</h1>
+      <div style="display:flex;gap:var(--space-3)">
+        <span style="font-size:var(--text-xs);color:var(--color-gray-400);align-self:center">3 non lus</span>
+        <button onclick="markAllRead()" class="btn btn--outline-gold btn--sm">Tout marquer comme lu</button>
+      </div>
+    </div>
+
+    <div class="msg-layout">
+      <!-- Liste messages -->
+      <div class="msg-sidebar">
+        <div class="msg-sidebar-header">
+          <input type="text" placeholder="🔍 Rechercher…" style="width:100%;padding:var(--space-2) var(--space-3);border:1px solid var(--color-gray-200);border-radius:var(--radius-lg);font-family:var(--font-ui);font-size:var(--text-sm)"/>
+          <div style="display:flex;gap:var(--space-2);margin-top:var(--space-3)">
+            <button onclick="filterMsgs('all',this)" class="btn btn--sm active" style="flex:1;background:var(--color-emerald);color:white;border-radius:var(--radius-full)">Tous</button>
+            <button onclick="filterMsgs('unread',this)" class="btn btn--outline-gold btn--sm" style="flex:1;border-radius:var(--radius-full)">Non lus (3)</button>
+          </div>
+        </div>
+
+        <div id="msg-list">
+          <div class="msg-item active unread" onclick="openMessage(1,this)">
+            <div class="msg-avatar">F</div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div class="msg-sender">Fatoumata Barry</div>
+                <div class="msg-time">10:23</div>
+              </div>
+              <div class="msg-preview">Bonjour, j'aimerais avoir plus d'informations sur la consultation spirituelle...</div>
+            </div>
+            <div class="msg-unread-dot"></div>
+          </div>
+          <div class="msg-item unread" onclick="openMessage(2,this)">
+            <div class="msg-avatar" style="background:var(--color-bronze)">M</div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div class="msg-sender">Moussa Traoré</div>
+                <div class="msg-time">Hier</div>
+              </div>
+              <div class="msg-preview">Est-ce que vous livrez au Mali ? J'ai commandé le coffret...</div>
+            </div>
+            <div class="msg-unread-dot"></div>
+          </div>
+          <div class="msg-item unread" onclick="openMessage(3,this)">
+            <div class="msg-avatar" style="background:var(--color-gold-dark)">I</div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div class="msg-sender">Isabelle Owusu</div>
+                <div class="msg-time">Hier</div>
+              </div>
+              <div class="msg-preview">Suite à ma consultation du 15, j'ai une question sur la tisane...</div>
+            </div>
+            <div class="msg-unread-dot"></div>
+          </div>
+          <div class="msg-item" onclick="openMessage(4,this)">
+            <div class="msg-avatar" style="background:var(--color-night-soft)">K</div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div class="msg-sender">Kofi Mensah</div>
+                <div class="msg-time">Lun.</div>
+              </div>
+              <div class="msg-preview">Merci pour le suivi ! Je me sens beaucoup mieux depuis...</div>
+            </div>
+          </div>
+          <div class="msg-item" onclick="openMessage(5,this)">
+            <div class="msg-avatar" style="background:var(--color-emerald-dark)">A</div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div class="msg-sender">Aminata Diallo</div>
+                <div class="msg-time">Dim.</div>
+              </div>
+              <div class="msg-preview">Pouvez-vous me confirmer le rendez-vous de lundi 20 à 8h ?</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contenu message -->
+      <div class="msg-content" id="msg-content-area">
+        <div class="msg-content-header" id="msg-header">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-night)" id="msg-from-name">Fatoumata Barry</div>
+              <div style="font-size:var(--text-xs);color:var(--color-gray-400)" id="msg-from-info">fatoumata@email.com · Paris, France · 20 jan. 2025 à 10:23</div>
+            </div>
+            <div style="display:flex;gap:var(--space-2)">
+              <button onclick="createRdvFromMsg()" class="btn btn--secondary btn--sm">📅 Créer RDV</button>
+              <button onclick="viewPatientFromMsg()" class="btn btn--outline-gold btn--sm">👤 Voir fiche</button>
+              <button onclick="archiveMsg()" class="btn btn--ghost btn--sm" title="Archiver">📁</button>
+              <button onclick="deleteMsg()" class="btn btn--ghost btn--sm" style="color:var(--color-error)" title="Supprimer">🗑</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="msg-thread" id="msg-thread">
+          <div>
+            <div style="font-size:var(--text-xs);color:var(--color-gray-400);text-align:center;margin-bottom:var(--space-5)">20 janvier 2025</div>
+            <div class="msg-bubble msg-bubble--in">
+              <div style="font-family:var(--font-ui);font-size:var(--text-sm);line-height:var(--leading-relaxed)">Bonjour,<br/><br/>J'aimerais avoir plus d'informations sur la consultation spirituelle. Je vis en France et je me demande si la consultation en ligne est aussi efficace qu'en présentiel. Ma situation est assez complexe et j'aurais besoin d'un accompagnement sérieux.<br/><br/>Pourriez-vous m'en dire plus sur le déroulement et les tarifs ?<br/><br/>Cordialement,<br/>Fatoumata</div>
+              <div style="font-size:10px;color:var(--color-gray-400);margin-top:var(--space-2)">10:23</div>
+            </div>
+          </div>
+          <div>
+            <div class="msg-bubble msg-bubble--out">
+              <div style="font-family:var(--font-ui);font-size:var(--text-sm);line-height:var(--leading-relaxed)">Bonjour Fatoumata,<br/><br/>Merci pour votre confiance. Les consultations en ligne sont pleinement efficaces et se déroulent dans les mêmes conditions qu'en présentiel, par visioconférence sécurisée.<br/><br/>Pour une première session d'accompagnement spirituel : 30 000 FCFA (60–90 min). Vous pouvez réserver directement sur notre plateforme.<br/><br/>N'hésitez pas si vous avez d'autres questions.</div>
+              <div style="font-size:10px;color:rgba(255,255,255,.6);margin-top:var(--space-2)">11:45 · Admin PIMTABHAS ✓✓</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="msg-reply">
+          <div style="font-size:var(--text-xs);color:var(--color-gray-400);margin-bottom:var(--space-2)">Répondre à Fatoumata Barry</div>
+          <div class="msg-reply-form">
+            <textarea id="reply-text" placeholder="Rédiger une réponse…"></textarea>
+            <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+              <button onclick="sendReply()" class="btn btn--secondary">📤 Envoyer</button>
+              <button onclick="sendWhatsApp()" class="btn btn--sm" style="background:var(--color-whatsapp);color:white">💬 WA</button>
+            </div>
+          </div>
+          <div style="display:flex;gap:var(--space-2);margin-top:var(--space-3)">
+            <button onclick="insertTemplate('rdv')" class="btn btn--ghost btn--sm" style="font-size:var(--text-xs)">📋 Modèle RDV</button>
+            <button onclick="insertTemplate('info')" class="btn btn--ghost btn--sm" style="font-size:var(--text-xs)">📋 Modèle info</button>
+            <button onclick="insertTemplate('merci')" class="btn btn--ghost btn--sm" style="font-size:var(--text-xs)">📋 Modèle merci</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/admin.js"></script>
+<script>
+requireAdmin();
+const messages = {
+  1: { name:'Fatoumata Barry', info:'fatoumata@email.com · Paris, France · 20 jan. 2025 à 10:23' },
+  2: { name:'Moussa Traoré', info:'moussa@email.com · Bamako, Mali · 19 jan. 2025 à 14:11' },
+  3: { name:'Isabelle Owusu', info:'isabelle@email.com · Montréal, Canada · 19 jan. 2025 à 09:47' },
+  4: { name:'Kofi Mensah', info:'kofi@email.com · Lomé, Togo · 18 jan. 2025 à 16:33' },
+  5: { name:'Aminata Diallo', info:'aminata@email.com · Dakar, Sénégal · 17 jan. 2025 à 11:20' },
+};
+function openMessage(id, el) {
+  document.querySelectorAll('.msg-item').forEach(i=>{i.classList.remove('active');i.querySelector('.msg-unread-dot')?.remove();});
+  el.classList.add('active');
+  const msg = messages[id];
+  document.getElementById('msg-from-name').textContent = msg.name;
+  document.getElementById('msg-from-info').textContent = msg.info;
+}
+function sendReply() {
+  const txt = document.getElementById('reply-text').value.trim();
+  if(!txt) return;
+  const thread = document.getElementById('msg-thread');
+  const bubble = document.createElement('div');
+  bubble.innerHTML = `<div class="msg-bubble msg-bubble--out"><div style="font-family:var(--font-ui);font-size:var(--text-sm);line-height:var(--leading-relaxed)">${utils.sanitize(txt)}</div><div style="font-size:10px;color:rgba(255,255,255,.6);margin-top:var(--space-2)">À l'instant · Admin PIMTABHAS ✓</div></div>`;
+  thread.appendChild(bubble);
+  document.getElementById('reply-text').value = '';
+  thread.scrollTop = thread.scrollHeight;
+  showToast('Réponse envoyée avec succès', 'success');
+}
+const templates = {
+  rdv: 'Bonjour,\n\nJe vous invite à prendre rendez-vous directement sur notre plateforme : https://pimtabhas.com/pages/consultations.html\n\nCordialement,\nL\'équipe PIMTABHAS',
+  info: 'Bonjour,\n\nMerci pour votre message. Nos tarifs sont disponibles sur notre page services : https://pimtabhas.com/pages/services.html#tarifs\n\nN\'hésitez pas si vous avez d\'autres questions.\n\nCordialement,\nL\'équipe PIMTABHAS',
+  merci: 'Bonjour,\n\nMerci beaucoup pour votre message et la confiance que vous nous accordez. Nous sommes ravis de vous accompagner dans votre démarche.\n\nCordialement,\nL\'équipe PIMTABHAS',
+};
+function insertTemplate(type) { document.getElementById('reply-text').value = templates[type] || ''; }
+function filterMsgs(filter, btn) { showToast('Filtre: '+filter, 'info'); }
+function markAllRead() { document.querySelectorAll('.msg-unread-dot').forEach(d=>d.remove()); document.querySelectorAll('.msg-item.unread').forEach(i=>i.classList.remove('unread')); showToast('Tous les messages marqués comme lus','success'); }
+function createRdvFromMsg() { window.location.href='rendez-vous.html?new=1'; }
+function viewPatientFromMsg() { window.location.href='patients.html'; }
+function archiveMsg() { showToast('Message archivé','info'); }
+function deleteMsg() { if(confirm('Supprimer ce message ?')) showToast('Message supprimé','warning'); }
+function sendWhatsApp() { openWhatsApp(); }
+</script>
+</body>
+</html>

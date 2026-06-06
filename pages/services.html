@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Découvrez tous les services de PIMTABHAS : consultations traditionnelles, accompagnement spirituel, consultation divinatoire, produits naturels et suivi personnalisé."/>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg"/>
+  <title>Nos Services — PIMTABHAS</title>
+  <link rel="stylesheet" href="../assets/css/variables.css"/>
+  <link rel="stylesheet" href="../assets/css/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/components.css"/>
+  <link rel="stylesheet" href="../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../assets/css/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/pages.css"/>
+  <style>
+    .service-detail{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-16);align-items:center;padding:var(--space-16) 0;border-bottom:1px solid var(--color-gray-100);}
+    .service-detail:last-child{border-bottom:none;}
+    .service-detail:nth-child(even) .service-detail__text{order:-1;}
+    .service-detail__visual{background:var(--gradient-premium);border-radius:var(--radius-3xl);min-height:400px;display:flex;align-items:center;justify-content:center;font-size:6rem;border:1px solid rgba(212,175,55,.15);position:relative;overflow:hidden;}
+    .service-detail__visual::before{content:'';position:absolute;inset:0;background-image:url('../assets/images/pattern-adinkra.svg');background-size:100px;background-repeat:repeat;opacity:.04;color:white;}
+    .pricing-card{background:var(--color-white);border-radius:var(--radius-2xl);padding:var(--space-8);border:2px solid var(--color-gray-100);box-shadow:var(--shadow-card);transition:all var(--transition-slow);position:relative;overflow:hidden;}
+    .pricing-card:hover{border-color:var(--color-emerald);box-shadow:var(--shadow-xl);}
+    .pricing-card--featured{border-color:var(--color-gold);background:var(--gradient-night);}
+    .pricing-card--featured::before{content:'Recommandé';position:absolute;top:var(--space-4);right:var(--space-4);background:var(--gradient-cta);color:var(--color-night);font-family:var(--font-accent);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:var(--radius-full);}
+    .pricing-name{font-family:var(--font-display);font-size:var(--text-xl);font-weight:var(--weight-bold);margin-bottom:var(--space-2);}
+    .pricing-price{font-family:var(--font-display);font-size:var(--text-4xl);font-weight:var(--weight-bold);color:var(--color-emerald);line-height:1;margin:var(--space-4) 0;}
+    .pricing-card--featured .pricing-price{color:var(--color-gold);}
+    .pricing-period{font-size:var(--text-sm);color:var(--color-gray-400);font-family:var(--font-ui);}
+    .pricing-features{margin:var(--space-6) 0;display:flex;flex-direction:column;gap:var(--space-3);}
+    .pricing-feature{display:flex;align-items:center;gap:var(--space-3);font-size:var(--text-sm);}
+    .pricing-feature-icon{color:var(--color-emerald);font-weight:bold;flex-shrink:0;}
+    @media(max-width:768px){.service-detail{grid-template-columns:1fr;}.service-detail:nth-child(even) .service-detail__text{order:0;}}
+  </style>
+  <link rel="stylesheet" href="../assets/css/responsive.css"/>
+</head>
+<body class="preload">
+<div class="toast-container"></div>
+<div id="site-header-placeholder"></div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div style="position:absolute;inset:0;background-image:url('../assets/images/pattern-adinkra.svg');background-size:180px;background-repeat:repeat;opacity:.04;color:white;" aria-hidden="true"></div>
+  <div class="page-hero__content">
+    <div class="breadcrumb" style="margin-bottom:var(--space-4)"><a href="../index.html">Accueil</a><span class="breadcrumb__sep">›</span><span>Nos Services</span></div>
+    <p class="section-label" style="margin-bottom:var(--space-4)">Ce que nous offrons</p>
+    <h1 class="page-hero__title">Nos Services<br/><em style="color:var(--color-gold)">Holistiques</em></h1>
+    <p class="page-hero__subtitle">Un accompagnement complet et personnalisé alliant médecine traditionnelle africaine, bien-être holistique et spiritualité.</p>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="section" style="background:var(--color-cream-dark)">
+  <div class="container" style="text-align:center;max-width:var(--container-md)">
+    <div class="reveal">
+      <div class="alert alert--info" style="max-width:680px;margin:0 auto var(--space-8)">
+        <span>ℹ</span>
+        <span>Tous nos services sont présentés comme des <strong>consultations, accompagnements et conseils personnalisés</strong>. PIMTABHAS ne formule aucune allégation de guérison garantie et encourage le maintien d'un suivi médical conventionnel.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES DÉTAILLÉS -->
+<section class="section">
+  <div class="container">
+
+    <div class="service-detail reveal">
+      <div class="service-detail__visual">🌿</div>
+      <div class="service-detail__text">
+        <p class="section-label section-label--dark" style="margin-bottom:var(--space-4)">Service 01</p>
+        <h2 class="section-title">Consultation<br/><span class="text-emerald">Traditionnelle</span></h2>
+        <p style="color:var(--color-gray-700);line-height:var(--leading-loose);margin-bottom:var(--space-6)">La consultation traditionnelle constitue le cœur de notre démarche. Elle permet un bilan holistique approfondi de votre situation, intégrant les dimensions physiques, émotionnelles et énergétiques selon les savoirs ancestraux africains.</p>
+        <div style="display:flex;flex-direction:column;gap:var(--space-3);margin-bottom:var(--space-8)">
+          <div class="credential-item"><span class="credential-icon">✓</span><span>Bilan personnalisé de votre état global</span></div>
+          <div class="credential-item"><span class="credential-icon">✓</span><span>Identification des déséquilibres selon la vision traditionnelle</span></div>
+          <div class="credential-item"><span class="credential-icon">✓</span><span>Recommandations de plantes et préparations adaptées</span></div>
+          <div class="credential-item"><span class="credential-icon">✓</span><span>Conseils de mode de vie holistiques</span></div>
+          <div class="credential-item"><span class="credential-icon">✓</span><span>Compte-rendu écrit accessible depuis votre espace client</span></div>
+        </div>
+        <div style="display:flex;gap:var(--space-4)">
+          <a href="consultations.html" class="btn btn--secondary">Réserver une consultation</a>
+          <a href="consultations.html#tarifs" class="btn btn--outline-gold">Voir les tarifs</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-detail reveal">
+      <div class="service-detail__visual">🔮</div>
+      <div class="service-detail__text">
+        <p class="section-label section-label--dark" style="margin-bottom:var(--space-4)">Service 02</p>
+        <h2 class="section-title">Accompagnement<br/><span class="text-emerald">Spirituel</span></h2>
+        <p style="color:var(--color-gray-700);line-height:var(--leading-loose);margin-bottom:var(--space-6)">L'accompagnement spirituel est une démarche de guidance profonde qui vise à aider la personne à se reconnecter à ses ressources intérieures, à clarifier son chemin de vie et à développer une sérénité et un équilibre durables.</p>
+        <div style="display:flex;flex-direction:column;gap:var(--space-3);margin-bottom:var(--space-8)">
+          <div class="credential-item"><span class="credential-icon">✓</span><span>Session d'écoute et d'orientation spirituelle</span></div>
+          <div class="credential-item"><span class="credential-icon">✓</span><span>Exploration de votre parcours de vie et de vos blocages</span></div>
+          <div class="credential-item"><span class="credential-icon">✓</span><span>Pratiques de protection et d'ancrage énergétique</span></div>
+          <div class="credential-item"><span class="credential-icon">✓</span><span>Rituels de clarification et d'ouverture des voies</span></div>
+          <div class="credential-item"><span class="credential-icon">✓</span><span>Programme de suivi spirituel personnalisé</span></div>
+        </div>
+        <div style="display:flex;gap:var(--space-4)">
+          <a href="consultation-spirituelle.html" class="btn btn--secondary">En savoir plus</a>
+          <a href="consultations.html" class="btn btn--outline-gold">Prendre rendez-vous</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-detail reveal">
+      <div class="service-detail__visual">✨</div>
+      <div class="service-detail__text">
+        <p class="section-label section-label--dark" style="margin-bottom:var(--space-4)">Service 03</p>
+        <h2 class="section-title">Consultation<br/><span class="text-emerald">Divinatoire</span></h2>
+        <p style="color:var(--color-gray-700);line-height:var(--leading-loose);margin-bottom:var(--space-6)">La consultation divinatoire utilise les techniques traditionnelles africaines pour apporter un éclairage sur vos questionnements, vous aider à mieux comprendre votre situation et vous orienter vers les décisions les plus alignées avec votre chemin de vie.</p>
+        <div style="display:flex;flex-direction:column;gap:var(--space-3);margin-bottom:var(--space-8)">
+          <div class="credential-item"><span class="credential-icon">✓</span><span>Lecture et interprétation des signes traditionnels</span></div>
+          <div class="credential-item"><span class="credential-icon">✓</span><span>Éclairage sur les questions personnelles, familiales ou professionnelles</span></div>
+          <div class="credential-item"><span class="credential-icon">✓</span><span>Conseils pour une prise de décision éclairée</span></div>
+          <div class="credential-item"><span class="credential-icon">✓</span><span>Préconisations de protection et d'action</span></div>
+        </div>
+        <div style="display:flex;gap:var(--space-4)">
+          <a href="consultation-divinatoire.html" class="btn btn--secondary">En savoir plus</a>
+          <a href="consultations.html" class="btn btn--outline-gold">Prendre rendez-vous</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-detail reveal">
+      <div class="service-detail__visual">🌱</div>
+      <div class="service-detail__text">
+        <p class="section-label section-label--dark" style="margin-bottom:var(--space-4)">Service 04</p>
+        <h2 class="section-title">Boutique de Produits<br/><span class="text-emerald">Naturels</span></h2>
+        <p style="color:var(--color-gray-700);line-height:var(--leading-loose);margin-bottom:var(--space-6)">Notre boutique propose une gamme rigoureusement sélectionnée de produits naturels africains : tisanes, huiles, poudres, encens et préparations artisanales, élaborés selon les méthodes traditionnelles et expédiés en toute sécurité.</p>
+        <div style="display:flex;flex-direction:column;gap:var(--space-3);margin-bottom:var(--space-8)">
+          <div class="credential-item"><span class="credential-icon">✓</span><span>Plus de 120 produits naturels disponibles</span></div>
+          <div class="credential-item"><span class="credential-icon">✓</span><span>Sélection et contrôle qualité rigoureux</span></div>
+          <div class="credential-item"><span class="credential-icon">✓</span><span>Préparations artisanales selon les formules ancestrales</span></div>
+          <div class="credential-item"><span class="credential-icon">✓</span><span>Livraison internationale sécurisée</span></div>
+          <div class="credential-item"><span class="credential-icon">✓</span><span>Conseils d'utilisation personnalisés</span></div>
+        </div>
+        <a href="boutique.html" class="btn btn--secondary">Visiter la boutique</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TARIFS -->
+<section class="section section--dark" id="tarifs">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Investissement</div>
+      <h2 class="section-title section-title--light">Nos Formules<br/><em class="text-gold">& Tarifs</em></h2>
+      <p class="section-subtitle section-subtitle--light">Des formules flexibles adaptées à vos besoins et à votre budget. Paiement sécurisé en ligne ou en présentiel.</p>
+    </div>
+    <div class="grid grid--3 stagger" style="gap:var(--space-6)">
+      <div class="pricing-card reveal">
+        <div class="pricing-name">Consultation Simple</div>
+        <div class="pricing-price">25 000 <span class="pricing-period">FCFA</span></div>
+        <p style="font-size:var(--text-sm);color:var(--color-gray-500);margin-bottom:var(--space-6)">Une session unique pour un premier accompagnement.</p>
+        <div class="pricing-features">
+          <div class="pricing-feature"><span class="pricing-feature-icon">✓</span><span>1 session de 45–60 min</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-icon">✓</span><span>Bilan holistique initial</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-icon">✓</span><span>Compte-rendu écrit</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-icon">✓</span><span>En présentiel ou en ligne</span></div>
+        </div>
+        <a href="consultations.html" class="btn btn--secondary" style="width:100%;justify-content:center">Réserver</a>
+      </div>
+      <div class="pricing-card pricing-card--featured reveal delay-200">
+        <div class="pricing-name" style="color:var(--color-gold)">Suivi Mensuel</div>
+        <div class="pricing-price">65 000 <span class="pricing-period">FCFA / mois</span></div>
+        <p style="font-size:var(--text-sm);color:rgba(248,246,240,.6);margin-bottom:var(--space-6)">Un accompagnement continu pour des résultats durables.</p>
+        <div class="pricing-features">
+          <div class="pricing-feature" style="color:rgba(248,246,240,.8)"><span style="color:var(--color-gold)">✓</span><span>3 sessions par mois</span></div>
+          <div class="pricing-feature" style="color:rgba(248,246,240,.8)"><span style="color:var(--color-gold)">✓</span><span>Suivi évolutif personnalisé</span></div>
+          <div class="pricing-feature" style="color:rgba(248,246,240,.8)"><span style="color:var(--color-gold)">✓</span><span>Accès à l'espace patient</span></div>
+          <div class="pricing-feature" style="color:rgba(248,246,240,.8)"><span style="color:var(--color-gold)">✓</span><span>Produits recommandés -10%</span></div>
+          <div class="pricing-feature" style="color:rgba(248,246,240,.8)"><span style="color:var(--color-gold)">✓</span><span>Support WhatsApp dédié</span></div>
+        </div>
+        <a href="consultations.html" class="btn btn--primary" style="width:100%;justify-content:center">Commencer</a>
+      </div>
+      <div class="pricing-card reveal delay-300">
+        <div class="pricing-name">Programme Intensif</div>
+        <div class="pricing-price">150 000 <span class="pricing-period">FCFA</span></div>
+        <p style="font-size:var(--text-sm);color:var(--color-gray-500);margin-bottom:var(--space-6)">Programme complet sur 3 mois pour transformation profonde.</p>
+        <div class="pricing-features">
+          <div class="pricing-feature"><span class="pricing-feature-icon">✓</span><span>Consultation initiale approfondie</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-icon">✓</span><span>10 sessions incluses</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-icon">✓</span><span>Coffret de produits offert</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-icon">✓</span><span>Accès prioritaire agenda</span></div>
+          <div class="pricing-feature"><span class="pricing-feature-icon">✓</span><span>Rapport de fin de programme</span></div>
+        </div>
+        <a href="consultations.html" class="btn btn--secondary" style="width:100%;justify-content:center">Réserver</a>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:var(--space-8);font-size:var(--text-sm);color:rgba(248,246,240,.5)">Tarifs en Francs CFA. Des équivalences en EUR, USD et GBP sont disponibles. Paiement en ligne sécurisé accepté.</p>
+  </div>
+</section>
+
+<!-- FAQ RAPIDE -->
+<section class="section">
+  <div class="container" style="max-width:var(--container-md)">
+    <div class="section-header reveal">
+      <div class="section-label section-label--dark">Vos questions</div>
+      <h2 class="section-title">Questions<br/><span class="text-emerald">Fréquentes</span></h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+      <details class="card reveal" style="padding:var(--space-5);cursor:pointer">
+        <summary style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night);list-style:none;display:flex;justify-content:space-between;align-items:center">Comment se déroule une consultation en ligne ? <span style="color:var(--color-emerald)">+</span></summary>
+        <p style="margin-top:var(--space-4);font-size:var(--text-sm);color:var(--color-gray-600)">Après votre réservation, vous recevez un lien de connexion sécurisé par email. La session se déroule par visioconférence (Zoom ou Google Meet) à l'heure convenue, dans les mêmes conditions qu'une consultation en présentiel.</p>
+      </details>
+      <details class="card reveal delay-200" style="padding:var(--space-5);cursor:pointer">
+        <summary style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night);list-style:none;display:flex;justify-content:space-between;align-items:center">Les consultations sont-elles confidentielles ? <span style="color:var(--color-emerald)">+</span></summary>
+        <p style="margin-top:var(--space-4);font-size:var(--text-sm);color:var(--color-gray-600)">Absolument. Toutes les informations partagées lors des consultations sont strictement confidentielles et protégées par notre politique de confidentialité rigoureuse.</p>
+      </details>
+      <details class="card reveal delay-300" style="padding:var(--space-5);cursor:pointer">
+        <summary style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night);list-style:none;display:flex;justify-content:space-between;align-items:center">Quels modes de paiement sont acceptés ? <span style="color:var(--color-emerald)">+</span></summary>
+        <p style="margin-top:var(--space-4);font-size:var(--text-sm);color:var(--color-gray-600)">Nous acceptons les paiements par carte bancaire, Mobile Money (MTN, Orange, Moov), virement bancaire et paiement en espèces pour les consultations en présentiel.</p>
+      </details>
+    </div>
+    <div style="text-align:center;margin-top:var(--space-8)">
+      <a href="faq.html" class="btn btn--outline-gold">Voir toutes les FAQ</a>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer-placeholder"></div>
+<script src="../assets/js/components.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

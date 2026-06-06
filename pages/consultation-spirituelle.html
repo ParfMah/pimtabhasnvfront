@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Accompagnement spirituel traditionnel africain avec le Grand Maître KPALIKA — guidance, protection et équilibre intérieur."/>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg"/>
+  <title>Consultation Spirituelle — PIMTABHAS</title>
+  <link rel="stylesheet" href="../assets/css/variables.css"/>
+  <link rel="stylesheet" href="../assets/css/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/components.css"/>
+  <link rel="stylesheet" href="../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../assets/css/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/pages.css"/>
+  <style>
+    .spirit-hero{min-height:80vh;background:linear-gradient(160deg,#0F172A 0%,#1E293B 40%,#0F4030 100%);display:flex;align-items:center;padding:calc(var(--header-height)+var(--space-16)) var(--space-8) var(--space-16);position:relative;overflow:hidden;}
+    .spirit-hero::before{content:'';position:absolute;inset:0;background-image:url('../assets/images/pattern-adinkra.svg');background-size:150px;background-repeat:repeat;opacity:.05;color:var(--color-gold);}
+    .glow-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;}
+    .aspect-card{background:var(--gradient-night);border:1px solid rgba(212,175,55,.2);border-radius:var(--radius-2xl);padding:var(--space-8);transition:all var(--transition-slow);}
+    .aspect-card:hover{border-color:var(--color-gold);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.3);}
+    .aspect-icon{font-size:2.5rem;margin-bottom:var(--space-4);}
+    .aspect-title{font-family:var(--font-display);color:var(--color-gold);font-size:var(--text-xl);margin-bottom:var(--space-3);}
+    .spirit-process{counter-reset:spirit-step;}
+    .spirit-step{display:flex;gap:var(--space-6);align-items:flex-start;padding:var(--space-8) 0;border-bottom:1px solid rgba(212,175,55,.1);counter-increment:spirit-step;}
+    .spirit-step:last-child{border-bottom:none;}
+    .spirit-step-num{width:56px;height:56px;border-radius:50%;background:rgba(212,175,55,.1);border:2px solid rgba(212,175,55,.3);display:flex;align-items:center;justify-content:center;font-family:var(--font-accent);font-size:var(--text-base);color:var(--color-gold);flex-shrink:0;}
+    .spirit-step-title{font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-cream);margin-bottom:var(--space-2);}
+    .spirit-step-text{font-size:var(--text-sm);color:rgba(248,246,240,.65);line-height:var(--leading-relaxed);}
+  </style>
+  <link rel="stylesheet" href="../assets/css/responsive.css"/>
+</head>
+<body class="preload">
+<div class="toast-container"></div>
+<div id="site-header-placeholder"></div>
+
+<!-- HERO SPIRITUEL -->
+<section class="spirit-hero">
+  <div class="glow-orb" style="width:400px;height:400px;background:rgba(212,175,55,.08);top:-100px;right:-100px;"></div>
+  <div class="glow-orb" style="width:300px;height:300px;background:rgba(15,106,75,.1);bottom:-50px;left:-50px;"></div>
+  <div style="max-width:var(--container-lg);margin:0 auto;width:100%;position:relative;z-index:2">
+    <div class="breadcrumb" style="margin-bottom:var(--space-6)"><a href="../index.html" style="color:rgba(248,246,240,.5)">Accueil</a><span class="breadcrumb__sep">›</span><a href="services.html" style="color:rgba(248,246,240,.5)">Services</a><span class="breadcrumb__sep">›</span><span style="color:var(--color-gold)">Consultation Spirituelle</span></div>
+    <p class="section-label" style="margin-bottom:var(--space-5)">Guidance & Équilibre</p>
+    <h1 style="font-family:var(--font-display);font-size:clamp(2.5rem,7vw,6rem);color:var(--color-cream);line-height:1.05;letter-spacing:-.025em;margin-bottom:var(--space-6)" class="reveal">
+      Accompagnement<br/><em style="color:var(--color-gold)">Spirituel</em>
+    </h1>
+    <p style="font-size:var(--text-lg);color:rgba(248,246,240,.75);max-width:55ch;line-height:var(--leading-relaxed);margin-bottom:var(--space-10)" class="reveal delay-200">
+      Une démarche de guidance profonde fondée sur les traditions spirituelles africaines millénaires, pour vous aider à trouver votre voie, votre équilibre et votre sérénité intérieure.
+    </p>
+    <div style="display:flex;gap:var(--space-4);flex-wrap:wrap" class="reveal delay-300">
+      <a href="consultations.html?type=spirituelle" class="btn btn--primary btn--xl">Réserver une session</a>
+      <button onclick="openWhatsApp('Bonjour, je souhaite des informations sur la consultation spirituelle.')" class="btn btn--outline-cream btn--xl">Renseignements WhatsApp</button>
+    </div>
+  </div>
+</section>
+
+<!-- AVERTISSEMENT ÉTHIQUE -->
+<div style="background:var(--color-night-soft);border-bottom:1px solid rgba(212,175,55,.1);padding:var(--space-4) var(--space-8)">
+  <div style="max-width:var(--container-xl);margin:0 auto">
+    <div class="alert alert--info" style="background:rgba(37,99,235,.08);color:rgba(248,246,240,.7);border-color:rgba(37,99,235,.2)">
+      <span>ℹ</span>
+      <span>L'accompagnement spirituel proposé par PIMTABHAS constitue une démarche de <strong>guidance et de conseil</strong> basée sur les traditions africaines. Il ne remplace pas un suivi psychologique ou médical professionnel. Nous encourageons une approche complémentaire et responsable.</span>
+    </div>
+  </div>
+</div>
+
+<!-- QU'EST-CE QUE C'EST -->
+<section class="section">
+  <div class="container">
+    <div class="grid grid--2" style="gap:var(--space-16);align-items:center">
+      <div class="reveal--left">
+        <div class="section-label section-label--dark">Comprendre</div>
+        <h2 class="section-title">La Spiritualité Africaine<br/><span class="text-emerald">Expliquée Simplement</span></h2>
+        <p style="color:var(--color-gray-700);line-height:var(--leading-loose);margin-bottom:var(--space-5)">
+          Dans la vision africaine traditionnelle, l'être humain est une entité à dimensions multiples : physique, émotionnelle, mentale et spirituelle. Ces dimensions sont intimement liées et s'influencent mutuellement. Un déséquilibre dans l'une affecte les autres.
+        </p>
+        <p style="color:var(--color-gray-700);line-height:var(--leading-loose);margin-bottom:var(--space-5)">
+          L'accompagnement spirituel vise à identifier et à rétablir ces équilibres, à renforcer la connexion de la personne avec ses ancêtres et ses ressources intérieures, et à l'aider à avancer sur son chemin de vie avec plus de clarté et de sérénité.
+        </p>
+        <p style="color:var(--color-gray-700);line-height:var(--leading-loose)">
+          Le Grand Maître KPALIKA s'appuie sur les traditions spirituelles béninoises, togolaises et mandé pour offrir un accompagnement authentique, respectueux et adapté à chaque personne.
+        </p>
+      </div>
+      <div class="reveal--right">
+        <div style="background:var(--gradient-premium);border-radius:var(--radius-3xl);padding:var(--space-10);border:1px solid rgba(212,175,55,.2);min-height:400px;display:flex;flex-direction:column;justify-content:center">
+          <div style="text-align:center;font-size:5rem;margin-bottom:var(--space-6)">🔮</div>
+          <blockquote style="border:none;background:none;padding:0;margin:0;font-family:var(--font-display);font-size:var(--text-xl);font-style:italic;color:var(--color-cream);text-align:center;line-height:var(--leading-relaxed)">
+            « La paix intérieure n'est pas l'absence de tempêtes, c'est la capacité à naviguer au milieu d'elles avec sagesse et grâce. »
+            <cite style="display:block;margin-top:var(--space-4);font-style:normal;font-family:var(--font-ui);font-size:var(--text-sm);color:var(--color-gold)">— Enseignement traditionnel africain</cite>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ASPECTS ABORDÉS -->
+<section class="section section--dark">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Ce que nous abordons</div>
+      <h2 class="section-title section-title--light">Les Dimensions<br/><em class="text-gold">de l'Accompagnement</em></h2>
+    </div>
+    <div class="grid grid--3 stagger" style="gap:var(--space-6)">
+      <div class="aspect-card reveal"><div class="aspect-icon">🌙</div><h3 class="aspect-title">Équilibre Intérieur</h3><p style="font-size:var(--text-sm);color:rgba(248,246,240,.65)">Reconnexion à votre centre de gravité intérieur, développement de la sérénité et de la paix intérieure durable.</p></div>
+      <div class="aspect-card reveal delay-200"><div class="aspect-icon">🛡️</div><h3 class="aspect-title">Protection Spirituelle</h3><p style="font-size:var(--text-sm);color:rgba(248,246,240,.65)">Renforcement des protections énergétiques personnelles selon les méthodes traditionnelles africaines.</p></div>
+      <div class="aspect-card reveal delay-300"><div class="aspect-icon">🌟</div><h3 class="aspect-title">Clarification du Chemin</h3><p style="font-size:var(--text-sm);color:rgba(248,246,240,.65)">Identification et levée des obstacles spirituels qui peuvent entraver votre épanouissement et vos projets.</p></div>
+      <div class="aspect-card reveal"><div class="aspect-icon">👥</div><h3 class="aspect-title">Connexion Ancestrale</h3><p style="font-size:var(--text-sm);color:rgba(248,246,240,.65)">Rétablissement du lien avec les ancêtres protecteurs et alignment avec votre héritage spirituel familial.</p></div>
+      <div class="aspect-card reveal delay-200"><div class="aspect-icon">💫</div><h3 class="aspect-title">Harmonisation Relationnelle</h3><p style="font-size:var(--text-sm);color:rgba(248,246,240,.65)">Travail sur les déséquilibres dans les relations familiales, amoureuses ou professionnelles.</p></div>
+      <div class="aspect-card reveal delay-300"><div class="aspect-icon">🌱</div><h3 class="aspect-title">Développement Personnel</h3><p style="font-size:var(--text-sm);color:rgba(248,246,240,.65)">Accompagnement dans votre croissance personnelle et spirituelle, développement de vos capacités intérieures.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DÉROULEMENT -->
+<section class="section">
+  <div class="container" style="max-width:var(--container-lg)">
+    <div class="grid grid--2" style="gap:var(--space-16)">
+      <div>
+        <div class="section-label section-label--dark reveal">Déroulement</div>
+        <h2 class="section-title reveal">Comment se Déroule<br/><span class="text-emerald">Votre Session ?</span></h2>
+        <div class="spirit-process">
+          <div class="spirit-step reveal">
+            <div class="spirit-step-num">1</div>
+            <div><div class="spirit-step-title">Accueil et écoute</div><p class="spirit-step-text">Le Grand Maître KPALIKA vous accueille dans un espace sécurisé et vous invite à partager votre situation, vos questionnements et vos intentions pour cette session.</p></div>
+          </div>
+          <div class="spirit-step reveal delay-200">
+            <div class="spirit-step-num">2</div>
+            <div><div class="spirit-step-title">Évaluation spirituelle</div><p class="spirit-step-text">Par ses techniques de perception traditionnelles, il évalue votre état énergétique et spirituel, identifie les déséquilibres et les influences présentes dans votre vie.</p></div>
+          </div>
+          <div class="spirit-step reveal delay-300">
+            <div class="spirit-step-num">3</div>
+            <div><div class="spirit-step-title">Guidance et recommandations</div><p class="spirit-step-text">Il vous partage ses perceptions, vous guide à travers ses recommandations spirituelles et vous propose des pratiques adaptées à votre situation.</p></div>
+          </div>
+          <div class="spirit-step reveal delay-400">
+            <div class="spirit-step-num">4</div>
+            <div><div class="spirit-step-title">Programme de suivi</div><p class="spirit-step-text">Si nécessaire, il élabore un programme de suivi spirituel personnalisé incluant des pratiques quotidiennes, des produits et des rituels de protection.</p></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label section-label--dark reveal" style="margin-bottom:var(--space-4)">Tarifs</div>
+        <h3 class="reveal" style="font-family:var(--font-display);font-size:var(--text-2xl);color:var(--color-night);margin-bottom:var(--space-8)">Formules Disponibles</h3>
+        <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+          <div class="card reveal" style="padding:var(--space-6);display:flex;justify-content:space-between;align-items:center">
+            <div><div style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night)">Session unique</div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">60–90 minutes</div></div>
+            <div style="font-family:var(--font-display);font-size:var(--text-2xl);color:var(--color-emerald);font-weight:bold">30 000 FCFA</div>
+          </div>
+          <div class="card reveal delay-200" style="padding:var(--space-6);display:flex;justify-content:space-between;align-items:center;border:2px solid var(--color-gold)">
+            <div><div style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night)">Programme 3 sessions <span class="badge badge--gold" style="font-size:9px">Populaire</span></div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">Sur 4–6 semaines</div></div>
+            <div style="font-family:var(--font-display);font-size:var(--text-2xl);color:var(--color-emerald);font-weight:bold">75 000 FCFA</div>
+          </div>
+          <div class="card reveal delay-300" style="padding:var(--space-6);display:flex;justify-content:space-between;align-items:center">
+            <div><div style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night)">Suivi mensuel complet</div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">4 sessions + support</div></div>
+            <div style="font-family:var(--font-display);font-size:var(--text-2xl);color:var(--color-emerald);font-weight:bold">90 000 FCFA</div>
+          </div>
+        </div>
+        <div style="margin-top:var(--space-8)" class="reveal">
+          <a href="consultations.html?type=spirituelle" class="btn btn--primary btn--lg" style="width:100%;justify-content:center">Réserver une session spirituelle</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TÉMOIGNAGES -->
+<section class="section section--cream">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label section-label--dark">Témoignages</div>
+      <h2 class="section-title">Ils ont Vécu<br/><span class="text-emerald">l'Expérience</span></h2>
+    </div>
+    <div class="grid grid--2 stagger" style="gap:var(--space-6)">
+      <div class="testimonial-card reveal"><div class="testimonial-quote-icon">"</div><p class="testimonial-text">La session avec le Grand Maître KPALIKA a été une expérience transformatrice. En une seule séance, j'ai eu une clarté inédite sur des situations qui me bloquaient depuis des années. Son accompagnement est à la fois profond et bienveillant.</p><div class="testimonial-author"><div class="testimonial-avatar-placeholder">S</div><div><div class="testimonial-name">Saliou K.</div><div class="testimonial-location">Bamako, Mali</div><div class="stars" style="font-size:.875rem;margin-top:.25rem">★★★★★</div></div></div></div>
+      <div class="testimonial-card reveal delay-200"><div class="testimonial-quote-icon">"</div><p class="testimonial-text">Je suis de la diaspora et j'avais du mal à accéder à des praticiens de confiance. La consultation en ligne a été aussi puissante qu'en présentiel. Je me sens reconectée à mes racines et à mes ressources intérieures.</p><div class="testimonial-author"><div class="testimonial-avatar-placeholder">G</div><div><div class="testimonial-name">Grâce M.</div><div class="testimonial-location">Lyon, France</div><div class="stars" style="font-size:.875rem;margin-top:.25rem">★★★★★</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer-placeholder"></div>
+<script src="../assets/js/components.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

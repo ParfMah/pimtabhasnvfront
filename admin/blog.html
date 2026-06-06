@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg"/>
+  <title>Blog — Admin PIMTABHAS</title>
+  <link rel="stylesheet" href="../assets/css/variables.css"/>
+  <link rel="stylesheet" href="../assets/css/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/components.css"/>
+  <link rel="stylesheet" href="../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../assets/css/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/pages.css"/>
+  <style>
+    body{background:var(--color-gray-50);}
+    #editor-modal .modal{max-width:900px;width:95vw;}
+    .editor-toolbar{display:flex;gap:var(--space-2);flex-wrap:wrap;padding:var(--space-3);border-bottom:1px solid var(--color-gray-100);background:var(--color-gray-50);}
+    .editor-btn{padding:var(--space-1) var(--space-3);border:1px solid var(--color-gray-200);border-radius:var(--radius-md);background:var(--color-white);font-size:var(--text-xs);font-family:var(--font-ui);cursor:pointer;transition:all var(--transition-base);}
+    .editor-btn:hover{background:var(--color-emerald);color:white;border-color:var(--color-emerald);}
+    #article-editor{min-height:300px;padding:var(--space-5);font-family:var(--font-body);font-size:var(--text-base);line-height:var(--leading-relaxed);border:none;outline:none;width:100%;}
+    .article-row{display:flex;align-items:center;gap:var(--space-4);padding:var(--space-4) var(--space-6);border-bottom:1px solid var(--color-gray-50);transition:background var(--transition-base);}
+    .article-row:hover{background:var(--color-gray-50);}
+    .article-thumb{width:60px;height:60px;border-radius:var(--radius-lg);object-fit:cover;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.75rem;}
+    .article-title-txt{font-family:var(--font-ui);font-weight:var(--weight-semibold);font-size:var(--text-sm);color:var(--color-night);}
+    .article-meta{font-size:var(--text-xs);color:var(--color-gray-400);}
+  </style>
+  <link rel="stylesheet" href="../assets/css/responsive.css"/>
+  <link rel="stylesheet" href="../assets/css/admin.css"/>
+</head>
+<body>
+<div class="toast-container"></div>
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar__logo"><img src="../assets/images/logo.svg" alt="PIMTABHAS"/></div>
+    <nav class="admin-nav">
+      <div class="admin-nav__section">Principal</div>
+      <a href="dashboard.html" class="admin-nav__item"><span class="admin-nav__icon">🏠</span>Tableau de bord</a>
+      <a href="rendez-vous.html" class="admin-nav__item"><span class="admin-nav__icon">📅</span>Rendez-vous</a>
+      <a href="patients.html" class="admin-nav__item"><span class="admin-nav__icon">👥</span>Patients</a>
+      <div class="admin-nav__section">Boutique</div>
+      <a href="commandes.html" class="admin-nav__item"><span class="admin-nav__icon">📦</span>Commandes</a>
+      <a href="produits.html" class="admin-nav__item"><span class="admin-nav__icon">🌿</span>Produits</a>
+      <div class="admin-nav__section">Contenu</div>
+      <a href="blog.html" class="admin-nav__item active"><span class="admin-nav__icon">✍️</span>Blog</a>
+      <a href="messages.html" class="admin-nav__item"><span class="admin-nav__icon">💬</span>Messages</a>
+      <div class="admin-nav__section">Paramètres</div>
+      <a href="../index.html" class="admin-nav__item" target="_blank"><span class="admin-nav__icon">🌐</span>Voir le site</a>
+      <a href="../pages/espace-client.html" class="admin-nav__item" onclick="auth.logout();return false"><span class="admin-nav__icon">🚪</span>Déconnexion</a>
+    </nav>
+  </aside>
+
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <h1 style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-night)">✍️ Gestion du Blog</h1>
+      <button onclick="openArticleEditor()" class="btn btn--primary btn--sm">+ Nouvel article</button>
+    </div>
+    <div class="admin-content">
+      <div class="grid grid--4" style="gap:var(--space-4);margin-bottom:var(--space-8)">
+        <div class="admin-stat-card"><div class="admin-stat-icon admin-stat-icon--emerald">📝</div><div><div class="admin-stat-num">48</div><div class="admin-stat-label">Articles publiés</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon admin-stat-icon--gold">📋</div><div><div class="admin-stat-num">7</div><div class="admin-stat-label">Brouillons</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon admin-stat-icon--bronze">👁</div><div><div class="admin-stat-num">24,7K</div><div class="admin-stat-label">Vues ce mois</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon admin-stat-icon--blue">💬</div><div><div class="admin-stat-num">142</div><div class="admin-stat-label">Commentaires</div></div></div>
+      </div>
+
+      <!-- Filtres -->
+      <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;align-items:center;margin-bottom:var(--space-6)">
+        <input type="text" placeholder="🔍 Rechercher un article…" style="flex:1;min-width:200px;padding:var(--space-2) var(--space-4);border:1px solid var(--color-gray-200);border-radius:var(--radius-lg);font-family:var(--font-ui);font-size:var(--text-sm);background:white"/>
+        <select style="padding:var(--space-2) var(--space-4);border:1px solid var(--color-gray-200);border-radius:var(--radius-lg);font-family:var(--font-ui);font-size:var(--text-sm);background:white">
+          <option>Toutes les catégories</option><option>Médecine Traditionnelle</option><option>Spiritualité</option><option>Bien-être</option><option>Plantes</option><option>Nutrition</option>
+        </select>
+        <select style="padding:var(--space-2) var(--space-4);border:1px solid var(--color-gray-200);border-radius:var(--radius-lg);font-family:var(--font-ui);font-size:var(--text-sm);background:white">
+          <option>Tous les statuts</option><option>Publié</option><option>Brouillon</option><option>Planifié</option>
+        </select>
+      </div>
+
+      <div class="admin-table">
+        <div id="articles-list">
+          <div class="article-row">
+            <div class="article-thumb" style="background:var(--color-emerald-pale)">🌿</div>
+            <div style="flex:1">
+              <div class="article-title-txt">Les Plantes Médicinales d'Afrique de l'Ouest : Un Héritage Millénaire</div>
+              <div class="article-meta">Médecine Traditionnelle · 15 nov. 2024 · 1 243 vues · 8 min</div>
+            </div>
+            <span style="background:var(--color-success-bg);color:var(--color-success);font-size:10px;padding:2px 8px;border-radius:var(--radius-full);font-weight:bold;flex-shrink:0">Publié</span>
+            <div style="display:flex;gap:var(--space-2);flex-shrink:0">
+              <button onclick="editArticle(1)" class="btn btn--outline-gold btn--sm">✏️ Éditer</button>
+              <button onclick="previewArticle(1)" class="btn btn--ghost btn--sm" title="Prévisualiser">👁</button>
+              <button onclick="deleteArticle(1)" class="btn btn--ghost btn--sm" style="color:var(--color-error)" title="Supprimer">🗑</button>
+            </div>
+          </div>
+          <div class="article-row">
+            <div class="article-thumb" style="background:rgba(124,58,237,.1)">✨</div>
+            <div style="flex:1">
+              <div class="article-title-txt">Comprendre le Vodoun : Au-delà des Préjugés</div>
+              <div class="article-meta">Spiritualité · 8 nov. 2024 · 2 891 vues · 12 min</div>
+            </div>
+            <span style="background:var(--color-success-bg);color:var(--color-success);font-size:10px;padding:2px 8px;border-radius:var(--radius-full);font-weight:bold;flex-shrink:0">Publié</span>
+            <div style="display:flex;gap:var(--space-2);flex-shrink:0">
+              <button onclick="editArticle(2)" class="btn btn--outline-gold btn--sm">✏️ Éditer</button>
+              <button onclick="previewArticle(2)" class="btn btn--ghost btn--sm">👁</button>
+              <button onclick="deleteArticle(2)" class="btn btn--ghost btn--sm" style="color:var(--color-error)">🗑</button>
+            </div>
+          </div>
+          <div class="article-row">
+            <div class="article-thumb" style="background:var(--color-gold-pale)">📝</div>
+            <div style="flex:1">
+              <div class="article-title-txt">Les bienfaits du Baobab : l'arbre de vie africain</div>
+              <div class="article-meta">Plantes & Remèdes · Brouillon · Modifié le 19 jan. 2025</div>
+            </div>
+            <span style="background:var(--color-gray-100);color:var(--color-gray-500);font-size:10px;padding:2px 8px;border-radius:var(--radius-full);font-weight:bold;flex-shrink:0">Brouillon</span>
+            <div style="display:flex;gap:var(--space-2);flex-shrink:0">
+              <button onclick="editArticle(3)" class="btn btn--secondary btn--sm">✏️ Continuer</button>
+              <button onclick="deleteArticle(3)" class="btn btn--ghost btn--sm" style="color:var(--color-error)">🗑</button>
+            </div>
+          </div>
+          <div class="article-row">
+            <div class="article-thumb" style="background:var(--color-emerald-pale)">☀️</div>
+            <div style="flex:1">
+              <div class="article-title-txt">Rituels Matinaux Africains pour Bien Commencer la Journée</div>
+              <div class="article-meta">Bien-être · 5 oct. 2024 · 987 vues · 5 min</div>
+            </div>
+            <span style="background:var(--color-success-bg);color:var(--color-success);font-size:10px;padding:2px 8px;border-radius:var(--radius-full);font-weight:bold;flex-shrink:0">Publié</span>
+            <div style="display:flex;gap:var(--space-2);flex-shrink:0">
+              <button onclick="editArticle(4)" class="btn btn--outline-gold btn--sm">✏️ Éditer</button>
+              <button onclick="previewArticle(4)" class="btn btn--ghost btn--sm">👁</button>
+              <button onclick="deleteArticle(4)" class="btn btn--ghost btn--sm" style="color:var(--color-error)">🗑</button>
+            </div>
+          </div>
+        </div>
+        <div style="padding:var(--space-4) var(--space-6);border-top:1px solid var(--color-gray-100);display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:var(--text-xs);color:var(--color-gray-400)">55 articles au total</span>
+          <div class="pagination" style="padding:0"><a class="page-btn active">1</a><a class="page-btn">2</a><a class="page-btn">3</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Éditeur d'article -->
+<div class="modal-backdrop" id="editor-modal">
+  <div class="modal" style="max-width:900px;width:95vw">
+    <div class="modal__header">
+      <h3 class="modal__title" id="editor-title">Nouvel article</h3>
+      <button class="modal__close" onclick="modal.close('editor-modal')">✕</button>
+    </div>
+    <div class="modal__body" style="padding:0">
+      <!-- Méta -->
+      <div style="padding:var(--space-6) var(--space-8);border-bottom:1px solid var(--color-gray-100)">
+        <div class="form-group" style="margin-bottom:var(--space-4)">
+          <label class="form-label">Titre de l'article *</label>
+          <input class="form-control" type="text" id="article-title-input" placeholder="Titre accrocheur et informatif…" style="font-size:var(--text-lg);font-family:var(--font-display)"/>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-4)">
+          <div class="form-group">
+            <label class="form-label">Catégorie</label>
+            <select class="form-control form-select" id="article-cat">
+              <option>Médecine Traditionnelle</option><option>Spiritualité Africaine</option><option>Bien-être Holistique</option><option>Plantes & Remèdes</option><option>Nutrition Africaine</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Statut</label>
+            <select class="form-control form-select" id="article-status">
+              <option value="published">Publié</option><option value="draft">Brouillon</option><option value="scheduled">Planifié</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Temps de lecture</label>
+            <input class="form-control" type="text" id="article-read-time" placeholder="Ex: 8 min"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description (meta SEO)</label>
+          <textarea class="form-control" id="article-meta-desc" rows="2" placeholder="Description de 150-160 caractères pour le SEO…"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tags</label>
+          <input class="form-control" type="text" id="article-tags" placeholder="plantes, Afrique, médecine traditionnelle… (séparés par des virgules)"/>
+        </div>
+      </div>
+      <!-- Barre d'outils éditeur -->
+      <div class="editor-toolbar">
+        <button class="editor-btn" onclick="formatText('bold')"><strong>G</strong></button>
+        <button class="editor-btn" onclick="formatText('italic')"><em>I</em></button>
+        <button class="editor-btn" onclick="formatText('underline')"><u>S</u></button>
+        <button class="editor-btn" onclick="insertHeading(2)">H2</button>
+        <button class="editor-btn" onclick="insertHeading(3)">H3</button>
+        <button class="editor-btn" onclick="formatText('insertUnorderedList')">• Liste</button>
+        <button class="editor-btn" onclick="formatText('insertOrderedList')">1. Liste</button>
+        <button class="editor-btn" onclick="insertLink()">🔗 Lien</button>
+        <button class="editor-btn" onclick="insertBlockquote()">❝ Citation</button>
+        <button class="editor-btn" onclick="clearFormat()">✗ Effacer</button>
+      </div>
+      <!-- Zone d'édition -->
+      <div id="article-editor" contenteditable="true" style="min-height:300px;padding:var(--space-6) var(--space-8);font-family:var(--font-body);font-size:var(--text-base);line-height:var(--leading-relaxed);outline:none;border:none" data-placeholder="Commencez à rédiger votre article ici…"></div>
+    </div>
+    <div class="modal__footer" style="justify-content:space-between">
+      <button onclick="saveDraft()" class="btn btn--outline-gold">💾 Enregistrer brouillon</button>
+      <div style="display:flex;gap:var(--space-3)">
+        <button onclick="modal.close('editor-modal')" class="btn btn--ghost">Annuler</button>
+        <button onclick="publishArticle()" class="btn btn--primary">🚀 Publier l'article</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/admin.js"></script>
+<script>
+requireAdmin();
+function openArticleEditor(){ document.getElementById('editor-title').textContent='Nouvel article'; document.getElementById('article-title-input').value=''; document.getElementById('article-editor').innerHTML=''; modal.open('editor-modal'); }
+function editArticle(id){ document.getElementById('editor-title').textContent='Modifier l\'article'; modal.open('editor-modal'); }
+function previewArticle(id){ window.open('../pages/blog.html','_blank'); }
+function deleteArticle(id){ if(confirm('Supprimer cet article définitivement ?')) showToast('Article supprimé','warning'); }
+function formatText(cmd){ document.execCommand(cmd, false, null); document.getElementById('article-editor').focus(); }
+function insertHeading(level){ document.execCommand('formatBlock', false, 'h'+level); document.getElementById('article-editor').focus(); }
+function insertLink(){ const url=prompt('URL du lien:'); if(url) document.execCommand('createLink',false,url); }
+function insertBlockquote(){ document.execCommand('formatBlock',false,'blockquote'); }
+function clearFormat(){ document.execCommand('removeFormat',false,null); }
+function saveDraft(){
+  const title=document.getElementById('article-title-input').value;
+  if(!title){showToast('Titre requis','error');return;}
+  showToast('"'+title+'" sauvegardé comme brouillon','success');
+}
+function publishArticle(){
+  const title=document.getElementById('article-title-input').value;
+  const content=document.getElementById('article-editor').innerHTML;
+  if(!title||!content||content.trim().length<50){showToast('Titre et contenu requis (min 50 caractères)','error');return;}
+  showToast('Article "'+title+'" publié avec succès !','success');
+  modal.close('editor-modal');
+}
+// Placeholder
+const editor=document.getElementById('article-editor');
+if(editor){
+  editor.addEventListener('focus',function(){if(!this.textContent.trim())this.innerHTML='';});
+}
+</script>
+</body>
+</html>

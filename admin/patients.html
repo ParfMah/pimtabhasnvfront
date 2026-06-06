@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg"/>
+  <title>Patients — Admin PIMTABHAS</title>
+  <link rel="stylesheet" href="../assets/css/variables.css"/>
+  <link rel="stylesheet" href="../assets/css/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/components.css"/>
+  <link rel="stylesheet" href="../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../assets/css/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/pages.css"/>
+  <style>
+    body{background:var(--color-gray-50);}
+    .patient-avatar{width:40px;height:40px;border-radius:50%;background:var(--color-emerald);display:flex;align-items:center;justify-content:center;color:white;font-family:var(--font-ui);font-weight:bold;font-size:var(--text-sm);flex-shrink:0;}
+    .filter-bar{display:flex;gap:var(--space-3);flex-wrap:wrap;align-items:center;padding:var(--space-5) var(--space-6);background:var(--color-white);border-radius:var(--radius-xl);box-shadow:var(--shadow-sm);margin-bottom:var(--space-6);}
+    .filter-inp{padding:var(--space-2) var(--space-4);border:1px solid var(--color-gray-200);border-radius:var(--radius-lg);font-family:var(--font-ui);font-size:var(--text-sm);background:var(--color-white);}
+  </style>
+  <link rel="stylesheet" href="../assets/css/responsive.css"/>
+  <link rel="stylesheet" href="../assets/css/admin.css"/>
+</head>
+<body>
+<div class="toast-container"></div>
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar__logo"><img src="../assets/images/logo.svg" alt="PIMTABHAS"/></div>
+    <nav class="admin-nav">
+      <div class="admin-nav__section">Principal</div>
+      <a href="dashboard.html" class="admin-nav__item"><span class="admin-nav__icon">🏠</span>Tableau de bord</a>
+      <a href="rendez-vous.html" class="admin-nav__item"><span class="admin-nav__icon">📅</span>Rendez-vous</a>
+      <a href="patients.html" class="admin-nav__item active"><span class="admin-nav__icon">👥</span>Patients</a>
+      <div class="admin-nav__section">Boutique</div>
+      <a href="commandes.html" class="admin-nav__item"><span class="admin-nav__icon">📦</span>Commandes</a>
+      <a href="produits.html" class="admin-nav__item"><span class="admin-nav__icon">🌿</span>Produits</a>
+      <div class="admin-nav__section">Contenu</div>
+      <a href="blog.html" class="admin-nav__item"><span class="admin-nav__icon">✍️</span>Blog</a>
+      <a href="messages.html" class="admin-nav__item"><span class="admin-nav__icon">💬</span>Messages</a>
+      <div class="admin-nav__section">Paramètres</div>
+      <a href="../index.html" class="admin-nav__item" target="_blank"><span class="admin-nav__icon">🌐</span>Voir le site</a>
+      <a href="../pages/espace-client.html" class="admin-nav__item" onclick="auth.logout();return false"><span class="admin-nav__icon">🚪</span>Déconnexion</a>
+    </nav>
+  </aside>
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <h1 style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-night)">👥 Gestion des Patients</h1>
+      <div style="display:flex;gap:var(--space-3)">
+        <button onclick="exportPatients()" class="btn btn--outline-gold btn--sm">📤 Exporter</button>
+        <button onclick="openNewPatientModal()" class="btn btn--primary btn--sm">+ Nouveau patient</button>
+      </div>
+    </div>
+    <div class="admin-content">
+      <div class="grid grid--4" style="gap:var(--space-4);margin-bottom:var(--space-8)">
+        <div class="admin-stat-card"><div class="admin-stat-icon admin-stat-icon--emerald">👥</div><div><div class="admin-stat-num" data-count="1247">0</div><div class="admin-stat-label">Total patients</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon admin-stat-icon--gold">🆕</div><div><div class="admin-stat-num">+47</div><div class="admin-stat-label">Nouveaux ce mois</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon admin-stat-icon--bronze">🌍</div><div><div class="admin-stat-num">23</div><div class="admin-stat-label">Pays représentés</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon admin-stat-icon--blue">🔄</div><div><div class="admin-stat-num">68%</div><div class="admin-stat-label">Patients récurrents</div></div></div>
+      </div>
+      <div class="filter-bar">
+        <input class="filter-inp" type="text" id="patient-search" placeholder="🔍 Nom, email ou téléphone…" oninput="filterPatients()" style="flex:1;min-width:200px"/>
+        <select class="filter-inp" id="patient-country" onchange="filterPatients()">
+          <option value="">Tous les pays</option>
+          <option>Bénin</option><option>Togo</option><option>Burkina Faso</option><option>Mali</option><option>Sénégal</option><option>France</option><option>Canada</option>
+        </select>
+        <select class="filter-inp" id="patient-type" onchange="filterPatients()">
+          <option value="">Tous les profils</option>
+          <option value="active">Actifs</option><option value="new">Nouveaux</option><option value="vip">VIP</option>
+        </select>
+        <select class="filter-inp" id="patient-sort" onchange="filterPatients()">
+          <option>Plus récents</option><option>Alphabétique</option><option>Plus de RDV</option>
+        </select>
+      </div>
+      <div class="admin-table">
+        <div style="overflow-x:auto">
+          <table style="min-width:850px" id="patients-table">
+            <thead><tr>
+              <th style="width:40px"><input type="checkbox" onclick="selectAll(this)" style="cursor:pointer"/></th>
+              <th>Patient</th><th>Contact</th><th>Pays</th><th>RDV</th><th>Dernière visite</th><th>Statut</th><th>Actions</th>
+            </tr></thead>
+            <tbody id="patients-tbody">
+              <tr><td><input type="checkbox" style="cursor:pointer"/></td>
+                <td><div style="display:flex;align-items:center;gap:var(--space-3)"><div class="patient-avatar">A</div><div><div style="font-family:var(--font-ui);font-weight:600;font-size:var(--text-sm)">Aminata DIALLO</div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">ID: PAT-0001</div></div></div></td>
+                <td><div style="font-size:var(--text-xs)">✉ aminata@email.com<br/>📞 +221 77 000 0000</div></td>
+                <td>🇸🇳 Sénégal</td>
+                <td style="text-align:center"><span style="font-weight:bold;color:var(--color-emerald)">8</span></td>
+                <td style="font-size:var(--text-xs);color:var(--color-gray-500)">20 jan. 2025</td>
+                <td><span style="background:var(--color-success-bg);color:var(--color-success);font-size:10px;padding:2px 8px;border-radius:var(--radius-full);font-weight:bold">Actif</span></td>
+                <td style="white-space:nowrap"><button onclick="viewPatientDetail('PAT-0001')" class="btn btn--outline-gold btn--sm">Fiche</button> <button class="btn btn--ghost btn--sm">✉</button></td>
+              </tr>
+              <tr><td><input type="checkbox" style="cursor:pointer"/></td>
+                <td><div style="display:flex;align-items:center;gap:var(--space-3)"><div class="patient-avatar" style="background:var(--color-bronze)">K</div><div><div style="font-family:var(--font-ui);font-weight:600;font-size:var(--text-sm)">Kofi MENSAH</div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">ID: PAT-0002</div></div></div></td>
+                <td><div style="font-size:var(--text-xs)">✉ kofi@email.com<br/>📞 +228 90 000 000</div></td>
+                <td>🇹🇬 Togo</td>
+                <td style="text-align:center"><span style="font-weight:bold;color:var(--color-emerald)">5</span></td>
+                <td style="font-size:var(--text-xs);color:var(--color-gray-500)">15 jan. 2025</td>
+                <td><span style="background:var(--color-success-bg);color:var(--color-success);font-size:10px;padding:2px 8px;border-radius:var(--radius-full);font-weight:bold">Actif</span></td>
+                <td style="white-space:nowrap"><button onclick="viewPatientDetail('PAT-0002')" class="btn btn--outline-gold btn--sm">Fiche</button> <button class="btn btn--ghost btn--sm">✉</button></td>
+              </tr>
+              <tr><td><input type="checkbox" style="cursor:pointer"/></td>
+                <td><div style="display:flex;align-items:center;gap:var(--space-3)"><div class="patient-avatar" style="background:var(--color-gold-dark)">F</div><div><div style="font-family:var(--font-ui);font-weight:600;font-size:var(--text-sm)">Fatoumata BARRY <span style="background:var(--color-gold-pale);color:var(--color-gold-dark);font-size:9px;padding:1px 6px;border-radius:var(--radius-full);font-weight:bold;margin-left:4px">VIP</span></div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">ID: PAT-0003</div></div></div></td>
+                <td><div style="font-size:var(--text-xs)">✉ fatoumata@email.com<br/>📞 +33 6 00 000 000</div></td>
+                <td>🇫🇷 France</td>
+                <td style="text-align:center"><span style="font-weight:bold;color:var(--color-emerald)">23</span></td>
+                <td style="font-size:var(--text-xs);color:var(--color-gray-500)">20 jan. 2025</td>
+                <td><span style="background:var(--color-gold-pale);color:var(--color-gold-dark);font-size:10px;padding:2px 8px;border-radius:var(--radius-full);font-weight:bold">VIP</span></td>
+                <td style="white-space:nowrap"><button onclick="viewPatientDetail('PAT-0003')" class="btn btn--outline-gold btn--sm">Fiche</button> <button class="btn btn--ghost btn--sm">✉</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-4) var(--space-6);border-top:1px solid var(--color-gray-100)">
+          <span style="font-size:var(--text-xs);color:var(--color-gray-400)">Affichage 1–20 sur 1247 patients</span>
+          <div class="pagination" style="padding:0"><a class="page-btn active" href="#">1</a><a class="page-btn" href="#">2</a><a class="page-btn" href="#">3</a><span class="page-btn">…</span><a class="page-btn" href="#">63</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal fiche patient -->
+<div class="modal-backdrop" id="modal-patient">
+  <div class="modal" style="max-width:700px">
+    <div class="modal__header"><h3 class="modal__title" id="modal-patient-title">Fiche Patient</h3><button class="modal__close" onclick="modal.close('modal-patient')">✕</button></div>
+    <div class="modal__body" id="modal-patient-body">
+      <div class="grid grid--2" style="gap:var(--space-6)">
+        <div>
+          <div class="section-label section-label--dark" style="margin-bottom:var(--space-4)">Informations personnelles</div>
+          <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+            <div style="display:flex;justify-content:space-between"><span style="font-size:var(--text-xs);color:var(--color-gray-400)">Nom complet</span><span style="font-size:var(--text-sm);font-weight:600">Fatoumata BARRY</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="font-size:var(--text-xs);color:var(--color-gray-400)">Email</span><span style="font-size:var(--text-sm)">fatoumata@email.com</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="font-size:var(--text-xs);color:var(--color-gray-400)">Téléphone</span><span style="font-size:var(--text-sm)">+33 6 00 000 000</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="font-size:var(--text-xs);color:var(--color-gray-400)">Pays</span><span style="font-size:var(--text-sm)">🇫🇷 France (Paris)</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="font-size:var(--text-xs);color:var(--color-gray-400)">Patient depuis</span><span style="font-size:var(--text-sm)">Mars 2022</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label section-label--dark" style="margin-bottom:var(--space-4)">Statistiques</div>
+          <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+            <div style="display:flex;justify-content:space-between"><span style="font-size:var(--text-xs);color:var(--color-gray-400)">Rendez-vous total</span><span style="font-size:var(--text-sm);font-weight:bold;color:var(--color-emerald)">23</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="font-size:var(--text-xs);color:var(--color-gray-400)">Commandes</span><span style="font-size:var(--text-sm);font-weight:bold;color:var(--color-emerald)">8</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="font-size:var(--text-xs);color:var(--color-gray-400)">Dépenses totales</span><span style="font-size:var(--text-sm);font-weight:bold;color:var(--color-gold)">784 500 FCFA</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="font-size:var(--text-xs);color:var(--color-gray-400)">Statut</span><span style="background:var(--color-gold-pale);color:var(--color-gold-dark);font-size:10px;padding:2px 8px;border-radius:var(--radius-full);font-weight:bold">VIP</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:var(--space-6)">
+        <div class="section-label section-label--dark" style="margin-bottom:var(--space-4)">Notes du praticien</div>
+        <textarea class="form-control" rows="4" placeholder="Ajouter une note confidentielle sur ce patient…">Patiente suivie depuis 2022, très régulière et assidûe. Programme de suivi mensuel en cours. Excellente réceptivité aux recommandations.</textarea>
+        <button onclick="showToast('Note sauvegardée','success')" class="btn btn--secondary btn--sm" style="margin-top:var(--space-3)">Sauvegarder la note</button>
+      </div>
+    </div>
+    <div class="modal__footer">
+      <button onclick="modal.close('modal-patient')" class="btn btn--outline-gold">Fermer</button>
+      <a href="rendez-vous.html?new=1&patient=FAT-003" class="btn btn--primary">+ Nouveau RDV</a>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/admin.js"></script>
+<script>
+requireAdmin();
+function filterPatients(){ /* filter logic */ }
+function selectAll(cb){ document.querySelectorAll('tbody input[type=checkbox]').forEach(c=>c.checked=cb.checked); }
+function viewPatientDetail(id){ modal.open('modal-patient'); }
+function openNewPatientModal(){ showToast('Formulaire nouveau patient — bientôt disponible','info'); }
+function exportPatients(){ showToast('Export CSV des patients lancé','success'); }
+</script>
+</body>
+</html>

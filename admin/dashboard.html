@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg"/>
+  <title>Administration — PIMTABHAS</title>
+  <link rel="stylesheet" href="../assets/css/variables.css"/>
+  <link rel="stylesheet" href="../assets/css/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/components.css"/>
+  <link rel="stylesheet" href="../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../assets/css/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/pages.css"/>
+  <style>
+    body{background:var(--color-gray-50);}
+    .chart-bar{height:200px;display:flex;align-items:flex-end;gap:var(--space-2);padding:var(--space-4) 0;}
+    .bar{flex:1;border-radius:var(--radius-sm) var(--radius-sm) 0 0;transition:height 1s cubic-bezier(.16,1,.3,1);min-width:20px;}
+    .bar--emerald{background:linear-gradient(to top,var(--color-emerald-dark),var(--color-emerald-light));}
+    .bar--gold{background:linear-gradient(to top,var(--color-gold-dark),var(--color-gold-light));}
+    .chart-labels{display:flex;gap:var(--space-2);}
+    .chart-label{flex:1;text-align:center;font-family:var(--font-ui);font-size:10px;color:var(--color-gray-400);min-width:20px;}
+    .recent-activity{max-height:320px;overflow-y:auto;}
+    .activity-item{display:flex;align-items:flex-start;gap:var(--space-3);padding:var(--space-3) 0;border-bottom:1px solid var(--color-gray-50);}
+    .activity-item:last-child{border-bottom:none;}
+    .activity-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px;}
+    .activity-dot--emerald{background:var(--color-emerald);}
+    .activity-dot--gold{background:var(--color-gold);}
+    .activity-dot--bronze{background:var(--color-bronze);}
+    .activity-dot--blue{background:var(--color-info);}
+    .activity-text{font-family:var(--font-ui);font-size:var(--text-xs);color:var(--color-gray-700);line-height:1.5;}
+    .activity-time{font-family:var(--font-ui);font-size:10px;color:var(--color-gray-400);white-space:nowrap;}
+    .quick-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-3);}
+    .quick-action{background:var(--color-white);border-radius:var(--radius-xl);padding:var(--space-5);text-align:center;border:1px solid var(--color-gray-100);cursor:pointer;transition:all var(--transition-base);text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:var(--space-2);}
+    .quick-action:hover{border-color:var(--color-emerald);background:var(--color-emerald-pale);transform:translateY(-2px);}
+    .quick-action-icon{font-size:1.75rem;}
+    .quick-action-label{font-family:var(--font-ui);font-size:var(--text-xs);font-weight:var(--weight-semibold);color:var(--color-night);}
+    .top-products td:first-child{font-size:1.5rem;}
+    @media(max-width:1024px){.admin-layout{grid-template-columns:1fr;}.admin-sidebar{display:none;}.quick-actions{grid-template-columns:repeat(2,1fr);}}
+  </style>
+  <link rel="stylesheet" href="../assets/css/responsive.css"/>
+  <link rel="stylesheet" href="../assets/css/admin.css"/>
+</head>
+<body>
+<div class="toast-container"></div>
+
+<div class="admin-layout">
+  <!-- SIDEBAR -->
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <div class="admin-sidebar__logo">
+      <img src="../assets/images/logo.svg" alt="PIMTABHAS"/>
+      <div style="font-family:var(--font-accent);font-size:var(--text-xs);color:rgba(212,175,55,.6);letter-spacing:.15em;text-transform:uppercase;margin-top:var(--space-2)">Administration</div>
+    </div>
+    <nav class="admin-nav">
+      <div class="admin-nav__section">Principal</div>
+      <a href="dashboard.html" class="admin-nav__item active"><span class="admin-nav__icon">🏠</span>Tableau de bord</a>
+      <a href="rendez-vous.html" class="admin-nav__item"><span class="admin-nav__icon">📅</span>Rendez-vous</a>
+      <a href="patients.html" class="admin-nav__item"><span class="admin-nav__icon">👥</span>Patients</a>
+
+      <div class="admin-nav__section">Boutique</div>
+      <a href="commandes.html" class="admin-nav__item"><span class="admin-nav__icon">📦</span>Commandes</a>
+      <a href="produits.html" class="admin-nav__item"><span class="admin-nav__icon">🌿</span>Produits</a>
+
+      <div class="admin-nav__section">Contenu</div>
+      <a href="blog.html" class="admin-nav__item"><span class="admin-nav__icon">✍️</span>Blog</a>
+      <a href="messages.html" class="admin-nav__item"><span class="admin-nav__icon">💬</span>Messages <span id="msg-badge" style="background:var(--color-error);color:white;border-radius:var(--radius-full);padding:2px 7px;font-size:10px;margin-left:auto">3</span></a>
+
+      <div class="admin-nav__section">Paramètres</div>
+      <a href="settings.html" class="admin-nav__item"><span class="admin-nav__icon">⚙️</span>Paramètres</a>
+      <a href="../index.html" class="admin-nav__item" target="_blank"><span class="admin-nav__icon">🌐</span>Voir le site</a>
+      <a href="../pages/espace-client.html" class="admin-nav__item" onclick="logoutAdmin();return false"><span class="admin-nav__icon">🚪</span>Déconnexion</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="admin-main">
+    <!-- TOPBAR -->
+    <div class="admin-topbar">
+      <div style="display:flex;align-items:center;gap:var(--space-4)">
+        <button id="admin-burger" onclick="toggleAdminSidebar()" style="background:none;border:none;cursor:pointer;font-size:1.5rem;display:none">☰</button>
+        <div>
+          <h1 style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-night);line-height:1">Tableau de bord</h1>
+          <div style="font-family:var(--font-ui);font-size:var(--text-xs);color:var(--color-gray-400)" id="admin-date"></div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:var(--space-4)">
+        <div style="position:relative">
+          <button onclick="toggleNotifs()" style="background:var(--color-gray-100);border:none;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1.1rem;position:relative">🔔
+            <span style="position:absolute;top:4px;right:4px;width:8px;height:8px;background:var(--color-error);border-radius:50%;border:2px solid white"></span>
+          </button>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--space-3)">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--color-emerald);display:flex;align-items:center;justify-content:center;color:white;font-family:var(--font-ui);font-weight:bold;font-size:var(--text-sm)">A</div>
+          <div><div style="font-family:var(--font-ui);font-size:var(--text-sm);font-weight:var(--weight-semibold);color:var(--color-night)">Admin PIMTABHAS</div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">Administrateur</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="admin-content">
+
+      <!-- STATS CARDS -->
+      <div class="grid grid--4" style="gap:var(--space-5);margin-bottom:var(--space-8)">
+        <div class="admin-stat-card reveal">
+          <div class="admin-stat-icon admin-stat-icon--emerald">👥</div>
+          <div>
+            <div class="admin-stat-num" id="stat-patients" data-count="1247">0</div>
+            <div class="admin-stat-label">Patients total</div>
+            <div class="admin-stat-trend admin-stat-trend--up">↑ +12 ce mois</div>
+          </div>
+        </div>
+        <div class="admin-stat-card reveal delay-200">
+          <div class="admin-stat-icon admin-stat-icon--gold">📅</div>
+          <div>
+            <div class="admin-stat-num" id="stat-rdv" data-count="38">0</div>
+            <div class="admin-stat-label">Rendez-vous (30j)</div>
+            <div class="admin-stat-trend admin-stat-trend--up">↑ +8% vs mois dernier</div>
+          </div>
+        </div>
+        <div class="admin-stat-card reveal delay-300">
+          <div class="admin-stat-icon admin-stat-icon--bronze">📦</div>
+          <div>
+            <div class="admin-stat-num" id="stat-orders">147</div>
+            <div class="admin-stat-label">Commandes (30j)</div>
+            <div class="admin-stat-trend admin-stat-trend--up">↑ +23% vs mois dernier</div>
+          </div>
+        </div>
+        <div class="admin-stat-card reveal delay-400">
+          <div class="admin-stat-icon admin-stat-icon--blue">💰</div>
+          <div>
+            <div class="admin-stat-num" id="stat-revenue">2,4M</div>
+            <div class="admin-stat-label">Revenus FCFA (30j)</div>
+            <div class="admin-stat-trend admin-stat-trend--up">↑ +18% vs mois dernier</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACTIONS RAPIDES -->
+      <div class="admin-table" style="padding:var(--space-6);margin-bottom:var(--space-8)">
+        <h3 style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night);margin-bottom:var(--space-5)">⚡ Actions Rapides</h3>
+        <div class="quick-actions">
+          <a href="rendez-vous.html?new=1" class="quick-action"><span class="quick-action-icon">📅</span><span class="quick-action-label">Nouveau RDV</span></a>
+          <a href="produits.html?new=1" class="quick-action"><span class="quick-action-icon">🌿</span><span class="quick-action-label">Ajouter produit</span></a>
+          <a href="blog.html?new=1" class="quick-action"><span class="quick-action-icon">✍️</span><span class="quick-action-label">Nouvel article</span></a>
+          <a href="messages.html" class="quick-action"><span class="quick-action-icon">💬</span><span class="quick-action-label">Messages (3)</span></a>
+        </div>
+      </div>
+
+      <div class="grid grid--2" style="gap:var(--space-6);margin-bottom:var(--space-8)">
+
+        <!-- GRAPHIQUE REVENUS -->
+        <div class="admin-table" style="padding:var(--space-6)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-5)">
+            <h3 style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night)">📊 Revenus mensuels</h3>
+            <select style="font-family:var(--font-ui);font-size:var(--text-xs);border:1px solid var(--color-gray-200);border-radius:var(--radius-md);padding:var(--space-1) var(--space-3)">
+              <option>2025</option><option>2024</option>
+            </select>
+          </div>
+          <div class="chart-bar" id="revenue-chart">
+            <div class="bar bar--emerald" style="height:60%" title="Jan: 1.8M FCFA"></div>
+            <div class="bar bar--emerald" style="height:75%" title="Fév: 2.1M FCFA"></div>
+            <div class="bar bar--emerald" style="height:55%" title="Mar: 1.6M FCFA"></div>
+            <div class="bar bar--emerald" style="height:85%" title="Avr: 2.4M FCFA"></div>
+            <div class="bar bar--emerald" style="height:70%" title="Mai: 2.0M FCFA"></div>
+            <div class="bar bar--emerald" style="height:90%" title="Jun: 2.6M FCFA"></div>
+            <div class="bar bar--gold" style="height:95%" title="Jul: 2.7M FCFA (en cours)"></div>
+            <div class="bar bar--emerald" style="height:30%;opacity:.3"></div>
+            <div class="bar bar--emerald" style="height:30%;opacity:.3"></div>
+            <div class="bar bar--emerald" style="height:30%;opacity:.3"></div>
+            <div class="bar bar--emerald" style="height:30%;opacity:.3"></div>
+            <div class="bar bar--emerald" style="height:30%;opacity:.3"></div>
+          </div>
+          <div class="chart-labels">
+            <div class="chart-label">Jan</div><div class="chart-label">Fév</div>
+            <div class="chart-label">Mar</div><div class="chart-label">Avr</div>
+            <div class="chart-label">Mai</div><div class="chart-label">Jun</div>
+            <div class="chart-label" style="color:var(--color-gold);font-weight:bold">Jul</div>
+            <div class="chart-label">Aoû</div><div class="chart-label">Sep</div>
+            <div class="chart-label">Oct</div><div class="chart-label">Nov</div>
+            <div class="chart-label">Déc</div>
+          </div>
+          <div style="display:flex;gap:var(--space-6);margin-top:var(--space-4)">
+            <div><div style="font-family:var(--font-display);font-size:var(--text-2xl);font-weight:bold;color:var(--color-emerald)">16,2M</div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">FCFA cumul 2025</div></div>
+            <div><div style="font-family:var(--font-display);font-size:var(--text-2xl);font-weight:bold;color:var(--color-gold)">+23%</div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">vs 2024</div></div>
+          </div>
+        </div>
+
+        <!-- ACTIVITÉ RÉCENTE -->
+        <div class="admin-table" style="padding:var(--space-6)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-5)">
+            <h3 style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night)">🔔 Activité récente</h3>
+            <button onclick="loadActivity()" style="background:none;border:none;cursor:pointer;color:var(--color-emerald);font-size:var(--text-xs);font-family:var(--font-ui)">Actualiser</button>
+          </div>
+          <div class="recent-activity" id="activity-list">
+            <div class="activity-item"><div class="activity-dot activity-dot--emerald"></div><div style="flex:1"><div class="activity-text">Nouvelle réservation — <strong>Aminata D.</strong> · Consultation Traditionnelle · 20 jan. 10h00</div></div><div class="activity-time">Il y a 5 min</div></div>
+            <div class="activity-item"><div class="activity-dot activity-dot--gold"></div><div style="flex:1"><div class="activity-text">Commande <strong>CMD-2025-000147</strong> — Coffret Bien-être × 1 · 45 000 FCFA</div></div><div class="activity-time">Il y a 18 min</div></div>
+            <div class="activity-item"><div class="activity-dot activity-dot--blue"></div><div style="flex:1"><div class="activity-text">Nouveau patient inscrit — <strong>Kofi M.</strong> · Lomé, Togo</div></div><div class="activity-time">Il y a 34 min</div></div>
+            <div class="activity-item"><div class="activity-dot activity-dot--bronze"></div><div style="flex:1"><div class="activity-text">Message reçu de <strong>Fatoumata B.</strong> (Paris) — Question sur consultation spirituelle</div></div><div class="activity-time">Il y a 1h</div></div>
+            <div class="activity-item"><div class="activity-dot activity-dot--emerald"></div><div style="flex:1"><div class="activity-text">Commande <strong>CMD-2025-000146</strong> expédiée vers la France · Suivi DHL activé</div></div><div class="activity-time">Il y a 2h</div></div>
+            <div class="activity-item"><div class="activity-dot activity-dot--gold"></div><div style="flex:1"><div class="activity-text">Témoignage soumis par <strong>Saliou K.</strong> — 5 étoiles ★★★★★ (en attente validation)</div></div><div class="activity-time">Il y a 3h</div></div>
+            <div class="activity-item"><div class="activity-dot activity-dot--blue"></div><div style="flex:1"><div class="activity-text">Newsletter envoyée à <strong>3 847 abonnés</strong> — Taux d'ouverture : 42%</div></div><div class="activity-time">Il y a 5h</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid--2" style="gap:var(--space-6);margin-bottom:var(--space-8)">
+
+        <!-- RDV DU JOUR -->
+        <div class="admin-table" style="padding:var(--space-6)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-5)">
+            <h3 style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night)">📅 Rendez-vous du jour</h3>
+            <a href="rendez-vous.html" style="font-size:var(--text-xs);color:var(--color-emerald);font-family:var(--font-ui)">Voir tout →</a>
+          </div>
+          <div id="today-appointments" style="display:flex;flex-direction:column;gap:var(--space-3)">
+            <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--color-emerald-pale);border-radius:var(--radius-lg);border-left:3px solid var(--color-emerald)">
+              <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-emerald);font-weight:bold;width:44px;flex-shrink:0">08:00</span>
+              <div style="flex:1"><div style="font-family:var(--font-ui);font-size:var(--text-sm);font-weight:600">Aminata D. — Consultation Trad.</div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">En ligne · 45 min</div></div>
+              <span style="background:var(--color-success-bg);color:var(--color-success);font-size:10px;font-family:var(--font-ui);font-weight:bold;padding:2px 8px;border-radius:var(--radius-full)">Confirmé</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--color-gold-pale);border-radius:var(--radius-lg);border-left:3px solid var(--color-gold)">
+              <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-gold-dark);font-weight:bold;width:44px;flex-shrink:0">10:30</span>
+              <div style="flex:1"><div style="font-family:var(--font-ui);font-size:var(--text-sm);font-weight:600">Moussa T. — Accompagnement Spirituel</div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">En ligne · 90 min</div></div>
+              <span style="background:var(--color-warning-bg);color:var(--color-warning);font-size:10px;font-family:var(--font-ui);font-weight:bold;padding:2px 8px;border-radius:var(--radius-full)">En attente</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--color-gray-50);border-radius:var(--radius-lg);border-left:3px solid var(--color-gray-200)">
+              <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-gray-400);font-weight:bold;width:44px;flex-shrink:0">14:00</span>
+              <div style="flex:1"><div style="font-family:var(--font-ui);font-size:var(--text-sm);font-weight:600">Fatoumata B. — Consultation Divinatoire</div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">Téléphone · 45 min</div></div>
+              <span style="background:var(--color-success-bg);color:var(--color-success);font-size:10px;font-family:var(--font-ui);font-weight:bold;padding:2px 8px;border-radius:var(--radius-full)">Confirmé</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--color-gray-50);border-radius:var(--radius-lg);border-left:3px solid var(--color-gray-200)">
+              <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-gray-400);font-weight:bold;width:44px;flex-shrink:0">16:00</span>
+              <div style="flex:1"><div style="font-family:var(--font-ui);font-size:var(--text-sm);font-weight:600">Grâce M. — Consultation Traditionnelle</div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">Visio · 60 min</div></div>
+              <span style="background:var(--color-success-bg);color:var(--color-success);font-size:10px;font-family:var(--font-ui);font-weight:bold;padding:2px 8px;border-radius:var(--radius-full)">Confirmé</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TOP PRODUITS -->
+        <div class="admin-table" style="padding:var(--space-6)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-5)">
+            <h3 style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night)">🌿 Top Produits (30j)</h3>
+            <a href="produits.html" style="font-size:var(--text-xs);color:var(--color-emerald);font-family:var(--font-ui)">Gérer →</a>
+          </div>
+          <table class="top-products" style="width:100%">
+            <thead><tr style="font-family:var(--font-ui);font-size:var(--text-xs);color:var(--color-gray-400);text-transform:uppercase;letter-spacing:.05em">
+              <th style="padding:var(--space-2) var(--space-3);text-align:left;font-weight:600">Produit</th>
+              <th style="padding:var(--space-2) var(--space-3);text-align:right;font-weight:600">Ventes</th>
+              <th style="padding:var(--space-2) var(--space-3);text-align:right;font-weight:600">Revenus</th>
+            </tr></thead>
+            <tbody style="font-family:var(--font-ui);font-size:var(--text-sm)">
+              <tr style="border-top:1px solid var(--color-gray-50)"><td style="padding:var(--space-3)">🌿 Tisane Équilibre Vital</td><td style="padding:var(--space-3);text-align:right;font-weight:600">89</td><td style="padding:var(--space-3);text-align:right;color:var(--color-emerald);font-weight:600">1 112 500</td></tr>
+              <tr style="border-top:1px solid var(--color-gray-50)"><td style="padding:var(--space-3)">💎 Coffret Bien-être</td><td style="padding:var(--space-3);text-align:right;font-weight:600">34</td><td style="padding:var(--space-3);text-align:right;color:var(--color-emerald);font-weight:600">1 530 000</td></tr>
+              <tr style="border-top:1px solid var(--color-gray-50)"><td style="padding:var(--space-3)">🍶 Huile Sacrée</td><td style="padding:var(--space-3);text-align:right;font-weight:600">67</td><td style="padding:var(--space-3);text-align:right;color:var(--color-emerald);font-weight:600">1 206 000</td></tr>
+              <tr style="border-top:1px solid var(--color-gray-50)"><td style="padding:var(--space-3)">🌾 Poudre Purifiante</td><td style="padding:var(--space-3);text-align:right;font-weight:600">102</td><td style="padding:var(--space-3);text-align:right;color:var(--color-emerald);font-weight:600">969 000</td></tr>
+              <tr style="border-top:1px solid var(--color-gray-50)"><td style="padding:var(--space-3)">🕯️ Encens Purification</td><td style="padding:var(--space-3);text-align:right;font-weight:600">156</td><td style="padding:var(--space-3);text-align:right;color:var(--color-emerald);font-weight:600">1 014 000</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- COMMANDES RÉCENTES -->
+      <div class="admin-table" style="margin-bottom:var(--space-8)">
+        <div style="padding:var(--space-5) var(--space-6);border-bottom:1px solid var(--color-gray-100);display:flex;justify-content:space-between;align-items:center">
+          <h3 style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night)">📦 Commandes récentes</h3>
+          <a href="commandes.html" class="btn btn--outline-gold btn--sm">Voir toutes les commandes</a>
+        </div>
+        <div style="overflow-x:auto">
+          <table style="min-width:700px">
+            <thead>
+              <tr>
+                <th>N° Commande</th><th>Client</th><th>Pays</th><th>Montant</th><th>Statut</th><th>Date</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="recent-orders-table">
+              <tr><td><span style="font-family:var(--font-mono);font-size:var(--text-xs)">CMD-2025-000147</span></td><td>Fatoumata B.</td><td>🇫🇷 France</td><td style="font-weight:600;color:var(--color-emerald)">45 000 FCFA</td><td><span style="background:var(--color-warning-bg);color:var(--color-warning);font-size:10px;padding:3px 8px;border-radius:var(--radius-full);font-weight:bold">En préparation</span></td><td style="color:var(--color-gray-400);font-size:var(--text-xs)">Aujourd'hui 10:23</td><td><button onclick="viewOrder('CMD-2025-000147')" class="btn btn--ghost btn--sm" style="font-size:var(--text-xs)">Voir</button></td></tr>
+              <tr><td><span style="font-family:var(--font-mono);font-size:var(--text-xs)">CMD-2025-000146</span></td><td>Kofi M.</td><td>🇹🇬 Togo</td><td style="font-weight:600;color:var(--color-emerald)">22 000 FCFA</td><td><span style="background:var(--color-success-bg);color:var(--color-success);font-size:10px;padding:3px 8px;border-radius:var(--radius-full);font-weight:bold">Expédiée</span></td><td style="color:var(--color-gray-400);font-size:var(--text-xs)">Hier 15:47</td><td><button onclick="viewOrder('CMD-2025-000146')" class="btn btn--ghost btn--sm" style="font-size:var(--text-xs)">Voir</button></td></tr>
+              <tr><td><span style="font-family:var(--font-mono);font-size:var(--text-xs)">CMD-2025-000145</span></td><td>Isabelle O.</td><td>🇨🇦 Canada</td><td style="font-weight:600;color:var(--color-emerald)">67 500 FCFA</td><td><span style="background:var(--color-success-bg);color:var(--color-success);font-size:10px;padding:3px 8px;border-radius:var(--radius-full);font-weight:bold">Livrée</span></td><td style="color:var(--color-gray-400);font-size:var(--text-xs)">Il y a 2 jours</td><td><button onclick="viewOrder('CMD-2025-000145')" class="btn btn--ghost btn--sm" style="font-size:var(--text-xs)">Voir</button></td></tr>
+              <tr><td><span style="font-family:var(--font-mono);font-size:var(--text-xs)">CMD-2025-000144</span></td><td>Oumar C.</td><td>🇲🇱 Mali</td><td style="font-weight:600;color:var(--color-emerald)">15 000 FCFA</td><td><span style="background:var(--color-info-bg);color:var(--color-info);font-size:10px;padding:3px 8px;border-radius:var(--radius-full);font-weight:bold">Confirmée</span></td><td style="color:var(--color-gray-400);font-size:var(--text-xs)">Il y a 3 jours</td><td><button onclick="viewOrder('CMD-2025-000144')" class="btn btn--ghost btn--sm" style="font-size:var(--text-xs)">Voir</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- RÉPARTITION PAYS -->
+      <div class="admin-table" style="padding:var(--space-6)">
+        <h3 style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night);margin-bottom:var(--space-5)">🌍 Répartition géographique des clients</h3>
+        <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+          <div style="display:flex;align-items:center;gap:var(--space-4)"><span style="font-size:1.25rem;width:28px">🇧🇯</span><span style="font-family:var(--font-ui);font-size:var(--text-sm);width:120px">Bénin</span><div style="flex:1;height:8px;background:var(--color-gray-100);border-radius:var(--radius-full);overflow:hidden"><div style="height:100%;width:34%;background:var(--color-emerald);border-radius:var(--radius-full)"></div></div><span style="font-family:var(--font-ui);font-size:var(--text-xs);font-weight:bold;color:var(--color-gray-600);width:36px;text-align:right">34%</span></div>
+          <div style="display:flex;align-items:center;gap:var(--space-4)"><span style="font-size:1.25rem;width:28px">🇫🇷</span><span style="font-family:var(--font-ui);font-size:var(--text-sm);width:120px">France</span><div style="flex:1;height:8px;background:var(--color-gray-100);border-radius:var(--radius-full);overflow:hidden"><div style="height:100%;width:22%;background:var(--color-gold);border-radius:var(--radius-full)"></div></div><span style="font-family:var(--font-ui);font-size:var(--text-xs);font-weight:bold;color:var(--color-gray-600);width:36px;text-align:right">22%</span></div>
+          <div style="display:flex;align-items:center;gap:var(--space-4)"><span style="font-size:1.25rem;width:28px">🇹🇬</span><span style="font-family:var(--font-ui);font-size:var(--text-sm);width:120px">Togo</span><div style="flex:1;height:8px;background:var(--color-gray-100);border-radius:var(--radius-full);overflow:hidden"><div style="height:100%;width:15%;background:var(--color-emerald);border-radius:var(--radius-full)"></div></div><span style="font-family:var(--font-ui);font-size:var(--text-xs);font-weight:bold;color:var(--color-gray-600);width:36px;text-align:right">15%</span></div>
+          <div style="display:flex;align-items:center;gap:var(--space-4)"><span style="font-size:1.25rem;width:28px">🇨🇦</span><span style="font-family:var(--font-ui);font-size:var(--text-sm);width:120px">Canada</span><div style="flex:1;height:8px;background:var(--color-gray-100);border-radius:var(--radius-full);overflow:hidden"><div style="height:100%;width:9%;background:var(--color-bronze);border-radius:var(--radius-full)"></div></div><span style="font-family:var(--font-ui);font-size:var(--text-xs);font-weight:bold;color:var(--color-gray-600);width:36px;text-align:right">9%</span></div>
+          <div style="display:flex;align-items:center;gap:var(--space-4)"><span style="font-size:1.25rem;width:28px">🌍</span><span style="font-family:var(--font-ui);font-size:var(--text-sm);width:120px">Autres</span><div style="flex:1;height:8px;background:var(--color-gray-100);border-radius:var(--radius-full);overflow:hidden"><div style="height:100%;width:20%;background:var(--color-gray-300);border-radius:var(--radius-full)"></div></div><span style="font-family:var(--font-ui);font-size:var(--text-xs);font-weight:bold;color:var(--color-gray-600);width:36px;text-align:right">20%</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/admin.js"></script>
+<script>
+requireAdmin();
+document.getElementById('admin-date').textContent = new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+// Animer compteurs
+document.querySelectorAll('[data-count]').forEach(el => {
+  const target = parseInt(el.dataset.count);
+  let current = 0;
+  const step = target / 60;
+  const timer = setInterval(() => {
+    current = Math.min(current + step, target);
+    el.textContent = Math.floor(current).toLocaleString('fr-FR');
+    if (current >= target) clearInterval(timer);
+  }, 16);
+});
+
+function viewOrder(num) { window.location.href = `commandes.html?order=${num}`; }
+function logoutAdmin() { auth.logout(); }
+function toggleAdminSidebar() { document.getElementById('admin-sidebar').classList.toggle('is-open'); }
+function loadActivity() { showToast('Activité actualisée', 'success'); }
+function toggleNotifs() { showToast('3 nouvelles notifications', 'info'); }
+</script>
+</body>
+</html>

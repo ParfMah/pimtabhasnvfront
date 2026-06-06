@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Boutique PIMTABHAS — produits naturels africains : tisanes, huiles, poudres, coffrets. Livraison internationale."/>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg"/>
+  <title>Boutique — PIMTABHAS</title>
+  <link rel="stylesheet" href="../assets/css/variables.css"/>
+  <link rel="stylesheet" href="../assets/css/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/components.css"/>
+  <link rel="stylesheet" href="../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../assets/css/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/pages.css"/>
+  <style>
+    .shop-page{padding-top:calc(var(--header-height) + var(--space-8));}
+    .shop-header{background:var(--gradient-premium);padding:var(--space-12) var(--space-8);position:relative;overflow:hidden;}
+    .shop-header::before{content:'';position:absolute;inset:0;background-image:url('../assets/images/pattern-adinkra.svg');background-size:120px;background-repeat:repeat;opacity:.04;color:white;}
+    .shop-toolbar{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);padding:var(--space-5) 0;border-bottom:1px solid var(--color-gray-100);margin-bottom:var(--space-8);flex-wrap:wrap;}
+    .shop-results-count{font-family:var(--font-ui);font-size:var(--text-sm);color:var(--color-gray-500);}
+    .shop-sort{display:flex;align-items:center;gap:var(--space-3);}
+    .shop-sort label{font-family:var(--font-ui);font-size:var(--text-sm);color:var(--color-gray-600);white-space:nowrap;}
+    .shop-sort select{padding:var(--space-2) var(--space-8) var(--space-2) var(--space-3);border-radius:var(--radius-lg);border:1px solid var(--color-gray-200);font-family:var(--font-ui);font-size:var(--text-sm);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230F6A4B' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .75rem center;appearance:none;background-color:white;}
+    .view-toggles{display:flex;gap:var(--space-2);}
+    .view-btn{width:36px;height:36px;border-radius:var(--radius-md);border:1px solid var(--color-gray-200);background:var(--color-white);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--color-gray-400);transition:all var(--transition-base);}
+    .view-btn.active{background:var(--color-emerald);color:white;border-color:var(--color-emerald);}
+    .filter-price-range{display:flex;align-items:center;gap:var(--space-2);font-family:var(--font-ui);font-size:var(--text-xs);color:var(--color-gray-500);margin-top:var(--space-2);}
+    .cart-drawer{position:fixed;top:0;right:-420px;width:420px;height:100vh;background:var(--color-white);box-shadow:-4px 0 40px rgba(0,0,0,.15);z-index:var(--z-modal);display:flex;flex-direction:column;transition:right var(--transition-slow);overflow:hidden;}
+    .cart-drawer.is-open{right:0;}
+    .cart-drawer-header{padding:var(--space-6) var(--space-8);border-bottom:1px solid var(--color-gray-100);display:flex;align-items:center;justify-content:space-between;}
+    .cart-drawer-body{flex:1;overflow-y:auto;padding:var(--space-6) var(--space-8);}
+    .cart-drawer-footer{padding:var(--space-6) var(--space-8);border-top:1px solid var(--color-gray-100);background:var(--color-gray-50);}
+    .cart-item{display:flex;gap:var(--space-4);padding:var(--space-4) 0;border-bottom:1px solid var(--color-gray-50);}
+    .cart-item:last-child{border-bottom:none;}
+    .cart-item-img{width:72px;height:72px;border-radius:var(--radius-lg);object-fit:cover;flex-shrink:0;background:var(--color-emerald-pale);display:flex;align-items:center;justify-content:center;font-size:1.75rem;}
+    .cart-item-name{font-family:var(--font-ui);font-weight:var(--weight-semibold);font-size:var(--text-sm);color:var(--color-night);}
+    .cart-item-price{font-family:var(--font-display);font-size:var(--text-base);color:var(--color-emerald);font-weight:bold;}
+    .qty-ctrl{display:flex;align-items:center;gap:var(--space-2);margin-top:var(--space-2);}
+    .qty-btn{width:28px;height:28px;border-radius:var(--radius-full);border:1px solid var(--color-gray-200);background:var(--color-white);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;font-weight:bold;transition:all var(--transition-base);}
+    .qty-btn:hover{background:var(--color-emerald);color:white;border-color:var(--color-emerald);}
+    .qty-val{font-family:var(--font-ui);font-size:var(--text-sm);font-weight:var(--weight-semibold);min-width:24px;text-align:center;}
+    .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.4);backdrop-filter:blur(4px);z-index:calc(var(--z-modal) - 1);opacity:0;pointer-events:none;transition:opacity var(--transition-base);}
+    .backdrop.is-open{opacity:1;pointer-events:auto;}
+    @media(max-width:480px){.cart-drawer{width:100%;right:-100%;}}
+  </style>
+  <link rel="stylesheet" href="../assets/css/responsive.css"/>
+</head>
+<body class="preload">
+<div class="toast-container"></div>
+<div id="site-header-placeholder"></div>
+
+<!-- Panier drawer -->
+<div class="backdrop" id="cart-backdrop" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cart-drawer" role="dialog" aria-label="Panier">
+  <div class="cart-drawer-header">
+    <h2 style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-night)">🛒 Mon Panier</h2>
+    <button onclick="closeCart()" style="background:var(--color-gray-100);border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.25rem;color:var(--color-gray-600)">✕</button>
+  </div>
+  <div class="cart-drawer-body" id="cart-items-list">
+    <div id="cart-empty" style="text-align:center;padding:var(--space-16) 0">
+      <div style="font-size:4rem;margin-bottom:var(--space-4)">🛒</div>
+      <h3 style="font-family:var(--font-display);color:var(--color-gray-400);margin-bottom:var(--space-3)">Votre panier est vide</h3>
+      <p style="font-size:var(--text-sm);color:var(--color-gray-400)">Ajoutez des produits pour commencer vos achats.</p>
+    </div>
+  </div>
+  <div class="cart-drawer-footer" id="cart-footer" style="display:none">
+    <div style="display:flex;justify-content:space-between;margin-bottom:var(--space-3)">
+      <span style="font-family:var(--font-ui);color:var(--color-gray-600)">Sous-total</span>
+      <span id="cart-subtotal" style="font-family:var(--font-display);font-size:var(--text-lg);color:var(--color-night);font-weight:bold">0 FCFA</span>
+    </div>
+    <p style="font-size:var(--text-xs);color:var(--color-gray-400);margin-bottom:var(--space-5)">Frais de livraison calculés à la prochaine étape</p>
+    <a href="checkout.html" class="btn btn--primary" style="width:100%;justify-content:center;margin-bottom:var(--space-3)">Passer la commande</a>
+    <button onclick="closeCart()" class="btn btn--ghost" style="width:100%;justify-content:center;color:var(--color-gray-500)">Continuer mes achats</button>
+  </div>
+</div>
+
+<!-- HERO BOUTIQUE -->
+<div class="shop-page">
+  <div class="shop-header">
+    <div style="max-width:var(--container-xl);margin:0 auto;position:relative;z-index:2">
+      <div class="breadcrumb" style="margin-bottom:var(--space-4)"><a href="../index.html" style="color:rgba(248,246,240,.5)">Accueil</a><span class="breadcrumb__sep">›</span><span style="color:var(--color-gold)">Boutique</span></div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:var(--space-6)">
+        <div>
+          <p class="section-label" style="margin-bottom:var(--space-3)">Produits naturels africains</p>
+          <h1 style="font-family:var(--font-display);font-size:clamp(2rem,5vw,4rem);color:var(--color-cream);line-height:1.05;margin-bottom:var(--space-4)">Notre<br/><em style="color:var(--color-gold)">Boutique</em></h1>
+        </div>
+        <div style="display:flex;gap:var(--space-3);flex-wrap:wrap">
+          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(212,175,55,.2);border-radius:var(--radius-full);padding:var(--space-2) var(--space-5);font-family:var(--font-ui);font-size:var(--text-sm);color:rgba(248,246,240,.7)">🚚 Livraison internationale</div>
+          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(212,175,55,.2);border-radius:var(--radius-full);padding:var(--space-2) var(--space-5);font-family:var(--font-ui);font-size:var(--text-sm);color:rgba(248,246,240,.7)">🌿 100% naturel</div>
+          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(212,175,55,.2);border-radius:var(--radius-full);padding:var(--space-2) var(--space-5);font-family:var(--font-ui);font-size:var(--text-sm);color:rgba(248,246,240,.7)">🔒 Paiement sécurisé</div>
+        </div>
+      </div>
+
+      <!-- Catégories rapides -->
+      <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:var(--space-8)">
+        <button class="cat-tab active" data-cat="all" onclick="filterCat('all',this)">Tout voir</button>
+        <button class="cat-tab" data-cat="tisanes" onclick="filterCat('tisanes',this)">🌿 Tisanes</button>
+        <button class="cat-tab" data-cat="huiles" onclick="filterCat('huiles',this)">🍶 Huiles</button>
+        <button class="cat-tab" data-cat="poudres" onclick="filterCat('poudres',this)">🌾 Poudres</button>
+        <button class="cat-tab" data-cat="coffrets" onclick="filterCat('coffrets',this)">💎 Coffrets</button>
+        <button class="cat-tab" data-cat="encens" onclick="filterCat('encens',this)">🕯️ Encens</button>
+      </div>
+      <style>
+        .cat-tab{padding:var(--space-2) var(--space-5);border-radius:var(--radius-full);font-family:var(--font-ui);font-size:var(--text-sm);font-weight:var(--weight-medium);border:1px solid rgba(212,175,55,.3);background:rgba(255,255,255,.06);color:rgba(248,246,240,.8);cursor:pointer;transition:all var(--transition-base);}
+        .cat-tab:hover,.cat-tab.active{background:var(--color-gold);color:var(--color-night);border-color:var(--color-gold);}
+      </style>
+    </div>
+  </div>
+
+  <!-- CONTENU BOUTIQUE -->
+  <section style="padding:var(--space-10) var(--space-8)">
+    <div class="container">
+      <div class="shop-layout">
+
+        <!-- SIDEBAR FILTRES -->
+        <aside class="shop-sidebar">
+          <div class="shop-filter-title">Filtrer par</div>
+
+          <div class="filter-group">
+            <div class="filter-label">Catégorie</div>
+            <div class="filter-options">
+              <label class="filter-option"><label><input type="checkbox" checked onchange="applyFilters()"/> Tout</label><span class="filter-count">120</span></label>
+              <label class="filter-option"><label><input type="checkbox" data-filter-cat="tisanes" onchange="applyFilters()"/> Tisanes &amp; Infusions</label><span class="filter-count">38</span></label>
+              <label class="filter-option"><label><input type="checkbox" data-filter-cat="huiles" onchange="applyFilters()"/> Huiles &amp; Essences</label><span class="filter-count">24</span></label>
+              <label class="filter-option"><label><input type="checkbox" data-filter-cat="poudres" onchange="applyFilters()"/> Poudres &amp; Préparations</label><span class="filter-count">18</span></label>
+              <label class="filter-option"><label><input type="checkbox" data-filter-cat="coffrets" onchange="applyFilters()"/> Coffrets &amp; Kits</label><span class="filter-count">12</span></label>
+              <label class="filter-option"><label><input type="checkbox" data-filter-cat="encens" onchange="applyFilters()"/> Encens &amp; Rituels</label><span class="filter-count">28</span></label>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-label">Prix (FCFA)</div>
+            <div class="price-range">
+              <input type="range" id="price-min" min="0" max="100000" value="0" step="1000" oninput="updatePriceRange()"/>
+              <input type="range" id="price-max" min="0" max="100000" value="100000" step="1000" oninput="updatePriceRange()"/>
+            </div>
+            <div class="filter-price-range">
+              <span id="price-display">0 – 100 000 FCFA</span>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-label">Note</div>
+            <div class="filter-options">
+              <label class="filter-option"><label><input type="checkbox" data-filter-rating="5" onchange="applyFilters()"/> ★★★★★</label><span class="filter-count">89</span></label>
+              <label class="filter-option"><label><input type="checkbox" data-filter-rating="4" onchange="applyFilters()"/> ★★★★☆ et +</label><span class="filter-count">112</span></label>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <div class="filter-label">Disponibilité</div>
+            <div class="filter-options">
+              <label class="filter-option"><label><input type="checkbox" onchange="applyFilters()"/> En stock</label><span class="filter-count">108</span></label>
+              <label class="filter-option"><label><input type="checkbox" onchange="applyFilters()"/> Promotions</label><span class="filter-count">15</span></label>
+            </div>
+          </div>
+
+          <button onclick="resetFilters()" class="btn btn--outline-gold btn--sm" style="width:100%;justify-content:center;margin-top:var(--space-4)">Réinitialiser les filtres</button>
+        </aside>
+
+        <!-- GRILLE PRODUITS -->
+        <div>
+          <div class="shop-toolbar">
+            <span class="shop-results-count" id="results-count">120 produits</span>
+            <div class="shop-sort">
+              <label for="sort-select">Trier :</label>
+              <select id="sort-select" onchange="sortProducts(this.value)">
+                <option value="popular">Les plus populaires</option>
+                <option value="price-asc">Prix croissant</option>
+                <option value="price-desc">Prix décroissant</option>
+                <option value="rating">Meilleures notes</option>
+                <option value="newest">Nouveautés</option>
+              </select>
+            </div>
+            <div class="view-toggles">
+              <button class="view-btn active" onclick="setView('grid',this)" title="Vue grille">⊞</button>
+              <button class="view-btn" onclick="setView('list',this)" title="Vue liste">☰</button>
+            </div>
+          </div>
+
+          <div class="grid grid--3" id="products-grid" style="gap:var(--space-5)">
+
+            <!-- Produit 1 -->
+            <article class="product-card" data-cat="tisanes" data-price="12500" data-rating="5">
+              <div class="product-card__img-wrap">
+                <div style="background:linear-gradient(135deg,#0F6A4B,#094D36);min-height:220px;display:flex;align-items:center;justify-content:center;font-size:4rem;">🌿</div>
+                <div class="product-card__badges"><span class="badge badge--gold" style="font-size:.65rem">Bestseller</span></div>
+                <div class="product-card__actions">
+                  <button class="product-action-btn" onclick="quickAddToCart('prod-1','Tisane Équilibre Vital',12500,'🌿')" title="Ajouter au panier">🛒</button>
+                  <button class="product-action-btn" title="Favori">♡</button>
+                  <button class="product-action-btn" onclick="openProductModal('prod-1')" title="Aperçu rapide">👁</button>
+                </div>
+              </div>
+              <div class="product-card__body">
+                <div class="product-card__cat">Tisanes &amp; Infusions</div>
+                <h3 class="product-card__name">Tisane Équilibre Vital</h3>
+                <div class="stars" style="font-size:.875rem;margin-bottom:var(--space-2)">★★★★★</div>
+                <p style="font-size:var(--text-xs);color:var(--color-gray-500);margin-bottom:var(--space-3)">Mélange de plantes africaines pour l'équilibre et la vitalité. 50g.</p>
+                <div class="product-card__footer">
+                  <div class="price"><span class="price__currency">FCFA </span>12 500</div>
+                  <button class="btn btn--secondary btn--sm" onclick="quickAddToCart('prod-1','Tisane Équilibre Vital',12500,'🌿')">+ Panier</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-cat="huiles" data-price="18000" data-rating="4">
+              <div class="product-card__img-wrap">
+                <div style="background:linear-gradient(135deg,#8B5E3C,#6D4A2E);min-height:220px;display:flex;align-items:center;justify-content:center;font-size:4rem;">🍶</div>
+                <div class="product-card__badges"><span class="badge badge--emerald" style="font-size:.65rem">Nouveau</span></div>
+                <div class="product-card__actions">
+                  <button class="product-action-btn" onclick="quickAddToCart('prod-2','Huile Sacrée de Protection',18000,'🍶')" title="Ajouter au panier">🛒</button>
+                  <button class="product-action-btn" title="Favori">♡</button>
+                  <button class="product-action-btn" onclick="openProductModal('prod-2')" title="Aperçu rapide">👁</button>
+                </div>
+              </div>
+              <div class="product-card__body">
+                <div class="product-card__cat">Huiles &amp; Essences</div>
+                <h3 class="product-card__name">Huile Sacrée de Protection</h3>
+                <div class="stars" style="font-size:.875rem;margin-bottom:var(--space-2)">★★★★☆</div>
+                <p style="font-size:var(--text-xs);color:var(--color-gray-500);margin-bottom:var(--space-3)">Huile purifiée aux vertus protectrices selon la tradition africaine. 30ml.</p>
+                <div class="product-card__footer">
+                  <div class="price"><span class="price__currency">FCFA </span>18 000</div>
+                  <button class="btn btn--secondary btn--sm" onclick="quickAddToCart('prod-2','Huile Sacrée de Protection',18000,'🍶')">+ Panier</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-cat="poudres" data-price="9500" data-rating="5">
+              <div class="product-card__img-wrap">
+                <div style="background:linear-gradient(135deg,#D4AF37,#B8941E);min-height:220px;display:flex;align-items:center;justify-content:center;font-size:4rem;">🌾</div>
+                <div class="product-card__actions">
+                  <button class="product-action-btn" onclick="quickAddToCart('prod-3','Poudre Purifiante Ancestrale',9500,'🌾')" title="Ajouter au panier">🛒</button>
+                  <button class="product-action-btn" title="Favori">♡</button>
+                </div>
+              </div>
+              <div class="product-card__body">
+                <div class="product-card__cat">Poudres &amp; Préparations</div>
+                <h3 class="product-card__name">Poudre Purifiante Ancestrale</h3>
+                <div class="stars" style="font-size:.875rem;margin-bottom:var(--space-2)">★★★★★</div>
+                <p style="font-size:var(--text-xs);color:var(--color-gray-500);margin-bottom:var(--space-3)">Poudre préparée selon les formules traditionnelles pour la purification. 100g.</p>
+                <div class="product-card__footer">
+                  <div class="price"><span class="price__currency">FCFA </span>9 500</div>
+                  <button class="btn btn--secondary btn--sm" onclick="quickAddToCart('prod-3','Poudre Purifiante Ancestrale',9500,'🌾')">+ Panier</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-cat="coffrets" data-price="45000" data-rating="5">
+              <div class="product-card__img-wrap">
+                <div style="background:linear-gradient(135deg,#0F172A,#1E293B);min-height:220px;display:flex;align-items:center;justify-content:center;font-size:4rem;">💎</div>
+                <div class="product-card__badges"><span class="badge badge--gold" style="font-size:.65rem">Premium</span></div>
+                <div class="product-card__actions">
+                  <button class="product-action-btn" onclick="quickAddToCart('prod-4','Coffret Bien-être Complet',45000,'💎')" title="Ajouter au panier">🛒</button>
+                  <button class="product-action-btn" title="Favori">♡</button>
+                </div>
+              </div>
+              <div class="product-card__body">
+                <div class="product-card__cat">Coffrets &amp; Kits</div>
+                <h3 class="product-card__name">Coffret Bien-être Complet</h3>
+                <div class="stars" style="font-size:.875rem;margin-bottom:var(--space-2)">★★★★★</div>
+                <p style="font-size:var(--text-xs);color:var(--color-gray-500);margin-bottom:var(--space-3)">Kit complet incluant tisane, huile, poudre et encens rituels. Idéal en cadeau.</p>
+                <div class="product-card__footer">
+                  <div class="price"><span class="price__currency">FCFA </span>45 000</div>
+                  <button class="btn btn--secondary btn--sm" onclick="quickAddToCart('prod-4','Coffret Bien-être Complet',45000,'💎')">+ Panier</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-cat="encens" data-price="6500" data-rating="5">
+              <div class="product-card__img-wrap">
+                <div style="background:linear-gradient(135deg,#7C3AED,#2D1B4E);min-height:220px;display:flex;align-items:center;justify-content:center;font-size:4rem;">🕯️</div>
+                <div class="product-card__actions">
+                  <button class="product-action-btn" onclick="quickAddToCart('prod-5','Encens Rituel Purification',6500,'🕯️')" title="Ajouter au panier">🛒</button>
+                  <button class="product-action-btn" title="Favori">♡</button>
+                </div>
+              </div>
+              <div class="product-card__body">
+                <div class="product-card__cat">Encens &amp; Rituels</div>
+                <h3 class="product-card__name">Encens Rituel Purification</h3>
+                <div class="stars" style="font-size:.875rem;margin-bottom:var(--space-2)">★★★★★</div>
+                <p style="font-size:var(--text-xs);color:var(--color-gray-500);margin-bottom:var(--space-3)">Mélange d'encens africains pour la purification et la protection des espaces. Pack de 20.</p>
+                <div class="product-card__footer">
+                  <div class="price"><span class="price__currency">FCFA </span>6 500</div>
+                  <button class="btn btn--secondary btn--sm" onclick="quickAddToCart('prod-5','Encens Rituel Purification',6500,'🕯️')">+ Panier</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card" data-cat="tisanes" data-price="15000" data-rating="5">
+              <div class="product-card__img-wrap">
+                <div style="background:linear-gradient(135deg,#15803d,#065f46);min-height:220px;display:flex;align-items:center;justify-content:center;font-size:4rem;">🌱</div>
+                <div class="product-card__badges"><span class="badge badge--emerald" style="font-size:.65rem">Bio</span></div>
+                <div class="product-card__actions">
+                  <button class="product-action-btn" onclick="quickAddToCart('prod-6','Tisane Moringa Premium',15000,'🌱')" title="Ajouter au panier">🛒</button>
+                  <button class="product-action-btn" title="Favori">♡</button>
+                </div>
+              </div>
+              <div class="product-card__body">
+                <div class="product-card__cat">Tisanes &amp; Infusions</div>
+                <h3 class="product-card__name">Tisane Moringa Premium</h3>
+                <div class="stars" style="font-size:.875rem;margin-bottom:var(--space-2)">★★★★★</div>
+                <p style="font-size:var(--text-xs);color:var(--color-gray-500);margin-bottom:var(--space-3)">Feuilles de Moringa oleifera biologiques séchées à l'ombre. Riche en nutriments. 75g.</p>
+                <div class="product-card__footer">
+                  <div class="price"><span class="price__currency">FCFA </span>15 000</div>
+                  <button class="btn btn--secondary btn--sm" onclick="quickAddToCart('prod-6','Tisane Moringa Premium',15000,'🌱')">+ Panier</button>
+                </div>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination" style="margin-top:var(--space-12)">
+            <a class="page-btn active" href="#">1</a>
+            <a class="page-btn" href="#">2</a>
+            <a class="page-btn" href="#">3</a>
+            <span class="page-btn" style="cursor:default">…</span>
+            <a class="page-btn" href="#">10</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<div id="site-footer-placeholder"></div>
+<script src="../assets/js/components.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+// ── PANIER DRAWER ────────────────────────────────────────────
+function openCart(){
+  document.getElementById('cart-drawer').classList.add('is-open');
+  document.getElementById('cart-backdrop').classList.add('is-open');
+  document.body.style.overflow='hidden';
+  renderCartDrawer();
+}
+function closeCart(){
+  document.getElementById('cart-drawer').classList.remove('is-open');
+  document.getElementById('cart-backdrop').classList.remove('is-open');
+  document.body.style.overflow='';
+}
+
+// Ouvrir panier au clic header
+document.addEventListener('click',e=>{
+  if(e.target.closest('.header-cart')) { e.preventDefault(); openCart(); }
+});
+
+function renderCartDrawer(){
+  const cart=getCart();
+  const empty=document.getElementById('cart-empty');
+  const footer=document.getElementById('cart-footer');
+  const list=document.getElementById('cart-items-list');
+  if(!cart.length){
+    empty.style.display='block'; footer.style.display='none';
+    list.innerHTML=''; list.appendChild(empty); return;
+  }
+  empty.style.display='none'; footer.style.display='block';
+  const items = cart.map(item=>`
+    <div class="cart-item">
+      <div class="cart-item-img">${item.emoji||'🌿'}</div>
+      <div style="flex:1">
+        <div class="cart-item-name">${utils.sanitize(item.name)}</div>
+        <div class="cart-item-price">${(item.price*item.qty).toLocaleString('fr-FR')} FCFA</div>
+        <div class="qty-ctrl">
+          <button class="qty-btn" onclick="changeQty('${item.id}',-1)">−</button>
+          <span class="qty-val">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty('${item.id}',1)">+</button>
+          <button onclick="removeFromCart('${item.id}');renderCartDrawer();updateCartBadge()" style="margin-left:var(--space-2);background:none;border:none;cursor:pointer;color:var(--color-gray-300);font-size:1rem" title="Supprimer">🗑</button>
+        </div>
+      </div>
+    </div>`).join('');
+  list.innerHTML=items;
+  const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  document.getElementById('cart-subtotal').textContent=total.toLocaleString('fr-FR')+' FCFA';
+}
+
+function changeQty(id,delta){
+  const cart=getCart();
+  const item=cart.find(i=>i.id===id);
+  if(item){ item.qty=Math.max(1,item.qty+delta); saveCart(cart); renderCartDrawer(); }
+}
+
+function quickAddToCart(id,name,price,emoji){
+  addToCart({id,name,price,emoji,qty:1});
+  openCart();
+}
+
+// ── FILTRES ──────────────────────────────────────────────────
+function filterCat(cat,btn){
+  document.querySelectorAll('.cat-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#products-grid article').forEach(article=>{
+    article.style.display=(cat==='all'||article.dataset.cat===cat)?'':'none';
+  });
+  updateCount();
+}
+
+function applyFilters(){ updateCount(); }
+function resetFilters(){
+  document.querySelectorAll('[data-filter-cat],[data-filter-rating]').forEach(cb=>cb.checked=false);
+  document.getElementById('price-min').value=0;
+  document.getElementById('price-max').value=100000;
+  updatePriceRange();
+  document.querySelectorAll('#products-grid article').forEach(a=>a.style.display='');
+  updateCount();
+}
+
+function updatePriceRange(){
+  const min=parseInt(document.getElementById('price-min').value);
+  const max=parseInt(document.getElementById('price-max').value);
+  document.getElementById('price-display').textContent=`${min.toLocaleString('fr-FR')} – ${max.toLocaleString('fr-FR')} FCFA`;
+}
+
+function updateCount(){
+  const visible=document.querySelectorAll('#products-grid article:not([style*="display: none"])').length;
+  document.getElementById('results-count').textContent=`${visible} produit${visible>1?'s':''}`;
+}
+
+function sortProducts(val){
+  const grid=document.getElementById('products-grid');
+  const items=[...grid.querySelectorAll('article')];
+  items.sort((a,b)=>{
+    if(val==='price-asc') return parseInt(a.dataset.price)-parseInt(b.dataset.price);
+    if(val==='price-desc') return parseInt(b.dataset.price)-parseInt(a.dataset.price);
+    if(val==='rating') return parseInt(b.dataset.rating)-parseInt(a.dataset.rating);
+    return 0;
+  });
+  items.forEach(i=>grid.appendChild(i));
+}
+
+function setView(view,btn){
+  document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const grid=document.getElementById('products-grid');
+  if(view==='list'){
+    grid.style.gridTemplateColumns='1fr';
+  } else {
+    grid.style.gridTemplateColumns='';
+    grid.className='grid grid--3';
+    grid.style.gap='var(--space-5)';
+  }
+}
+
+function openProductModal(id){ showToast('Aperçu rapide — bientôt disponible','info'); }
+</script>
+</body>
+</html>

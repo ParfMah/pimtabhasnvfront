@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /pages/espace-client.html
+Disallow: /pages/checkout.html
+Disallow: /pages/404.html
+Disallow: /pages/reset-password.html
+
+# Sitemap
+Sitemap: https://pimtabhas.com/sitemap.xml
+
+# Crawl-delay pour les bots
+Crawl-delay: 10

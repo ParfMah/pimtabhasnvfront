@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Réservez votre consultation traditionnelle avec PIMTABHAS — en ligne ou en présentiel dans nos 5 représentations africaines."/>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg"/>
+  <title>Consultations — PIMTABHAS</title>
+  <link rel="stylesheet" href="../assets/css/variables.css"/>
+  <link rel="stylesheet" href="../assets/css/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/components.css"/>
+  <link rel="stylesheet" href="../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../assets/css/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/pages.css"/>
+  <style>
+    .booking-layout{display:grid;grid-template-columns:1fr 380px;gap:var(--space-10);align-items:start;}
+    .booking-form-card{background:var(--color-white);border-radius:var(--radius-2xl);box-shadow:var(--shadow-xl);overflow:hidden;position:sticky;top:calc(var(--header-height)+var(--space-6));}
+    .booking-form-header{background:var(--gradient-premium);padding:var(--space-6) var(--space-8);border-bottom:1px solid rgba(212,175,55,.15);}
+    .booking-form-body{padding:var(--space-8);}
+    .step-indicator{display:flex;gap:var(--space-2);margin-bottom:var(--space-6);}
+    .step-dot{flex:1;height:4px;border-radius:var(--radius-full);background:var(--color-gray-200);transition:background var(--transition-base);}
+    .step-dot.active{background:var(--color-emerald);}
+    .step-dot.done{background:var(--color-gold);}
+    .calendar{background:var(--color-white);}
+    .calendar-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-4);}
+    .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+    .cal-day-label{text-align:center;font-family:var(--font-ui);font-size:var(--text-xs);font-weight:var(--weight-semibold);color:var(--color-gray-400);padding:var(--space-2) 0;}
+    .cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-md);font-family:var(--font-ui);font-size:var(--text-sm);cursor:pointer;transition:all var(--transition-base);border:1px solid transparent;}
+    .cal-day:hover:not(.disabled){background:var(--color-emerald-pale);color:var(--color-emerald);}
+    .cal-day.selected{background:var(--color-emerald);color:white;font-weight:var(--weight-bold);}
+    .cal-day.today{border-color:var(--color-gold);color:var(--color-gold);font-weight:var(--weight-bold);}
+    .cal-day.disabled{opacity:.3;cursor:not-allowed;}
+    .time-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-2);margin-top:var(--space-4);}
+    .time-slot{padding:var(--space-2) var(--space-3);text-align:center;border-radius:var(--radius-md);font-family:var(--font-ui);font-size:var(--text-xs);font-weight:var(--weight-medium);cursor:pointer;border:1px solid var(--color-gray-200);background:var(--color-white);transition:all var(--transition-base);}
+    .time-slot:hover:not(.unavailable){border-color:var(--color-emerald);color:var(--color-emerald);}
+    .time-slot.selected{background:var(--color-emerald);color:white;border-color:var(--color-emerald);}
+    .time-slot.unavailable{background:var(--color-gray-50);color:var(--color-gray-300);cursor:not-allowed;text-decoration:line-through;}
+    @media(max-width:1024px){.booking-layout{grid-template-columns:1fr;}.booking-form-card{position:static;}}
+  </style>
+  <link rel="stylesheet" href="../assets/css/responsive.css"/>
+</head>
+<body class="preload">
+<div class="toast-container"></div>
+<div id="site-header-placeholder"></div>
+
+<section class="page-hero">
+  <div style="position:absolute;inset:0;background-image:url('../assets/images/pattern-adinkra.svg');background-size:180px;background-repeat:repeat;opacity:.04;color:white;" aria-hidden="true"></div>
+  <div class="page-hero__content">
+    <div class="breadcrumb" style="margin-bottom:var(--space-4)"><a href="../index.html">Accueil</a><span class="breadcrumb__sep">›</span><a href="services.html">Services</a><span class="breadcrumb__sep">›</span><span>Consultations</span></div>
+    <p class="section-label" style="margin-bottom:var(--space-4)">Prendre rendez-vous</p>
+    <h1 class="page-hero__title">Consultations<br/><em style="color:var(--color-gold)">Traditionnelles</em></h1>
+    <p class="page-hero__subtitle">Réservez votre consultation en quelques étapes simples — en ligne ou dans l'un de nos 5 centres en Afrique de l'Ouest.</p>
+  </div>
+</section>
+
+<!-- TYPES DE CONSULTATIONS -->
+<section class="section section--cream">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label section-label--dark">Choisissez votre format</div>
+      <h2 class="section-title">Types de<br/><span class="text-emerald">Consultation</span></h2>
+    </div>
+    <div class="grid grid--3 stagger">
+      <div class="card reveal" style="padding:var(--space-8);cursor:pointer;border:2px solid transparent;transition:all var(--transition-slow)" onclick="selectConsultationType('traditionnelle',this)">
+        <div style="font-size:3rem;margin-bottom:var(--space-4)">🌿</div>
+        <h3 style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-night);margin-bottom:var(--space-3)">Consultation Traditionnelle</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-gray-600);margin-bottom:var(--space-4)">Bilan holistique intégrant les savoirs ancestraux africains pour identifier déséquilibres et recommandations personnalisées.</p>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-emerald);font-weight:bold">25 000 FCFA</span>
+          <span style="font-size:var(--text-xs);color:var(--color-gray-400)">45–60 min</span>
+        </div>
+      </div>
+      <div class="card reveal delay-200" style="padding:var(--space-8);cursor:pointer;border:2px solid transparent;transition:all var(--transition-slow)" onclick="selectConsultationType('spirituelle',this)">
+        <div style="font-size:3rem;margin-bottom:var(--space-4)">🔮</div>
+        <h3 style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-night);margin-bottom:var(--space-3)">Accompagnement Spirituel</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-gray-600);margin-bottom:var(--space-4)">Session de guidance spirituelle pour clarifier votre chemin de vie, renforcer votre ancrage et développer votre sérénité.</p>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-emerald);font-weight:bold">30 000 FCFA</span>
+          <span style="font-size:var(--text-xs);color:var(--color-gray-400)">60–90 min</span>
+        </div>
+      </div>
+      <div class="card reveal delay-300" style="padding:var(--space-8);cursor:pointer;border:2px solid transparent;transition:all var(--transition-slow)" onclick="selectConsultationType('divinatoire',this)">
+        <div style="font-size:3rem;margin-bottom:var(--space-4)">✨</div>
+        <h3 style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-night);margin-bottom:var(--space-3)">Consultation Divinatoire</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-gray-600);margin-bottom:var(--space-4)">Éclairage divinatoire traditionnel sur vos questionnements personnels, familiaux ou professionnels.</p>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-emerald);font-weight:bold">20 000 FCFA</span>
+          <span style="font-size:var(--text-xs);color:var(--color-gray-400)">30–45 min</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULAIRE DE RÉSERVATION -->
+<section class="section" id="reserver">
+  <div class="container">
+    <div class="booking-layout">
+
+      <!-- Infos gauche -->
+      <div>
+        <div class="section-label section-label--dark reveal" style="margin-bottom:var(--space-4)">Réservation en ligne</div>
+        <h2 class="section-title reveal" style="margin-bottom:var(--space-8)">Choisissez Votre<br/><span class="text-emerald">Créneau</span></h2>
+
+        <!-- Calendrier -->
+        <div class="card reveal" style="padding:var(--space-8);margin-bottom:var(--space-6)">
+          <h3 style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night);margin-bottom:var(--space-6)">📅 Sélectionner une date</h3>
+          <div class="calendar">
+            <div class="calendar-header">
+              <button id="cal-prev" class="btn btn--icon btn--outline-gold btn--sm" style="width:36px;height:36px" aria-label="Mois précédent">‹</button>
+              <span id="cal-month" style="font-family:var(--font-display);font-weight:var(--weight-semibold);color:var(--color-night)"></span>
+              <button id="cal-next" class="btn btn--icon btn--outline-gold btn--sm" style="width:36px;height:36px" aria-label="Mois suivant">›</button>
+            </div>
+            <div class="calendar-grid" id="cal-labels">
+              <div class="cal-day-label">Lun</div><div class="cal-day-label">Mar</div><div class="cal-day-label">Mer</div>
+              <div class="cal-day-label">Jeu</div><div class="cal-day-label">Ven</div><div class="cal-day-label">Sam</div>
+              <div class="cal-day-label">Dim</div>
+            </div>
+            <div class="calendar-grid" id="cal-days"></div>
+          </div>
+        </div>
+
+        <!-- Créneaux horaires -->
+        <div class="card reveal" style="padding:var(--space-8);margin-bottom:var(--space-6)" id="time-slots-card">
+          <h3 style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night);margin-bottom:var(--space-2)">⏰ Choisir un créneau horaire</h3>
+          <p style="font-size:var(--text-xs);color:var(--color-gray-400);margin-bottom:var(--space-4)">Heure d'Afrique de l'Ouest (WAT, UTC+1)</p>
+          <div class="time-slots" id="time-slots">
+            <div class="time-slot" onclick="selectSlot(this)">08:00</div>
+            <div class="time-slot" onclick="selectSlot(this)">09:00</div>
+            <div class="time-slot unavailable">10:00</div>
+            <div class="time-slot" onclick="selectSlot(this)">11:00</div>
+            <div class="time-slot unavailable">14:00</div>
+            <div class="time-slot" onclick="selectSlot(this)">15:00</div>
+            <div class="time-slot" onclick="selectSlot(this)">16:00</div>
+            <div class="time-slot unavailable">17:00</div>
+            <div class="time-slot" onclick="selectSlot(this)">18:00</div>
+          </div>
+        </div>
+
+        <!-- Mode -->
+        <div class="card reveal" style="padding:var(--space-8)">
+          <h3 style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night);margin-bottom:var(--space-5)">📍 Mode de consultation</h3>
+          <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+            <label class="form-check" style="padding:var(--space-4);border:2px solid var(--color-gray-200);border-radius:var(--radius-xl);cursor:pointer;transition:border-color var(--transition-base)">
+              <input type="radio" name="mode" value="enligne" checked/>
+              <div><strong style="font-family:var(--font-ui);font-size:var(--text-sm)">En ligne (Visio)</strong><p style="font-size:var(--text-xs);color:var(--color-gray-500);margin:var(--space-1) 0 0">Consultation par Zoom / Google Meet depuis chez vous</p></div>
+            </label>
+            <label class="form-check" style="padding:var(--space-4);border:2px solid var(--color-gray-200);border-radius:var(--radius-xl);cursor:pointer;transition:border-color var(--transition-base)">
+              <input type="radio" name="mode" value="telephone"/>
+              <div><strong style="font-family:var(--font-ui);font-size:var(--text-sm)">Par téléphone</strong><p style="font-size:var(--text-xs);color:var(--color-gray-500);margin:var(--space-1) 0 0">Consultation audio uniquement</p></div>
+            </label>
+            <label class="form-check" style="padding:var(--space-4);border:2px solid var(--color-gray-200);border-radius:var(--radius-xl);cursor:pointer;transition:border-color var(--transition-base)">
+              <input type="radio" name="mode" value="presentiel"/>
+              <div><strong style="font-family:var(--font-ui);font-size:var(--text-sm)">En présentiel</strong><p style="font-size:var(--text-xs);color:var(--color-gray-500);margin:var(--space-1) 0 0">Dans l'un de nos 5 centres — Bénin, Togo, Burkina, Mali, Sénégal</p></div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulaire de droite -->
+      <div class="booking-form-card reveal--right">
+        <div class="booking-form-header">
+          <h3 style="font-family:var(--font-display);color:var(--color-gold);font-size:var(--text-xl);margin-bottom:var(--space-2)">Votre Réservation</h3>
+          <div class="step-indicator">
+            <div class="step-dot active" id="step1"></div>
+            <div class="step-dot" id="step2"></div>
+            <div class="step-dot" id="step3"></div>
+          </div>
+          <div id="booking-summary" style="font-size:var(--text-xs);color:rgba(248,246,240,.6)">Remplissez vos informations pour confirmer</div>
+        </div>
+        <div class="booking-form-body">
+          <form id="booking-main-form" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="bk-fname">Prénom *</label>
+              <input class="form-control" type="text" id="bk-fname" name="firstName" required placeholder="Votre prénom"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="bk-lname">Nom *</label>
+              <input class="form-control" type="text" id="bk-lname" name="lastName" required placeholder="Votre nom"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="bk-email">Email *</label>
+              <input class="form-control" type="email" id="bk-email" name="email" required placeholder="votre@email.com"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="bk-phone">Téléphone / WhatsApp *</label>
+              <input class="form-control" type="tel" id="bk-phone" name="phone" required placeholder="+229 01 95 71 11 52"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="bk-type">Type de consultation *</label>
+              <select class="form-control form-select" id="bk-type" name="consultationType" required>
+                <option value="" disabled selected>Choisir…</option>
+                <option value="traditionnelle">Consultation Traditionnelle — 25 000 FCFA</option>
+                <option value="spirituelle">Accompagnement Spirituel — 30 000 FCFA</option>
+                <option value="divinatoire">Consultation Divinatoire — 20 000 FCFA</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="bk-motif">Motif / Contexte (optionnel)</label>
+              <textarea class="form-control" id="bk-motif" name="notes" rows="3" placeholder="Décrivez brièvement votre situation ou vos attentes…"></textarea>
+              <div class="form-hint">Ces informations sont strictement confidentielles et aident à préparer votre consultation.</div>
+            </div>
+            <div class="form-group">
+              <label class="form-check">
+                <input type="checkbox" name="conditions" required/>
+                <span style="font-size:var(--text-xs);color:var(--color-gray-600)">J'accepte les <a href="conditions-generales.html" style="color:var(--color-emerald)">conditions générales</a> et la <a href="politique-confidentialite.html" style="color:var(--color-emerald)">politique de confidentialité</a>.</span>
+              </label>
+            </div>
+            <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center;margin-top:var(--space-2)">
+              Confirmer la réservation
+            </button>
+            <p style="text-align:center;font-size:var(--text-xs);color:var(--color-gray-400);margin-top:var(--space-3)">🔒 Paiement sécurisé après confirmation</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GARANTIES -->
+<section class="section section--dark">
+  <div class="container">
+    <div class="grid grid--4 stagger">
+      <div class="reveal" style="text-align:center;padding:var(--space-6)"><div style="font-size:2.5rem;margin-bottom:var(--space-4)">🔒</div><h3 style="font-family:var(--font-ui);color:var(--color-gold);font-size:var(--text-base);margin-bottom:var(--space-2)">Paiement Sécurisé</h3><p style="font-size:var(--text-sm);color:rgba(248,246,240,.6)">Transactions chiffrées SSL</p></div>
+      <div class="reveal delay-200" style="text-align:center;padding:var(--space-6)"><div style="font-size:2.5rem;margin-bottom:var(--space-4)">🛡️</div><h3 style="font-family:var(--font-ui);color:var(--color-gold);font-size:var(--text-base);margin-bottom:var(--space-2)">Confidentialité Garantie</h3><p style="font-size:var(--text-sm);color:rgba(248,246,240,.6)">Vos données sont protégées</p></div>
+      <div class="reveal delay-300" style="text-align:center;padding:var(--space-6)"><div style="font-size:2.5rem;margin-bottom:var(--space-4)">↩️</div><h3 style="font-family:var(--font-ui);color:var(--color-gold);font-size:var(--text-base);margin-bottom:var(--space-2)">Annulation Flexible</h3><p style="font-size:var(--text-sm);color:rgba(248,246,240,.6)">Jusqu'à 24h avant la séance</p></div>
+      <div class="reveal delay-400" style="text-align:center;padding:var(--space-6)"><div style="font-size:2.5rem;margin-bottom:var(--space-4)">⭐</div><h3 style="font-family:var(--font-ui);color:var(--color-gold);font-size:var(--text-base);margin-bottom:var(--space-2)">98% de Satisfaction</h3><p style="font-size:var(--text-sm);color:rgba(248,246,240,.6)">Nos clients nous recommandent</p></div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer-placeholder"></div>
+<script src="../assets/js/components.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+// ── CALENDRIER ──────────────────────────────────────────────
+let currentDate = new Date();
+let selectedDate = null;
+let selectedType = null;
+
+function renderCalendar() {
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const today = new Date();
+  const months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+  document.getElementById('cal-month').textContent = `${months[month]} ${year}`;
+  const grid = document.getElementById('cal-days');
+  grid.innerHTML = '';
+  const firstDay = new Date(year, month, 1).getDay();
+  const offset = (firstDay === 0 ? 6 : firstDay - 1);
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  for (let i = 0; i < offset; i++) {
+    const empty = document.createElement('div');
+    grid.appendChild(empty);
+  }
+  for (let d = 1; d <= daysInMonth; d++) {
+    const btn = document.createElement('div');
+    btn.className = 'cal-day';
+    btn.textContent = d;
+    const thisDate = new Date(year, month, d);
+    if (thisDate < today && thisDate.toDateString() !== today.toDateString()) btn.classList.add('disabled');
+    else if (thisDate.toDateString() === today.toDateString()) btn.classList.add('today');
+    else {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.cal-day.selected').forEach(el => el.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedDate = thisDate;
+        updateBookingSummary();
+      });
+    }
+    grid.appendChild(btn);
+  }
+}
+
+document.getElementById('cal-prev').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); });
+document.getElementById('cal-next').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); });
+renderCalendar();
+
+function selectSlot(el) {
+  if (el.classList.contains('unavailable')) return;
+  document.querySelectorAll('.time-slot.selected').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  updateBookingSummary();
+}
+
+function selectConsultationType(type, card) {
+  document.querySelectorAll('[onclick*="selectConsultationType"]').forEach(c => c.style.borderColor = 'transparent');
+  card.style.borderColor = 'var(--color-emerald)';
+  selectedType = type;
+  document.getElementById('bk-type').value = type;
+  updateBookingSummary();
+}
+
+function updateBookingSummary() {
+  const slot = document.querySelector('.time-slot.selected');
+  const parts = [];
+  if (selectedDate) parts.push(`📅 ${selectedDate.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})}`);
+  if (slot) parts.push(`⏰ ${slot.textContent}`);
+  if (selectedType) parts.push(`🌿 ${document.getElementById('bk-type').options[document.getElementById('bk-type').selectedIndex]?.text?.split('—')[0]?.trim() || selectedType}`);
+  const summary = document.getElementById('booking-summary');
+  summary.innerHTML = parts.length ? parts.join('<br/>') : 'Remplissez vos informations pour confirmer';
+}
+
+// ── FORMULAIRE ──────────────────────────────────────────────
+document.getElementById('booking-main-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!validateForm(this)) return;
+  const slot = document.querySelector('.time-slot.selected');
+  if (!selectedDate || !slot) { showToast('Veuillez choisir une date et un créneau.', 'warning'); return; }
+  const btn = this.querySelector('[type="submit"]');
+  btn.disabled = true; btn.classList.add('btn--loading');
+  try {
+    const mode = document.querySelector('input[name="mode"]:checked').value;
+    await api.post('/appointments', {
+      firstName: document.getElementById('bk-fname').value,
+      lastName: document.getElementById('bk-lname').value,
+      email: document.getElementById('bk-email').value,
+      phone: document.getElementById('bk-phone').value,
+      consultationType: document.getElementById('bk-type').value,
+      date: selectedDate.toISOString().split('T')[0],
+      time: slot.textContent,
+      mode,
+      notes: document.getElementById('bk-motif').value,
+    });
+    showToast('🎉 Réservation confirmée ! Un email de confirmation vous a été envoyé.', 'success', 6000);
+    this.reset(); selectedDate = null;
+    document.querySelectorAll('.cal-day.selected').forEach(e => e.classList.remove('selected'));
+    document.querySelectorAll('.time-slot.selected').forEach(e => e.classList.remove('selected'));
+    updateBookingSummary();
+  } catch { showToast('Erreur lors de la réservation. Veuillez réessayer.', 'error'); }
+  finally { btn.disabled = false; btn.classList.remove('btn--loading'); }
+});
+</script>
+</body>
+</html>

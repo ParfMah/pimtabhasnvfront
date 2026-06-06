@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Blog PIMTABHAS — Articles sur la médecine traditionnelle africaine, le bien-être holistique et la spiritualité."/>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg"/>
+  <title>Blog & Articles — PIMTABHAS</title>
+  <link rel="stylesheet" href="../assets/css/variables.css"/>
+  <link rel="stylesheet" href="../assets/css/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/components.css"/>
+  <link rel="stylesheet" href="../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../assets/css/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/pages.css"/>
+  <style>
+    .blog-filters{display:flex;gap:var(--space-3);flex-wrap:wrap;justify-content:center;margin-bottom:var(--space-10);}
+    .filter-btn{padding:var(--space-2) var(--space-5);border-radius:var(--radius-full);font-family:var(--font-ui);font-size:var(--text-sm);font-weight:var(--weight-medium);border:1px solid var(--color-gray-200);background:var(--color-white);color:var(--color-gray-600);cursor:pointer;transition:all var(--transition-base);}
+    .filter-btn:hover,.filter-btn.active{background:var(--color-emerald);color:white;border-color:var(--color-emerald);}
+    .blog-featured{display:grid;grid-template-columns:1.5fr 1fr;gap:var(--space-6);margin-bottom:var(--space-10);}
+    .blog-featured-main{background:var(--gradient-night);border-radius:var(--radius-2xl);overflow:hidden;position:relative;min-height:400px;display:flex;flex-direction:column;justify-content:flex-end;padding:var(--space-8);border:1px solid rgba(212,175,55,.15);}
+    .blog-featured-main::before{content:'';position:absolute;inset:0;background:var(--gradient-overlay);z-index:1;}
+    .blog-featured-main .content{position:relative;z-index:2;}
+    .blog-sidebar-posts{display:flex;flex-direction:column;gap:var(--space-4);}
+    .blog-mini-card{display:flex;gap:var(--space-4);background:var(--color-white);border-radius:var(--radius-xl);padding:var(--space-4);box-shadow:var(--shadow-card);transition:all var(--transition-base);}
+    .blog-mini-card:hover{box-shadow:var(--shadow-md);transform:translateX(3px);}
+    .blog-mini-img{width:70px;height:70px;border-radius:var(--radius-lg);object-fit:cover;flex-shrink:0;background:var(--color-emerald);display:flex;align-items:center;justify-content:center;font-size:1.75rem;}
+    .blog-search{position:relative;max-width:480px;margin:0 auto var(--space-8);}
+    .blog-search input{width:100%;padding:var(--space-3) var(--space-12) var(--space-3) var(--space-5);border-radius:var(--radius-full);border:2px solid var(--color-gray-200);font-family:var(--font-ui);background:var(--color-white);transition:border-color var(--transition-base);}
+    .blog-search input:focus{border-color:var(--color-emerald);}
+    .blog-search-icon{position:absolute;right:var(--space-5);top:50%;transform:translateY(-50%);color:var(--color-gray-400);}
+    @media(max-width:768px){.blog-featured{grid-template-columns:1fr;}.blog-featured-main{min-height:280px;}}
+  </style>
+  <link rel="stylesheet" href="../assets/css/responsive.css"/>
+</head>
+<body class="preload">
+<div class="toast-container"></div>
+<div id="site-header-placeholder"></div>
+
+<section class="page-hero">
+  <div style="position:absolute;inset:0;background-image:url('../assets/images/pattern-adinkra.svg');background-size:180px;background-repeat:repeat;opacity:.04;color:white;" aria-hidden="true"></div>
+  <div class="page-hero__content">
+    <div class="breadcrumb" style="margin-bottom:var(--space-4)"><a href="../index.html">Accueil</a><span class="breadcrumb__sep">›</span><span>Blog</span></div>
+    <p class="section-label" style="margin-bottom:var(--space-4)">Savoir & Tradition</p>
+    <h1 class="page-hero__title">Blog &<br/><em style="color:var(--color-gold)">Articles</em></h1>
+    <p class="page-hero__subtitle">Découvertes, conseils et réflexions sur la médecine traditionnelle africaine, le bien-être holistique et la spiritualité.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <!-- Search -->
+    <div class="blog-search reveal">
+      <input type="text" id="blog-search-input" placeholder="Rechercher un article…" aria-label="Rechercher"/>
+      <span class="blog-search-icon">🔍</span>
+    </div>
+
+    <!-- Filtres catégories -->
+    <div class="blog-filters reveal">
+      <button class="filter-btn active" data-cat="all">Tous les articles</button>
+      <button class="filter-btn" data-cat="medecine">Médecine Traditionnelle</button>
+      <button class="filter-btn" data-cat="spiritualite">Spiritualité</button>
+      <button class="filter-btn" data-cat="bienetre">Bien-être Holistique</button>
+      <button class="filter-btn" data-cat="plantes">Plantes & Remèdes</button>
+      <button class="filter-btn" data-cat="nutrition">Nutrition Africaine</button>
+    </div>
+
+    <!-- Article vedette + sidebar -->
+    <div class="blog-featured reveal">
+      <article class="blog-featured-main">
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0F6A4B,#0F172A);z-index:0;display:flex;align-items:center;justify-content:center;font-size:8rem;opacity:.2">🌿</div>
+        <div class="content">
+          <span class="blog-card__cat">Médecine Traditionnelle</span>
+          <h2 style="font-family:var(--font-display);color:var(--color-cream);font-size:clamp(1.5rem,3vw,2.25rem);line-height:1.2;margin:var(--space-3) 0">Les Plantes Médicinales d'Afrique de l'Ouest : Un Héritage Millénaire à Redécouvrir</h2>
+          <p style="color:rgba(248,246,240,.7);font-size:var(--text-sm);margin-bottom:var(--space-5)">Découvrez les trésors végétaux des savanes et forêts africaines utilisés depuis des siècles dans les pratiques de soins traditionnels, et comment les intégrer dans votre quotidien.</p>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:var(--text-xs);color:rgba(248,246,240,.5)">15 novembre 2024 · 8 min</span>
+            <a href="#" class="btn btn--primary btn--sm">Lire l'article</a>
+          </div>
+        </div>
+      </article>
+      <div class="blog-sidebar-posts">
+        <article class="blog-mini-card reveal delay-200">
+          <div class="blog-mini-img">✨</div>
+          <div><span style="font-family:var(--font-accent);font-size:9px;color:var(--color-emerald);letter-spacing:.1em;text-transform:uppercase">Spiritualité</span><h3 style="font-family:var(--font-display);font-size:var(--text-base);color:var(--color-night);margin:var(--space-1) 0;line-height:1.3"><a href="#" style="color:inherit;text-decoration:none">Comprendre le Vodoun : Au-delà des Préjugés</a></h3><span style="font-size:var(--text-xs);color:var(--color-gray-400)">8 nov. 2024 · 12 min</span></div>
+        </article>
+        <article class="blog-mini-card reveal delay-300">
+          <div class="blog-mini-img">🧘</div>
+          <div><span style="font-family:var(--font-accent);font-size:9px;color:var(--color-emerald);letter-spacing:.1em;text-transform:uppercase">Bien-être</span><h3 style="font-family:var(--font-display);font-size:var(--text-base);color:var(--color-night);margin:var(--space-1) 0;line-height:1.3"><a href="#" style="color:inherit;text-decoration:none">L'Équilibre Corps-Âme selon la Tradition</a></h3><span style="font-size:var(--text-xs);color:var(--color-gray-400)">1 nov. 2024 · 6 min</span></div>
+        </article>
+        <article class="blog-mini-card reveal delay-400">
+          <div class="blog-mini-img">🌾</div>
+          <div><span style="font-family:var(--font-accent);font-size:9px;color:var(--color-emerald);letter-spacing:.1em;text-transform:uppercase">Nutrition</span><h3 style="font-family:var(--font-display);font-size:var(--text-base);color:var(--color-night);margin:var(--space-1) 0;line-height:1.3"><a href="#" style="color:inherit;text-decoration:none">Superaliments Africains : Moringa, Baobab et Hibiscus</a></h3><span style="font-size:var(--text-xs);color:var(--color-gray-400)">25 oct. 2024 · 5 min</span></div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Grille d'articles -->
+    <h2 style="font-family:var(--font-display);font-size:var(--text-2xl);color:var(--color-night);margin-bottom:var(--space-8)" class="reveal">Tous les Articles</h2>
+    <div class="grid grid--3 stagger" id="articles-grid">
+      <article class="blog-card reveal" data-cat="plantes">
+        <div class="img-zoom-wrap"><div style="width:100%;min-height:200px;background:linear-gradient(135deg,#0F6A4B,#094D36);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🌿</div></div>
+        <div class="blog-card__body"><span class="blog-card__cat">Plantes & Remèdes</span><h3 class="blog-card__title"><a href="#">Le Moringa : L'Arbre de Vie de l'Afrique</a></h3><p class="blog-card__excerpt">Propriétés, usages et préparations du moringa, cette plante exceptionnelle présente dans toute l'Afrique tropicale.</p><div class="blog-card__meta"><span>20 oct. 2024</span><span>7 min</span></div></div>
+      </article>
+      <article class="blog-card reveal delay-200" data-cat="spiritualite">
+        <div class="img-zoom-wrap"><div style="width:100%;min-height:200px;background:linear-gradient(135deg,#2D1B4E,#0F172A);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🔮</div></div>
+        <div class="blog-card__body"><span class="blog-card__cat">Spiritualité</span><h3 class="blog-card__title"><a href="#">Les Symboles Adinkra et leurs Significations</a></h3><p class="blog-card__excerpt">Voyage dans l'univers symbolique akan : chaque symbole, sa philosophie et son usage dans la vie quotidienne.</p><div class="blog-card__meta"><span>12 oct. 2024</span><span>10 min</span></div></div>
+      </article>
+      <article class="blog-card reveal delay-300" data-cat="bienetre">
+        <div class="img-zoom-wrap"><div style="width:100%;min-height:200px;background:linear-gradient(135deg,#D4AF37,#8B5E3C);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">☀️</div></div>
+        <div class="blog-card__body"><span class="blog-card__cat">Bien-être</span><h3 class="blog-card__title"><a href="#">Rituels Matinaux Africains pour Bien Commencer la Journée</a></h3><p class="blog-card__excerpt">Des pratiques ancestrales simples et efficaces pour démarrer chaque journée avec énergie et clarté intérieure.</p><div class="blog-card__meta"><span>5 oct. 2024</span><span>5 min</span></div></div>
+      </article>
+      <article class="blog-card reveal" data-cat="medecine">
+        <div class="img-zoom-wrap"><div style="width:100%;min-height:200px;background:linear-gradient(135deg,#0F6A4B,#D4AF37);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🏥</div></div>
+        <div class="blog-card__body"><span class="blog-card__cat">Médecine Traditionnelle</span><h3 class="blog-card__title"><a href="#">Médecine Traditionnelle et Médecine Conventionnelle : Complémentarité</a></h3><p class="blog-card__excerpt">Comment intégrer les deux approches de façon intelligente et responsable pour un suivi de santé optimal.</p><div class="blog-card__meta"><span>28 sep. 2024</span><span>9 min</span></div></div>
+      </article>
+      <article class="blog-card reveal delay-200" data-cat="nutrition">
+        <div class="img-zoom-wrap"><div style="width:100%;min-height:200px;background:linear-gradient(135deg,#15803d,#065f46);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🥗</div></div>
+        <div class="blog-card__body"><span class="blog-card__cat">Nutrition Africaine</span><h3 class="blog-card__title"><a href="#">Les Épices Africaines et leurs Vertus Thérapeutiques</a></h3><p class="blog-card__excerpt">Gingembre, curcuma, fenugrec, poivre de Sichuan... les épices africaines cachent de nombreux secrets de santé.</p><div class="blog-card__meta"><span>20 sep. 2024</span><span>6 min</span></div></div>
+      </article>
+      <article class="blog-card reveal delay-300" data-cat="spiritualite">
+        <div class="img-zoom-wrap"><div style="width:100%;min-height:200px;background:linear-gradient(135deg,#0F172A,#1E293B);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🌙</div></div>
+        <div class="blog-card__body"><span class="blog-card__cat">Spiritualité</span><h3 class="blog-card__title"><a href="#">La Lune dans les Traditions Africaines</a></h3><p class="blog-card__excerpt">Le rôle central de la lune dans les calendriers rituels, les pratiques agricoles et les cérémonies spirituelles africaines.</p><div class="blog-card__meta"><span>10 sep. 2024</span><span>8 min</span></div></div>
+      </article>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination reveal">
+      <a class="page-btn active" href="#">1</a>
+      <a class="page-btn" href="#">2</a>
+      <a class="page-btn" href="#">3</a>
+      <span class="page-btn" style="cursor:default">…</span>
+      <a class="page-btn" href="#">8</a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="section newsletter-section" style="position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background-image:url('../assets/images/pattern-adinkra.svg');background-size:100px;background-repeat:repeat;opacity:.06;color:white;" aria-hidden="true"></div>
+  <div class="container" style="text-align:center;position:relative;z-index:2">
+    <div class="reveal">
+      <h2 style="font-family:var(--font-display);color:var(--color-cream);font-size:clamp(1.75rem,4vw,2.75rem);margin-bottom:var(--space-4)">Ne Manquez Aucun Article</h2>
+      <p style="color:rgba(248,246,240,.8);margin-bottom:var(--space-8)">Inscrivez-vous à notre newsletter et recevez les nouveaux articles directement dans votre boîte mail.</p>
+      <form data-newsletter style="display:flex;gap:var(--space-3);max-width:480px;margin:0 auto" novalidate>
+        <input class="form-control" type="email" placeholder="Votre email…" required style="flex:1;border-radius:var(--radius-full);background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);color:white;"/>
+        <button type="submit" class="btn btn--primary" style="flex-shrink:0">S'abonner</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer-placeholder"></div>
+<script src="../assets/js/components.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+// Filtres blog
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    document.querySelectorAll('#articles-grid article').forEach(article => {
+      article.style.display = (cat === 'all' || article.dataset.cat === cat) ? '' : 'none';
+    });
+  });
+});
+
+// Recherche
+const searchInput = document.getElementById('blog-search-input');
+if(searchInput){
+  searchInput.addEventListener('input', utils.debounce(function(){
+    const q = this.value.toLowerCase();
+    document.querySelectorAll('#articles-grid article').forEach(article => {
+      const text = article.textContent.toLowerCase();
+      article.style.display = text.includes(q) ? '' : 'none';
+    });
+  }, 300));
+}
+</script>
+</body>
+</html>

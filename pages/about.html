@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Découvrez la mission, les valeurs et les représentations internationales de PIMTABHAS — Plateforme Internationale de Médecine Traditionnelle Africaine."/>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg"/>
+  <title>À Propos — PIMTABHAS</title>
+  <link rel="stylesheet" href="../assets/css/variables.css"/>
+  <link rel="stylesheet" href="../assets/css/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/components.css"/>
+  <link rel="stylesheet" href="../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../assets/css/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/pages.css"/>
+  <style>
+    .value-card {
+      background:var(--color-white);border-radius:var(--radius-2xl);padding:var(--space-8);
+      box-shadow:var(--shadow-card);border:1px solid rgba(15,26,42,.06);
+      transition:all var(--transition-slow);text-align:center;
+    }
+    .value-card:hover{box-shadow:var(--shadow-xl);transform:translateY(-4px);}
+    .value-icon{font-size:3rem;margin-bottom:var(--space-4);display:block;}
+    .value-title{font-family:var(--font-display);font-size:var(--text-xl);font-weight:var(--weight-bold);color:var(--color-night);margin-bottom:var(--space-3);}
+    .rep-card{background:var(--color-night-soft);border-radius:var(--radius-2xl);padding:var(--space-8);border:1px solid rgba(212,175,55,.15);transition:all var(--transition-slow);}
+    .rep-card:hover{border-color:var(--color-gold);transform:translateY(-3px);}
+    .rep-flag{font-size:3.5rem;margin-bottom:var(--space-4);}
+    .rep-country{font-family:var(--font-accent);font-size:var(--text-lg);color:var(--color-gold);letter-spacing:.08em;margin-bottom:var(--space-3);}
+    .timeline{position:relative;padding-left:var(--space-10);}
+    .timeline::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--color-emerald),var(--color-gold));}
+    .timeline-item{position:relative;margin-bottom:var(--space-10);}
+    .timeline-item::before{content:'';position:absolute;left:calc(-2.5rem - 9px);top:6px;width:18px;height:18px;border-radius:50%;background:var(--color-gold);border:3px solid var(--color-emerald-pale);box-shadow:0 0 0 4px rgba(212,175,55,.2);}
+    .timeline-year{font-family:var(--font-accent);font-size:var(--text-xs);letter-spacing:.15em;color:var(--color-gold);margin-bottom:var(--space-2);}
+    .timeline-title{font-family:var(--font-display);font-size:var(--text-xl);font-weight:var(--weight-bold);color:var(--color-night);margin-bottom:var(--space-2);}
+    .timeline-text{font-size:var(--text-sm);color:var(--color-gray-600);line-height:var(--leading-relaxed);}
+  </style>
+  <link rel="stylesheet" href="../assets/css/responsive.css"/>
+</head>
+<body class="preload">
+<div class="toast-container"></div>
+<div id="site-header-placeholder"></div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="hero__bg-pattern" style="position:absolute;inset:0;background-image:url('../assets/images/pattern-adinkra.svg');background-size:200px;background-repeat:repeat;opacity:.04;color:white;" aria-hidden="true"></div>
+  <div class="page-hero__content">
+    <div class="breadcrumb" style="margin-bottom:var(--space-4)">
+      <a href="../index.html">Accueil</a>
+      <span class="breadcrumb__sep">›</span>
+      <span>À Propos</span>
+    </div>
+    <p class="section-label" style="margin-bottom:var(--space-4)">Notre histoire</p>
+    <h1 class="page-hero__title">À Propos de<br/><em style="color:var(--color-gold)">PIMTABHAS</em></h1>
+    <p class="page-hero__subtitle">Une plateforme née de la volonté de rendre accessibles les savoirs ancestraux africains à tous, partout dans le monde.</p>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="section">
+  <div class="container">
+    <div class="grid grid--2" style="gap:var(--space-16);align-items:center">
+      <div class="reveal--left">
+        <div class="section-label section-label--dark">Notre Mission</div>
+        <h2 class="section-title">Préserver, Transmettre<br/><span class="text-emerald">& Accompagner</span></h2>
+        <p style="color:var(--color-gray-700);line-height:var(--leading-loose);margin-bottom:var(--space-6)">
+          PIMTABHAS est née d'une conviction profonde : le patrimoine médical et spirituel africain constitue un trésor inestimable pour l'humanité. Notre mission est de le rendre accessible de manière professionnelle, responsable et respectueuse à toute personne en quête de bien-être authentique.
+        </p>
+        <p style="color:var(--color-gray-700);line-height:var(--leading-loose);margin-bottom:var(--space-6)">
+          Nous proposons des services de consultation, d'accompagnement et des produits naturels sélectionnés avec rigueur, dans le strict respect des traditions ancestrales et des exigences contemporaines de qualité et de transparence.
+        </p>
+        <div style="display:flex;gap:var(--space-6);flex-wrap:wrap">
+          <div style="text-align:center">
+            <div style="font-family:var(--font-display);font-size:var(--text-3xl);font-weight:var(--weight-bold);color:var(--color-emerald)">2000</div>
+            <div style="font-size:var(--text-xs);color:var(--color-gray-500);text-transform:uppercase;letter-spacing:.1em">Année de fondation</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:var(--font-display);font-size:var(--text-3xl);font-weight:var(--weight-bold);color:var(--color-emerald)">5</div>
+            <div style="font-size:var(--text-xs);color:var(--color-gray-500);text-transform:uppercase;letter-spacing:.1em">Pays représentés</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:var(--font-display);font-size:var(--text-3xl);font-weight:var(--weight-bold);color:var(--color-emerald)">15 000+</div>
+            <div style="font-size:var(--text-xs);color:var(--color-gray-500);text-transform:uppercase;letter-spacing:.1em">Personnes accompagnées</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal--right">
+        <div style="background:var(--gradient-premium);border-radius:var(--radius-3xl);padding:var(--space-10);border:1px solid rgba(212,175,55,.2)">
+          <h3 style="font-family:var(--font-display);color:var(--color-gold);font-size:var(--text-xl);margin-bottom:var(--space-6)">Nos Engagements</h3>
+          <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+            <div class="credential-item"><span class="credential-icon">🌿</span><span style="color:rgba(248,246,240,.8)"><strong style="color:var(--color-cream)">Authenticité</strong> — Des pratiques ancrées dans les traditions africaines millénaires.</span></div>
+            <div class="credential-item"><span class="credential-icon">🔬</span><span style="color:rgba(248,246,240,.8)"><strong style="color:var(--color-cream)">Responsabilité</strong> — Des services présentés comme accompagnements et conseils, sans allégations de guérison garantie.</span></div>
+            <div class="credential-item"><span class="credential-icon">🛡️</span><span style="color:rgba(248,246,240,.8)"><strong style="color:var(--color-cream)">Confidentialité</strong> — Protection stricte de toutes les données personnelles et des informations partagées.</span></div>
+            <div class="credential-item"><span class="credential-icon">🌍</span><span style="color:rgba(248,246,240,.8)"><strong style="color:var(--color-cream)">Accessibilité</strong> — Services disponibles en présentiel et en ligne pour la diaspora mondiale.</span></div>
+            <div class="credential-item"><span class="credential-icon">⭐</span><span style="color:rgba(248,246,240,.8)"><strong style="color:var(--color-cream)">Excellence</strong> — Qualité irréprochable dans chaque produit et chaque consultation.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALEURS -->
+<section class="section section--cream">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label section-label--dark">Ce qui nous guide</div>
+      <h2 class="section-title">Nos Valeurs<br/><span class="text-emerald">Fondatrices</span></h2>
+    </div>
+    <div class="grid grid--3 stagger">
+      <div class="value-card reveal"><span class="value-icon">🌿</span><h3 class="value-title">Tradition</h3><p style="font-size:var(--text-sm);color:var(--color-gray-600)">Le respect et la préservation des savoirs ancestraux africains constituent le socle de toutes nos pratiques.</p></div>
+      <div class="value-card reveal delay-200"><span class="value-icon">💛</span><h3 class="value-title">Bienveillance</h3><p style="font-size:var(--text-sm);color:var(--color-gray-600)">Chaque personne qui nous consulte mérite un accueil chaleureux, une écoute sincère et un accompagnement personnalisé.</p></div>
+      <div class="value-card reveal delay-300"><span class="value-icon">🏛️</span><h3 class="value-title">Intégrité</h3><p style="font-size:var(--text-sm);color:var(--color-gray-600)">Nous présentons nos services avec honnêteté, sans promesses exagérées ni affirmations non fondées.</p></div>
+      <div class="value-card reveal"><span class="value-icon">🌍</span><h3 class="value-title">Ouverture</h3><p style="font-size:var(--text-sm);color:var(--color-gray-600)">Notre plateforme accueille toute personne, quelle que soit son origine, sa culture ou sa croyance.</p></div>
+      <div class="value-card reveal delay-200"><span class="value-icon">✨</span><h3 class="value-title">Excellence</h3><p style="font-size:var(--text-sm);color:var(--color-gray-600)">Nous visons le plus haut niveau de qualité dans chaque produit, chaque consultation, chaque interaction.</p></div>
+      <div class="value-card reveal delay-300"><span class="value-icon">🤝</span><h3 class="value-title">Solidarité</h3><p style="font-size:var(--text-sm);color:var(--color-gray-600)">PIMTABHAS contribue activement à la valorisation du patrimoine culturel africain et au développement de ses communautés.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTOIRE / TIMELINE -->
+<section class="section">
+  <div class="container" style="max-width:var(--container-md)">
+    <div class="section-header reveal" style="text-align:left">
+      <div class="section-label section-label--dark">Notre parcours</div>
+      <h2 class="section-title">Les Grandes Étapes<br/><span class="text-emerald">de PIMTABHAS</span></h2>
+    </div>
+    <div class="timeline reveal">
+      <div class="timeline-item"><div class="timeline-year">2000</div><h3 class="timeline-title">Fondation au Bénin</h3><p class="timeline-text">Idelphonse KPALIKA fonde PIMTABHAS à Cotonou, avec l'ambition de structurer et professionnaliser les pratiques de médecine traditionnelle africaine.</p></div>
+      <div class="timeline-item"><div class="timeline-year">2005</div><h3 class="timeline-title">Expansion au Togo</h3><p class="timeline-text">Ouverture de la première représentation officielle à Lomé, marquant le début du développement régional de la plateforme.</p></div>
+      <div class="timeline-item"><div class="timeline-year">2010</div><h3 class="timeline-title">Présence au Burkina Faso et au Mali</h3><p class="timeline-text">Extension des activités vers Ouagadougou et Bamako, renforçant l'ancrage sahélien de PIMTABHAS.</p></div>
+      <div class="timeline-item"><div class="timeline-year">2015</div><h3 class="timeline-title">Représentation au Sénégal</h3><p class="timeline-text">Ouverture du bureau de Dakar, permettant de toucher la côte atlantique et la diaspora sénégalaise internationale.</p></div>
+      <div class="timeline-item"><div class="timeline-year">2020</div><h3 class="timeline-title">Lancement des consultations en ligne</h3><p class="timeline-text">Face à la demande croissante de la diaspora africaine mondiale, PIMTABHAS développe son offre de consultations à distance sécurisées.</p></div>
+      <div class="timeline-item"><div class="timeline-year">2024</div><h3 class="timeline-title">Plateforme digitale premium</h3><p class="timeline-text">Lancement de la nouvelle plateforme numérique intégrant boutique en ligne, prise de rendez-vous et espace client — accessibles depuis le monde entier.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- REPRÉSENTATIONS -->
+<section class="section section--dark" id="representations" aria-labelledby="rep-title">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Présence internationale</div>
+      <h2 class="section-title section-title--light" id="rep-title">Nos Représentations<br/><em class="text-gold">en Afrique de l'Ouest</em></h2>
+      <p class="section-subtitle section-subtitle--light">Chaque représentation dispose d'une équipe dédiée, d'un espace d'accueil et d'un praticien formé par le Grand Maître KPALIKA.</p>
+    </div>
+    <div class="grid grid--3 stagger" style="gap:var(--space-6)">
+      <div class="rep-card reveal">
+        <div class="rep-flag">🇧🇯</div>
+        <div class="rep-country">Bénin — Siège Principal</div>
+        <p style="font-size:var(--text-sm);color:rgba(248,246,240,.7);margin-bottom:var(--space-4)">Centre principal de consultations, laboratoire de préparation des produits naturels, siège administratif.</p>
+        <div style="font-family:var(--font-ui);font-size:var(--text-xs);color:rgba(212,175,55,.8)">📍 Cotonou, Bénin<br/>📞 +229 01 95 71 11 52</div>
+      </div>
+      <div class="rep-card reveal delay-200">
+        <div class="rep-flag">🇹🇬</div>
+        <div class="rep-country">Togo</div>
+        <p style="font-size:var(--text-sm);color:rgba(248,246,240,.7);margin-bottom:var(--space-4)">Représentation officielle avec consultations en présentiel, vente de produits et accompagnement spirituel.</p>
+        <div style="font-family:var(--font-ui);font-size:var(--text-xs);color:rgba(212,175,55,.8)">📍 Lomé, Togo<br/>📞 +228 90 00 00 00</div>
+      </div>
+      <div class="rep-card reveal delay-300">
+        <div class="rep-flag">🇧🇫</div>
+        <div class="rep-country">Burkina Faso</div>
+        <p style="font-size:var(--text-sm);color:rgba(248,246,240,.7);margin-bottom:var(--space-4)">Bureau régional desservant le Burkina Faso et les régions sahéliennes limitrophes.</p>
+        <div style="font-family:var(--font-ui);font-size:var(--text-xs);color:rgba(212,175,55,.8)">📍 Ouagadougou, Burkina Faso<br/>📞 +226 70 00 00 00</div>
+      </div>
+      <div class="rep-card reveal">
+        <div class="rep-flag">🇲🇱</div>
+        <div class="rep-country">Mali</div>
+        <p style="font-size:var(--text-sm);color:rgba(248,246,240,.7);margin-bottom:var(--space-4)">Antenne malienne proposant consultations traditionnelles et spirituelles dans le respect des coutumes locales.</p>
+        <div style="font-family:var(--font-ui);font-size:var(--text-xs);color:rgba(212,175,55,.8)">📍 Bamako, Mali<br/>📞 +223 70 00 00 00</div>
+      </div>
+      <div class="rep-card reveal delay-200">
+        <div class="rep-flag">🇸🇳</div>
+        <div class="rep-country">Sénégal</div>
+        <p style="font-size:var(--text-sm);color:rgba(248,246,240,.7);margin-bottom:var(--space-4)">Représentation dakaroise servant le Sénégal, la Gambie et la façade atlantique de l'Afrique de l'Ouest.</p>
+        <div style="font-family:var(--font-ui);font-size:var(--text-xs);color:rgba(212,175,55,.8)">📍 Dakar, Sénégal<br/>📞 +221 77 00 00 00</div>
+      </div>
+      <div class="rep-card reveal delay-300" style="border-style:dashed;border-color:rgba(212,175,55,.3)">
+        <div class="rep-flag">🌍</div>
+        <div class="rep-country">International / Diaspora</div>
+        <p style="font-size:var(--text-sm);color:rgba(248,246,240,.7);margin-bottom:var(--space-4)">Consultations en ligne disponibles 7j/7 pour toute la diaspora africaine, quelle que soit sa localisation dans le monde.</p>
+        <div style="margin-top:var(--space-4)"><a href="consultations.html" class="btn btn--outline-gold btn--sm">Consulter en ligne</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="background:var(--gradient-premium)">
+  <div class="container" style="text-align:center">
+    <div class="reveal">
+      <h2 style="font-family:var(--font-display);color:var(--color-cream);font-size:clamp(1.75rem,4vw,3rem);margin-bottom:var(--space-4)">Prêt à Commencer<br/><em style="color:var(--color-gold)">Votre Parcours ?</em></h2>
+      <p style="color:rgba(248,246,240,.75);max-width:50ch;margin:0 auto var(--space-8)">Rejoignez les milliers de personnes qui ont déjà fait confiance à PIMTABHAS pour leur bien-être et leur épanouissement.</p>
+      <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap">
+        <a href="consultations.html" class="btn btn--primary btn--xl">Prendre rendez-vous</a>
+        <a href="founder.html" class="btn btn--outline-cream btn--xl">Découvrir le fondateur</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer-placeholder"></div>
+<script src="../assets/js/components.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

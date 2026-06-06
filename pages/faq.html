@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg"/>
+  <title>FAQ — PIMTABHAS</title>
+  <link rel="stylesheet" href="../assets/css/variables.css"/>
+  <link rel="stylesheet" href="../assets/css/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/components.css"/>
+  <link rel="stylesheet" href="../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../assets/css/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/pages.css"/>
+  <style>
+    .faq-cat-btn{padding:var(--space-2) var(--space-5);border-radius:var(--radius-full);font-family:var(--font-ui);font-size:var(--text-sm);font-weight:var(--weight-medium);border:1px solid var(--color-gray-200);background:var(--color-white);cursor:pointer;transition:all var(--transition-base);}
+    .faq-cat-btn.active,.faq-cat-btn:hover{background:var(--color-emerald);color:white;border-color:var(--color-emerald);}
+    .faq-item{border:1px solid var(--color-gray-100);border-radius:var(--radius-xl);overflow:hidden;margin-bottom:var(--space-3);background:var(--color-white);transition:box-shadow var(--transition-base);}
+    .faq-item:hover{box-shadow:var(--shadow-md);}
+    .faq-question{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);padding:var(--space-5) var(--space-6);cursor:pointer;font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night);font-size:var(--text-base);list-style:none;}
+    .faq-question::-webkit-details-marker{display:none;}
+    .faq-toggle{width:28px;height:28px;border-radius:50%;background:var(--color-emerald-pale);display:flex;align-items:center;justify-content:center;color:var(--color-emerald);font-size:1rem;font-weight:bold;flex-shrink:0;transition:all var(--transition-base);}
+    details[open] .faq-toggle{background:var(--color-emerald);color:white;transform:rotate(45deg);}
+    .faq-answer{padding:0 var(--space-6) var(--space-5);font-size:var(--text-sm);color:var(--color-gray-700);line-height:var(--leading-relaxed);}
+    .faq-answer p{margin-bottom:var(--space-3);}
+    .faq-answer ul{list-style:disc;padding-left:var(--space-5);display:flex;flex-direction:column;gap:var(--space-2);}
+  </style>
+  <link rel="stylesheet" href="../assets/css/responsive.css"/>
+</head>
+<body class="preload">
+<div class="toast-container"></div>
+<div id="site-header-placeholder"></div>
+
+<section class="page-hero">
+  <div style="position:absolute;inset:0;background-image:url('../assets/images/pattern-adinkra.svg');background-size:180px;opacity:.04;color:white;" aria-hidden="true"></div>
+  <div class="page-hero__content">
+    <div class="breadcrumb" style="margin-bottom:var(--space-4)"><a href="../index.html">Accueil</a><span class="breadcrumb__sep">›</span><span>FAQ</span></div>
+    <p class="section-label" style="margin-bottom:var(--space-4)">Vos questions</p>
+    <h1 class="page-hero__title">Questions<br/><em style="color:var(--color-gold)">Fréquentes</em></h1>
+    <p class="page-hero__subtitle">Toutes les réponses à vos questions sur nos services, produits et modalités.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="max-width:var(--container-lg)">
+    <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;justify-content:center;margin-bottom:var(--space-10)" class="reveal">
+      <button class="faq-cat-btn active" data-faq="all">Toutes les questions</button>
+      <button class="faq-cat-btn" data-faq="consultations">Consultations</button>
+      <button class="faq-cat-btn" data-faq="produits">Produits & Commandes</button>
+      <button class="faq-cat-btn" data-faq="paiement">Paiement</button>
+      <button class="faq-cat-btn" data-faq="livraison">Livraison</button>
+      <button class="faq-cat-btn" data-faq="compte">Espace Client</button>
+    </div>
+
+    <div id="faq-list">
+
+      <!-- CONSULTATIONS -->
+      <div class="faq-section" data-faq-section="consultations">
+        <h3 style="font-family:var(--font-accent);font-size:var(--text-xs);letter-spacing:.2em;text-transform:uppercase;color:var(--color-emerald);margin-bottom:var(--space-5);margin-top:var(--space-8)" class="reveal">Consultations</h3>
+
+        <details class="faq-item reveal">
+          <summary class="faq-question">Comment se déroule une consultation en ligne ?<span class="faq-toggle">+</span></summary>
+          <div class="faq-answer"><p>Après avoir effectué votre réservation et votre paiement en ligne, vous recevez un email de confirmation contenant un lien sécurisé pour votre session en visioconférence (Zoom ou Google Meet). La consultation se déroule à l'heure convenue, dans les mêmes conditions qu'en présentiel.</p><p>Nous vous recommandons de vous installer dans un endroit calme, avec une bonne connexion internet, et de vous munir d'un carnet pour noter les recommandations du praticien.</p></div>
+        </details>
+        <details class="faq-item reveal delay-100">
+          <summary class="faq-question">Les consultations sont-elles confidentielles ?<span class="faq-toggle">+</span></summary>
+          <div class="faq-answer"><p>Absolument. La confidentialité est un principe fondamental de notre pratique. Toutes les informations partagées lors des consultations sont strictement confidentielles et ne sont jamais communiquées à des tiers.</p><p>Nos systèmes informatiques sont sécurisés et vos données sont protégées conformément à notre politique de confidentialité et à la réglementation en vigueur.</p></div>
+        </details>
+        <details class="faq-item reveal delay-200">
+          <summary class="faq-question">Puis-je annuler ou reporter mon rendez-vous ?<span class="faq-toggle">+</span></summary>
+          <div class="faq-answer"><p>Oui, vous pouvez annuler ou reporter votre rendez-vous jusqu'à <strong>24 heures avant</strong> la consultation depuis votre espace client, sans frais.</p><p>En cas d'annulation dans les 24h précédant la séance, des frais de 30% du montant peuvent être retenus. En cas d'urgence, contactez-nous directement par WhatsApp.</p></div>
+        </details>
+        <details class="faq-item reveal delay-300">
+          <summary class="faq-question">Combien de temps dure une consultation ?<span class="faq-toggle">+</span></summary>
+          <div class="faq-answer"><ul><li>Consultation Traditionnelle : 45 à 60 minutes</li><li>Accompagnement Spirituel : 60 à 90 minutes</li><li>Consultation Divinatoire : 30 à 45 minutes</li><li>Consultation Initiale (programme) : 90 minutes</li></ul></div>
+        </details>
+        <details class="faq-item reveal">
+          <summary class="faq-question">Les services de PIMTABHAS remplacent-ils un suivi médical ?<span class="faq-toggle">+</span></summary>
+          <div class="faq-answer"><p><strong>Non, absolument pas.</strong> Nos services sont présentés comme des accompagnements complémentaires de bien-être holistique. PIMTABHAS ne pratique pas la médecine au sens légal du terme et ne formule aucune allégation de guérison garantie.</p><p>Nous encourageons vivement tous nos clients à maintenir leur suivi médical conventionnel et à informer leur médecin de toute démarche complémentaire entreprise.</p></div>
+        </details>
+      </div>
+
+      <!-- PRODUITS -->
+      <div class="faq-section" data-faq-section="produits">
+        <h3 style="font-family:var(--font-accent);font-size:var(--text-xs);letter-spacing:.2em;text-transform:uppercase;color:var(--color-emerald);margin-bottom:var(--space-5);margin-top:var(--space-8)" class="reveal">Produits & Commandes</h3>
+        <details class="faq-item reveal">
+          <summary class="faq-question">Vos produits sont-ils certifiés naturels ?<span class="faq-toggle">+</span></summary>
+          <div class="faq-answer"><p>Oui. Tous nos produits sont issus de plantes et substances naturelles sélectionnées avec soin. Nous travaillons uniquement avec des fournisseurs de confiance et des cueilleurs locaux qui respectent les pratiques durables.</p><p>Cependant, nos produits ne sont pas des médicaments et ne remplacent pas un traitement médical. Consultez votre médecin avant d'utiliser un nouveau produit, surtout en cas de traitement médicamenteux en cours.</p></div>
+        </details>
+        <details class="faq-item reveal delay-200">
+          <summary class="faq-question">Comment sont préparés vos produits ?<span class="faq-toggle">+</span></summary>
+          <div class="faq-answer"><p>Nos produits sont préparés artisanalement selon les méthodes traditionnelles africaines, dans notre laboratoire de Cotonou, sous la supervision du Grand Maître KPALIKA. Chaque lot est contrôlé avant expédition.</p></div>
+        </details>
+        <details class="faq-item reveal delay-300">
+          <summary class="faq-question">Quelle est la durée de vie des produits ?<span class="faq-toggle">+</span></summary>
+          <div class="faq-answer"><p>La durée de conservation varie selon les produits. Chaque article est étiqueté avec sa date limite d'utilisation. En général, comptez 12 à 24 mois pour les produits secs, 6 à 12 mois pour les huiles et 3 à 6 mois pour les préparations humides.</p></div>
+        </details>
+      </div>
+
+      <!-- PAIEMENT -->
+      <div class="faq-section" data-faq-section="paiement">
+        <h3 style="font-family:var(--font-accent);font-size:var(--text-xs);letter-spacing:.2em;text-transform:uppercase;color:var(--color-emerald);margin-bottom:var(--space-5);margin-top:var(--space-8)" class="reveal">Paiement</h3>
+        <details class="faq-item reveal">
+          <summary class="faq-question">Quels modes de paiement acceptez-vous ?<span class="faq-toggle">+</span></summary>
+          <div class="faq-answer"><ul><li><strong>Carte bancaire</strong> (Visa, Mastercard) — paiement 3D Secure</li><li><strong>Mobile Money</strong> : MTN MoMo, Orange Money, Moov Money</li><li><strong>PayPal</strong> pour la clientèle internationale</li><li><strong>Virement bancaire</strong> (sur demande)</li><li><strong>Espèces</strong> en présentiel dans nos centres</li></ul></div>
+        </details>
+        <details class="faq-item reveal delay-200">
+          <summary class="faq-question">Mes paiements sont-ils sécurisés ?<span class="faq-toggle">+</span></summary>
+          <div class="faq-answer"><p>Oui. Tous les paiements en ligne transitent par des plateformes sécurisées avec chiffrement SSL. Vos données bancaires ne sont jamais stockées sur nos serveurs. Nous utilisons des prestataires de paiement certifiés PCI-DSS.</p></div>
+        </details>
+      </div>
+
+      <!-- LIVRAISON -->
+      <div class="faq-section" data-faq-section="livraison">
+        <h3 style="font-family:var(--font-accent);font-size:var(--text-xs);letter-spacing:.2em;text-transform:uppercase;color:var(--color-emerald);margin-bottom:var(--space-5);margin-top:var(--space-8)" class="reveal">Livraison</h3>
+        <details class="faq-item reveal">
+          <summary class="faq-question">Livrez-vous à l'international ?<span class="faq-toggle">+</span></summary>
+          <div class="faq-answer"><p>Oui, nous expédions nos produits dans le monde entier. Les délais et frais varient selon la destination :</p><ul><li><strong>Afrique de l'Ouest (5 pays)</strong> : 3 à 7 jours ouvrables</li><li><strong>Reste de l'Afrique</strong> : 7 à 14 jours ouvrables</li><li><strong>Europe et Amérique du Nord</strong> : 10 à 21 jours ouvrables</li><li><strong>Reste du monde</strong> : 15 à 30 jours ouvrables</li></ul></div>
+        </details>
+        <details class="faq-item reveal delay-200">
+          <summary class="faq-question">Comment suivre ma commande ?<span class="faq-toggle">+</span></summary>
+          <div class="faq-answer"><p>Dès l'expédition de votre commande, vous recevez un email avec votre numéro de suivi. Vous pouvez également suivre votre commande en temps réel depuis votre espace client ou via la page dédiée au suivi de commandes.</p></div>
+        </details>
+      </div>
+
+      <!-- COMPTE -->
+      <div class="faq-section" data-faq-section="compte">
+        <h3 style="font-family:var(--font-accent);font-size:var(--text-xs);letter-spacing:.2em;text-transform:uppercase;color:var(--color-emerald);margin-bottom:var(--space-5);margin-top:var(--space-8)" class="reveal">Espace Client</h3>
+        <details class="faq-item reveal">
+          <summary class="faq-question">Comment créer mon espace client ?<span class="faq-toggle">+</span></summary>
+          <div class="faq-answer"><p>Cliquez sur « Mon Espace Client » dans le menu principal, puis sur « Créer un compte ». Renseignez vos informations de base, validez votre adresse email et votre compte est actif immédiatement.</p></div>
+        </details>
+        <details class="faq-item reveal delay-200">
+          <summary class="faq-question">Que contient l'espace client ?<span class="faq-toggle">+</span></summary>
+          <div class="faq-answer"><ul><li>Historique et gestion de vos rendez-vous</li><li>Suivi de vos commandes en temps réel</li><li>Accès à vos comptes-rendus de consultation</li><li>Messagerie sécurisée avec votre praticien</li><li>Gestion de vos informations personnelles</li><li>Programme de fidélité et avantages</li></ul></div>
+        </details>
+      </div>
+
+    </div>
+
+    <!-- Contact rapide -->
+    <div class="card reveal" style="padding:var(--space-8);text-align:center;margin-top:var(--space-16);background:var(--color-emerald-pale);border:1px solid rgba(15,106,75,.15)">
+      <div style="font-size:2.5rem;margin-bottom:var(--space-4)">💬</div>
+      <h3 style="font-family:var(--font-display);font-size:var(--text-2xl);color:var(--color-emerald);margin-bottom:var(--space-3)">Vous ne trouvez pas votre réponse ?</h3>
+      <p style="color:var(--color-gray-600);margin-bottom:var(--space-6)">Notre équipe est disponible pour répondre à toutes vos questions personnalisées.</p>
+      <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap">
+        <a href="contact.html" class="btn btn--secondary">Nous contacter</a>
+        <button onclick="openWhatsApp()" class="btn btn--outline-gold">WhatsApp direct</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer-placeholder"></div>
+<script src="../assets/js/components.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+document.querySelectorAll('.faq-cat-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.faq-cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.faq;
+    document.querySelectorAll('.faq-section').forEach(section => {
+      section.style.display = (cat === 'all' || section.dataset.faqSection === cat) ? '' : 'none';
+    });
+  });
+});
+</script>
+</body>
+</html>

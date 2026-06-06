@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <defs>
+    <radialGradient id="bgGradLight" cx="50%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#1A8A63"/>
+      <stop offset="100%" stop-color="#094D36"/>
+    </radialGradient>
+    <radialGradient id="sunGradLight" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F5E17A"/>
+      <stop offset="100%" stop-color="#D4AF37"/>
+    </radialGradient>
+    <radialGradient id="leafGradLight" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#2ECC8A"/>
+      <stop offset="100%" stop-color="#0F6A4B"/>
+    </radialGradient>
+  </defs>
+  
+  <circle cx="100" cy="100" r="95" stroke="#0F6A4B" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.4"/>
+  <circle cx="100" cy="100" r="82" stroke="#D4AF37" stroke-width="0.8" opacity="0.25"/>
+  <circle cx="100" cy="100" r="80" fill="url(#bgGradLight)"/>
+  
+  <g transform="translate(100,52)">
+    <circle cx="0" cy="0" r="14" fill="url(#sunGradLight)"/>
+    <circle cx="0" cy="0" r="6" fill="#0F172A"/>
+    <circle cx="0" cy="0" r="3" fill="#D4AF37"/>
+    <g stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round">
+      <line x1="0" y1="-18" x2="0" y2="-22"/>
+      <line x1="18" y1="0" x2="22" y2="0"/>
+      <line x1="0" y1="18" x2="0" y2="22"/>
+      <line x1="-18" y1="0" x2="-22" y2="0"/>
+      <line x1="12.7" y1="-12.7" x2="15.5" y2="-15.5"/>
+      <line x1="12.7" y1="12.7" x2="15.5" y2="15.5"/>
+      <line x1="-12.7" y1="12.7" x2="-15.5" y2="15.5"/>
+      <line x1="-12.7" y1="-12.7" x2="-15.5" y2="-15.5"/>
+    </g>
+  </g>
+  
+  <circle cx="100" cy="95" r="10" fill="#D4AF37"/>
+  <path d="M100 105 L100 138" stroke="#D4AF37" stroke-width="3" stroke-linecap="round"/>
+  <path d="M80 115 Q90 112 100 115 Q110 112 120 115" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M100 138 L90 155 M100 138 L110 155" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round"/>
+  
+  <path d="M70 120 Q45 95 55 70 Q68 90 75 105 Q80 115 70 120Z" fill="url(#leafGradLight)"/>
+  <path d="M70 120 Q60 98 57 73" stroke="#0F6A4B" stroke-width="1" fill="none" opacity="0.5"/>
+  
+  <path d="M130 120 Q155 95 145 70 Q132 90 125 105 Q120 115 130 120Z" fill="url(#leafGradLight)"/>
+  <path d="M130 120 Q140 98 143 73" stroke="#0F6A4B" stroke-width="1" fill="none" opacity="0.5"/>
+  
+  <clipPath id="circleClipLight">
+    <circle cx="100" cy="100" r="80"/>
+  </clipPath>
+  <g clip-path="url(#circleClipLight)">
+    <rect x="20" y="168" width="53" height="5" fill="#CC0000" opacity="0.8"/>
+    <rect x="73" y="168" width="54" height="5" fill="#FFD700" opacity="0.8"/>
+    <rect x="127" y="168" width="53" height="5" fill="#009A00" opacity="0.8"/>
+  </g>
+</svg>

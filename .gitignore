@@ -1,0 +1,16 @@
+# Système
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Logs
+*.log
+
+# Environnement local
+.env
+
+# Build tools (si utilisés plus tard)
+node_modules/
+dist/

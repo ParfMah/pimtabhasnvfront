@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg"/>
+  <title>Commandes — Admin PIMTABHAS</title>
+  <link rel="stylesheet" href="../assets/css/variables.css"/>
+  <link rel="stylesheet" href="../assets/css/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/components.css"/>
+  <link rel="stylesheet" href="../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../assets/css/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/pages.css"/>
+  <style>body{background:var(--color-gray-50);}.filter-inp{padding:var(--space-2) var(--space-4);border:1px solid var(--color-gray-200);border-radius:var(--radius-lg);font-family:var(--font-ui);font-size:var(--text-sm);background:var(--color-white);}</style>
+  <link rel="stylesheet" href="../assets/css/responsive.css"/>
+  <link rel="stylesheet" href="../assets/css/admin.css"/>
+</head>
+<body>
+<div class="toast-container"></div>
+<div class="admin-layout">
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar__logo"><img src="../assets/images/logo.svg" alt="PIMTABHAS"/></div>
+    <nav class="admin-nav">
+      <div class="admin-nav__section">Principal</div>
+      <a href="dashboard.html" class="admin-nav__item"><span class="admin-nav__icon">🏠</span>Tableau de bord</a>
+      <a href="rendez-vous.html" class="admin-nav__item"><span class="admin-nav__icon">📅</span>Rendez-vous</a>
+      <a href="patients.html" class="admin-nav__item"><span class="admin-nav__icon">👥</span>Patients</a>
+      <div class="admin-nav__section">Boutique</div>
+      <a href="commandes.html" class="admin-nav__item active"><span class="admin-nav__icon">📦</span>Commandes</a>
+      <a href="produits.html" class="admin-nav__item"><span class="admin-nav__icon">🌿</span>Produits</a>
+      <div class="admin-nav__section">Contenu</div>
+      <a href="blog.html" class="admin-nav__item"><span class="admin-nav__icon">✍️</span>Blog</a>
+      <a href="messages.html" class="admin-nav__item"><span class="admin-nav__icon">💬</span>Messages</a>
+      <div class="admin-nav__section">Paramètres</div>
+      <a href="../index.html" class="admin-nav__item" target="_blank"><span class="admin-nav__icon">🌐</span>Voir le site</a>
+      <a href="../pages/espace-client.html" class="admin-nav__item" onclick="auth.logout();return false"><span class="admin-nav__icon">🚪</span>Déconnexion</a>
+    </nav>
+  </aside>
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <h1 style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-night)">📦 Gestion des Commandes</h1>
+      <button onclick="exportOrders()" class="btn btn--outline-gold btn--sm">📤 Exporter</button>
+    </div>
+    <div class="admin-content">
+      <div class="grid grid--4" style="gap:var(--space-4);margin-bottom:var(--space-8)">
+        <div class="admin-stat-card"><div class="admin-stat-icon admin-stat-icon--gold">📦</div><div><div class="admin-stat-num">147</div><div class="admin-stat-label">Commandes ce mois</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon admin-stat-icon--blue">⏳</div><div><div class="admin-stat-num">12</div><div class="admin-stat-label">En attente d'expédition</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon admin-stat-icon--emerald">✅</div><div><div class="admin-stat-num">128</div><div class="admin-stat-label">Livrées</div></div></div>
+        <div class="admin-stat-card"><div class="admin-stat-icon admin-stat-icon--bronze">💰</div><div><div class="admin-stat-num">2,4M</div><div class="admin-stat-label">FCFA de revenus</div></div></div>
+      </div>
+
+      <!-- Filtres -->
+      <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;align-items:center;padding:var(--space-5) var(--space-6);background:var(--color-white);border-radius:var(--radius-xl);box-shadow:var(--shadow-sm);margin-bottom:var(--space-6)">
+        <input class="filter-inp" type="text" placeholder="🔍 N° commande, client…" style="flex:1;min-width:180px"/>
+        <select class="filter-inp">
+          <option>Tous les statuts</option><option>En attente</option><option>Confirmée</option><option>En préparation</option><option>Expédiée</option><option>Livrée</option><option>Annulée</option>
+        </select>
+        <select class="filter-inp">
+          <option>Tous les pays</option><option>Bénin</option><option>Togo</option><option>France</option><option>Canada</option>
+        </select>
+        <input class="filter-inp" type="date" title="Date de début"/>
+        <input class="filter-inp" type="date" title="Date de fin"/>
+        <button onclick="exportOrders()" class="btn btn--outline-gold btn--sm">Filtrer</button>
+      </div>
+
+      <div class="admin-table">
+        <div style="overflow-x:auto">
+          <table style="min-width:950px">
+            <thead><tr>
+              <th><input type="checkbox"/></th>
+              <th>N° Commande</th><th>Client</th><th>Pays</th><th>Produits</th><th>Montant</th><th>Paiement</th><th>Statut</th><th>Date</th><th>Actions</th>
+            </tr></thead>
+            <tbody>
+              <tr><td><input type="checkbox"/></td>
+                <td><span style="font-family:var(--font-mono);font-size:var(--text-xs)">CMD-2025-000147</span></td>
+                <td><div style="font-size:var(--text-sm);font-weight:600">Fatoumata B.</div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">fatoumata@mail.com</div></td>
+                <td>🇫🇷</td>
+                <td style="font-size:var(--text-xs)">Coffret × 1, Tisane × 2</td>
+                <td style="font-weight:bold;color:var(--color-emerald)">58 000</td>
+                <td><span style="font-size:10px;background:var(--color-success-bg);color:var(--color-success);padding:2px 8px;border-radius:var(--radius-full);font-weight:bold">Payé</span></td>
+                <td><span style="font-size:10px;background:var(--color-warning-bg);color:var(--color-warning);padding:2px 8px;border-radius:var(--radius-full);font-weight:bold">En préparation</span></td>
+                <td style="font-size:var(--text-xs);color:var(--color-gray-400)">Auj. 10:23</td>
+                <td style="white-space:nowrap">
+                  <button onclick="viewOrder('CMD-2025-000147')" class="btn btn--outline-gold btn--sm">Voir</button>
+                  <button onclick="updateOrderStatus('CMD-2025-000147','shipped')" class="btn btn--ghost btn--sm">🚚</button>
+                </td>
+              </tr>
+              <tr><td><input type="checkbox"/></td>
+                <td><span style="font-family:var(--font-mono);font-size:var(--text-xs)">CMD-2025-000146</span></td>
+                <td><div style="font-size:var(--text-sm);font-weight:600">Kofi M.</div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">kofi@mail.com</div></td>
+                <td>🇹🇬</td>
+                <td style="font-size:var(--text-xs)">Tisane Moringa × 1</td>
+                <td style="font-weight:bold;color:var(--color-emerald)">15 000</td>
+                <td><span style="font-size:10px;background:var(--color-success-bg);color:var(--color-success);padding:2px 8px;border-radius:var(--radius-full);font-weight:bold">Payé</span></td>
+                <td><span style="font-size:10px;background:var(--color-success-bg);color:var(--color-success);padding:2px 8px;border-radius:var(--radius-full);font-weight:bold">Expédiée</span></td>
+                <td style="font-size:var(--text-xs);color:var(--color-gray-400)">Hier 15:47</td>
+                <td style="white-space:nowrap">
+                  <button onclick="viewOrder('CMD-2025-000146')" class="btn btn--outline-gold btn--sm">Voir</button>
+                  <button onclick="printInvoice('CMD-2025-000146')" class="btn btn--ghost btn--sm">🖨</button>
+                </td>
+              </tr>
+              <tr><td><input type="checkbox"/></td>
+                <td><span style="font-family:var(--font-mono);font-size:var(--text-xs)">CMD-2025-000145</span></td>
+                <td><div style="font-size:var(--text-sm);font-weight:600">Isabelle O.</div><div style="font-size:var(--text-xs);color:var(--color-gray-400)">isabelle@mail.com</div></td>
+                <td>🇨🇦</td>
+                <td style="font-size:var(--text-xs)">Coffret × 1, Huile × 2, Encens × 3</td>
+                <td style="font-weight:bold;color:var(--color-emerald)">82 500</td>
+                <td><span style="font-size:10px;background:var(--color-success-bg);color:var(--color-success);padding:2px 8px;border-radius:var(--radius-full);font-weight:bold">Payé</span></td>
+                <td><span style="font-size:10px;background:var(--color-gray-100);color:var(--color-gray-600);padding:2px 8px;border-radius:var(--radius-full);font-weight:bold">Livrée</span></td>
+                <td style="font-size:var(--text-xs);color:var(--color-gray-400)">Il y a 2j</td>
+                <td style="white-space:nowrap">
+                  <button onclick="viewOrder('CMD-2025-000145')" class="btn btn--outline-gold btn--sm">Voir</button>
+                  <button onclick="printInvoice('CMD-2025-000145')" class="btn btn--ghost btn--sm">🖨</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-4) var(--space-6);border-top:1px solid var(--color-gray-100)">
+          <span style="font-size:var(--text-xs);color:var(--color-gray-400)">147 commandes au total</span>
+          <div class="pagination" style="padding:0"><a class="page-btn active">1</a><a class="page-btn">2</a><a class="page-btn">3</a><span class="page-btn">…</span><a class="page-btn">8</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal détail commande -->
+<div class="modal-backdrop" id="modal-order">
+  <div class="modal" style="max-width:680px">
+    <div class="modal__header"><h3 class="modal__title" id="order-modal-title">Commande CMD-2025-000147</h3><button class="modal__close" onclick="modal.close('modal-order')">✕</button></div>
+    <div class="modal__body">
+      <div class="grid grid--2" style="gap:var(--space-6);margin-bottom:var(--space-6)">
+        <div><div style="font-family:var(--font-accent);font-size:var(--text-xs);letter-spacing:.15em;text-transform:uppercase;color:var(--color-emerald);margin-bottom:var(--space-3)">Client</div>
+          <p style="font-family:var(--font-ui);font-size:var(--text-sm)"><strong>Fatoumata BARRY</strong><br/>fatoumata@mail.com<br/>+33 6 00 000 000<br/>Paris, France 🇫🇷</p></div>
+        <div><div style="font-family:var(--font-accent);font-size:var(--text-xs);letter-spacing:.15em;text-transform:uppercase;color:var(--color-emerald);margin-bottom:var(--space-3)">Livraison</div>
+          <p style="font-family:var(--font-ui);font-size:var(--text-sm)">123 Rue de la Paix<br/>75001 Paris, France<br/><br/><strong>Mode :</strong> DHL Express<br/><strong>Suivi :</strong> DHL-1234567890</p></div>
+      </div>
+      <div style="margin-bottom:var(--space-6)">
+        <div style="font-family:var(--font-accent);font-size:var(--text-xs);letter-spacing:.15em;text-transform:uppercase;color:var(--color-emerald);margin-bottom:var(--space-3)">Articles commandés</div>
+        <table style="width:100%;font-size:var(--text-sm)">
+          <tr style="background:var(--color-gray-50)"><th style="padding:var(--space-2) var(--space-3);text-align:left">Produit</th><th style="padding:var(--space-2) var(--space-3);text-align:right">Qté</th><th style="padding:var(--space-2) var(--space-3);text-align:right">Prix unit.</th><th style="padding:var(--space-2) var(--space-3);text-align:right">Total</th></tr>
+          <tr><td style="padding:var(--space-2) var(--space-3)">💎 Coffret Bien-être Complet</td><td style="padding:var(--space-2) var(--space-3);text-align:right">1</td><td style="padding:var(--space-2) var(--space-3);text-align:right">45 000</td><td style="padding:var(--space-2) var(--space-3);text-align:right;font-weight:bold">45 000</td></tr>
+          <tr><td style="padding:var(--space-2) var(--space-3)">🌿 Tisane Équilibre Vital</td><td style="padding:var(--space-2) var(--space-3);text-align:right">2</td><td style="padding:var(--space-2) var(--space-3);text-align:right">12 500</td><td style="padding:var(--space-2) var(--space-3);text-align:right;font-weight:bold">25 000</td></tr>
+          <tr style="border-top:2px solid var(--color-gray-100)"><td colspan="3" style="padding:var(--space-3);text-align:right;font-weight:bold">Livraison</td><td style="padding:var(--space-3);text-align:right;font-weight:bold">8 000</td></tr>
+          <tr style="background:var(--color-emerald-pale)"><td colspan="3" style="padding:var(--space-3);text-align:right;font-weight:bold;color:var(--color-emerald)">TOTAL</td><td style="padding:var(--space-3);text-align:right;font-weight:bold;color:var(--color-emerald)">78 000 FCFA</td></tr>
+        </table>
+      </div>
+      <div>
+        <div style="font-family:var(--font-accent);font-size:var(--text-xs);letter-spacing:.15em;text-transform:uppercase;color:var(--color-emerald);margin-bottom:var(--space-3)">Mettre à jour le statut</div>
+        <div style="display:flex;gap:var(--space-3);flex-wrap:wrap">
+          <button onclick="updateOrderStatus('CMD-2025-000147','processing');showToast('Statut mis à jour','success')" class="btn btn--outline-gold btn--sm">En préparation</button>
+          <button onclick="updateOrderStatus('CMD-2025-000147','shipped');showToast('Commande marquée expédiée','success')" class="btn btn--secondary btn--sm">🚚 Marquer expédiée</button>
+          <button onclick="updateOrderStatus('CMD-2025-000147','delivered');showToast('Commande livrée !','success')" class="btn btn--outline-gold btn--sm">✅ Livrée</button>
+          <button onclick="printInvoice('CMD-2025-000147')" class="btn btn--ghost btn--sm">🖨 Imprimer facture</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal__footer"><button onclick="modal.close('modal-order')" class="btn btn--outline-gold">Fermer</button></div>
+  </div>
+</div>
+
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/admin.js"></script>
+<script>
+requireAdmin();
+function viewOrder(num){ document.getElementById('order-modal-title').textContent='Commande '+num; modal.open('modal-order'); }
+function updateOrderStatus(num,status){ showToast('Statut commande '+num+' mis à jour','success'); }
+function printInvoice(num){ showToast('Impression de la facture '+num,'info'); }
+function exportOrders(){ showToast('Export CSV des commandes lancé','success'); }
+</script>
+</body>
+</html>

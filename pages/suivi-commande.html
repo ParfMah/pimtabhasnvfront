@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg"/>
+  <title>Suivi de Commande — PIMTABHAS</title>
+  <link rel="stylesheet" href="../assets/css/variables.css"/>
+  <link rel="stylesheet" href="../assets/css/reset.css"/>
+  <link rel="stylesheet" href="../assets/css/typography.css"/>
+  <link rel="stylesheet" href="../assets/css/components.css"/>
+  <link rel="stylesheet" href="../assets/css/layout.css"/>
+  <link rel="stylesheet" href="../assets/css/animations.css"/>
+  <link rel="stylesheet" href="../assets/css/pages.css"/>
+  <style>
+    .tracking-hero{min-height:50vh;background:var(--gradient-premium);display:flex;align-items:center;padding:calc(var(--header-height)+var(--space-16)) var(--space-8) var(--space-16);position:relative;overflow:hidden;}
+    .tracking-hero::before{content:'';position:absolute;inset:0;background-image:url('../assets/images/pattern-adinkra.svg');background-size:150px;background-repeat:repeat;opacity:.04;color:white;}
+    .tracking-card{background:var(--color-white);border-radius:var(--radius-3xl);box-shadow:var(--shadow-2xl);overflow:hidden;max-width:680px;margin:0 auto;}
+    .tracking-card-header{background:var(--gradient-premium);padding:var(--space-8);border-bottom:1px solid rgba(212,175,55,.15);}
+    .tracking-card-body{padding:var(--space-8);}
+    .order-timeline{position:relative;padding-left:var(--space-10);}
+    .order-timeline::before{content:'';position:absolute;left:18px;top:12px;bottom:12px;width:2px;background:var(--color-gray-200);}
+    .order-step{position:relative;display:flex;gap:var(--space-4);margin-bottom:var(--space-6);}
+    .order-step:last-child{margin-bottom:0;}
+    .order-step-dot{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:absolute;left:calc(-2.5rem - 0px);top:0;font-size:1rem;z-index:1;flex-shrink:0;}
+    .order-step-dot--done{background:var(--color-emerald);color:white;}
+    .order-step-dot--active{background:var(--color-gold);color:var(--color-night);box-shadow:0 0 0 4px rgba(212,175,55,.25);}
+    .order-step-dot--pending{background:var(--color-gray-100);color:var(--color-gray-400);}
+    .order-step-title{font-family:var(--font-ui);font-weight:var(--weight-semibold);font-size:var(--text-sm);color:var(--color-night);margin-bottom:var(--space-1);}
+    .order-step-date{font-size:var(--text-xs);color:var(--color-gray-400);}
+    .order-step-desc{font-size:var(--text-xs);color:var(--color-gray-500);margin-top:var(--space-1);}
+    .order-step--pending .order-step-title{color:var(--color-gray-400);}
+  </style>
+  <link rel="stylesheet" href="../assets/css/responsive.css"/>
+</head>
+<body class="preload">
+<div class="toast-container"></div>
+<div id="site-header-placeholder"></div>
+
+<section class="tracking-hero">
+  <div style="max-width:var(--container-xl);margin:0 auto;width:100%;position:relative;z-index:2;text-align:center;">
+    <div class="breadcrumb" style="margin-bottom:var(--space-4);justify-content:center"><a href="../index.html">Accueil</a><span class="breadcrumb__sep">›</span><span style="color:var(--color-gold)">Suivi de Commande</span></div>
+    <p class="section-label" style="justify-content:center;margin-bottom:var(--space-4)">Où est mon colis ?</p>
+    <h1 style="font-family:var(--font-display);font-size:clamp(2rem,5vw,4rem);color:var(--color-cream);margin-bottom:var(--space-6)">Suivi de<br/><em style="color:var(--color-gold)">Commande</em></h1>
+    <p style="color:rgba(248,246,240,.7);font-size:var(--text-lg);max-width:50ch;margin:0 auto">Entrez votre numéro de commande pour suivre l'état de votre livraison en temps réel.</p>
+  </div>
+</section>
+
+<section class="section" style="background:var(--color-cream-dark)">
+  <div class="container">
+
+    <!-- Formulaire de recherche -->
+    <div class="tracking-card reveal">
+      <div class="tracking-card-header">
+        <h2 style="font-family:var(--font-display);color:var(--color-gold);font-size:var(--text-xl);margin-bottom:var(--space-2)">📦 Rechercher votre commande</h2>
+        <p style="color:rgba(248,246,240,.65);font-size:var(--text-sm)">Votre numéro de commande se trouve dans votre email de confirmation.</p>
+      </div>
+      <div class="tracking-card-body">
+        <form id="tracking-form" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="order-num">Numéro de commande *</label>
+            <input class="form-control" type="text" id="order-num" placeholder="Ex : CMD-2025-001234" required style="font-family:var(--font-mono);letter-spacing:.05em"/>
+            <div class="form-hint">Format : CMD-AAAA-XXXXXX</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="order-email">Adresse email de la commande *</label>
+            <input class="form-control" type="email" id="order-email" placeholder="votre@email.com" required/>
+          </div>
+          <button type="submit" class="btn btn--secondary btn--lg" style="width:100%;justify-content:center">
+            Suivre ma commande
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Résultat (masqué par défaut) -->
+    <div id="tracking-result" class="tracking-card reveal" style="display:none;margin-top:var(--space-8)">
+      <div class="tracking-card-header" id="tracking-header">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:var(--space-4)">
+          <div>
+            <div style="font-family:var(--font-accent);font-size:var(--text-xs);letter-spacing:.15em;text-transform:uppercase;color:var(--color-gold);margin-bottom:var(--space-2)">Commande</div>
+            <div id="result-order-num" style="font-family:var(--font-mono);font-size:var(--text-lg);color:var(--color-cream);font-weight:bold"></div>
+          </div>
+          <div id="result-status-badge"></div>
+        </div>
+        <div id="result-order-info" style="margin-top:var(--space-5);display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4)"></div>
+      </div>
+      <div class="tracking-card-body">
+        <h3 style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night);margin-bottom:var(--space-8)">Historique de livraison</h3>
+        <div class="order-timeline" id="tracking-timeline"></div>
+        <div id="tracking-products" style="margin-top:var(--space-8);border-top:1px solid var(--color-gray-100);padding-top:var(--space-6)"></div>
+        <div style="margin-top:var(--space-6);display:flex;gap:var(--space-3);flex-wrap:wrap">
+          <a href="contact.html" class="btn btn--outline-gold btn--sm">Contacter le support</a>
+          <button onclick="openWhatsApp('Bonjour, j\'ai une question sur ma commande '+(document.getElementById('result-order-num').textContent||''))" class="btn btn--sm" style="background:var(--color-whatsapp);color:white">💬 WhatsApp</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- INFOS LIVRAISON -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label section-label--dark">Délais & informations</div>
+      <h2 class="section-title">Livraison<br/><span class="text-emerald">dans le Monde Entier</span></h2>
+    </div>
+    <div class="grid grid--4 stagger">
+      <div class="card reveal" style="padding:var(--space-6);text-align:center">
+        <div style="font-size:2.5rem;margin-bottom:var(--space-3)">🇧🇯🇹🇬🇧🇫🇲🇱🇸🇳</div>
+        <h3 style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night);margin-bottom:var(--space-2)">Afrique de l'Ouest</h3>
+        <div style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-emerald);font-weight:bold;margin-bottom:var(--space-1)">3 – 7 jours</div>
+        <div style="font-size:var(--text-xs);color:var(--color-gray-400)">Livraison à domicile ou point relais</div>
+      </div>
+      <div class="card reveal delay-200" style="padding:var(--space-6);text-align:center">
+        <div style="font-size:2.5rem;margin-bottom:var(--space-3)">🌍</div>
+        <h3 style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night);margin-bottom:var(--space-2)">Reste de l'Afrique</h3>
+        <div style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-emerald);font-weight:bold;margin-bottom:var(--space-1)">7 – 14 jours</div>
+        <div style="font-size:var(--text-xs);color:var(--color-gray-400)">Via transporteurs locaux partenaires</div>
+      </div>
+      <div class="card reveal delay-300" style="padding:var(--space-6);text-align:center">
+        <div style="font-size:2.5rem;margin-bottom:var(--space-3)">🇪🇺</div>
+        <h3 style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night);margin-bottom:var(--space-2)">Europe</h3>
+        <div style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-emerald);font-weight:bold;margin-bottom:var(--space-1)">10 – 21 jours</div>
+        <div style="font-size:var(--text-xs);color:var(--color-gray-400)">Colissimo & DHL Express disponibles</div>
+      </div>
+      <div class="card reveal delay-400" style="padding:var(--space-6);text-align:center">
+        <div style="font-size:2.5rem;margin-bottom:var(--space-3)">🌎</div>
+        <h3 style="font-family:var(--font-ui);font-weight:var(--weight-semibold);color:var(--color-night);margin-bottom:var(--space-2)">Amérique & autres</h3>
+        <div style="font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-emerald);font-weight:bold;margin-bottom:var(--space-1)">15 – 30 jours</div>
+        <div style="font-size:var(--text-xs);color:var(--color-gray-400)">DHL ou transporteur premium</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer-placeholder"></div>
+<script src="../assets/js/components.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+document.getElementById('tracking-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!validateForm(this)) return;
+  const btn = this.querySelector('[type="submit"]');
+  btn.disabled = true; btn.classList.add('btn--loading');
+  const orderNum = document.getElementById('order-num').value.trim().toUpperCase();
+  const email = document.getElementById('order-email').value.trim();
+  try {
+    const data = await api.get(`/orders/track?orderNumber=${encodeURIComponent(orderNum)}&email=${encodeURIComponent(email)}`);
+    renderTrackingResult(data);
+    document.getElementById('tracking-result').style.display = 'block';
+    document.getElementById('tracking-result').scrollIntoView({behavior:'smooth',block:'start'});
+  } catch (err) {
+    showToast('Commande introuvable. Vérifiez le numéro et l\'email.', 'error');
+  } finally {
+    btn.disabled = false; btn.classList.remove('btn--loading');
+  }
+});
+
+function renderTrackingResult(order) {
+  document.getElementById('result-order-num').textContent = order.orderNumber || 'CMD-2025-000000';
+  const statusLabels = {
+    pending:'En attente de paiement', confirmed:'Confirmée', processing:'En préparation',
+    shipped:'Expédiée', delivered:'Livrée', cancelled:'Annulée'
+  };
+  const statusColors = {
+    pending:'warning', confirmed:'info', processing:'info',
+    shipped:'success', delivered:'success', cancelled:'error'
+  };
+  const status = order.status || 'confirmed';
+  document.getElementById('result-status-badge').innerHTML =
+    `<span class="badge badge--${statusColors[status] || 'emerald'}" style="font-size:.8rem;padding:.5rem 1.25rem">${statusLabels[status] || status}</span>`;
+
+  document.getElementById('result-order-info').innerHTML = `
+    <div><div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(248,246,240,.5);margin-bottom:.25rem">Date</div><div style="font-family:var(--font-ui);font-size:.875rem;color:var(--color-cream)">${order.createdAt ? new Date(order.createdAt).toLocaleDateString('fr-FR') : '—'}</div></div>
+    <div><div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(248,246,240,.5);margin-bottom:.25rem">Montant</div><div style="font-family:var(--font-ui);font-size:.875rem;color:var(--color-cream)">${order.total ? order.total.toLocaleString('fr-FR') + ' FCFA' : '—'}</div></div>
+    <div><div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(248,246,240,.5);margin-bottom:.25rem">Destination</div><div style="font-family:var(--font-ui);font-size:.875rem;color:var(--color-cream)">${order.shippingAddress?.country || '—'}</div></div>
+  `;
+
+  const steps = [
+    {label:'Commande reçue', icon:'✅', done:true, date:order.createdAt, desc:'Votre commande a été enregistrée avec succès.'},
+    {label:'Paiement confirmé', icon:'💳', done:['confirmed','processing','shipped','delivered'].includes(status), date:order.paidAt, desc:'Paiement validé et traité.'},
+    {label:'En préparation', icon:'📦', done:['processing','shipped','delivered'].includes(status), date:order.processedAt, desc:'Votre commande est en cours de préparation dans notre atelier.'},
+    {label:'Expédiée', icon:'🚚', done:['shipped','delivered'].includes(status), date:order.shippedAt, desc:`Numéro de suivi : ${order.trackingNumber || 'En attente'}`},
+    {label:'Livrée', icon:'🏠', done:status==='delivered', date:order.deliveredAt, desc:'Votre commande a été livrée.'},
+  ];
+
+  document.getElementById('tracking-timeline').innerHTML = steps.map((step, i) => {
+    const dotClass = step.done ? 'order-step-dot--done' :
+      (steps[i-1]?.done && !step.done ? 'order-step-dot--active' : 'order-step-dot--pending');
+    return `<div class="order-step ${step.done ? '' : 'order-step--pending'}">
+      <div class="order-step-dot ${dotClass}">${step.done ? '✓' : step.icon}</div>
+      <div>
+        <div class="order-step-title">${step.label}</div>
+        ${step.date ? `<div class="order-step-date">${new Date(step.date).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})}</div>` : ''}
+        <div class="order-step-desc">${step.desc}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// Pré-remplir depuis URL params
+const params = new URLSearchParams(window.location.search);
+if (params.get('order')) document.getElementById('order-num').value = params.get('order');
+if (params.get('email')) document.getElementById('order-email').value = params.get('email');
+</script>
+</body>
+</html>
