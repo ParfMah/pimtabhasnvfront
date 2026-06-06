@@ -595,3 +595,45 @@
 
   .btn--xl { padding: var(--space-4) var(--space-8); }
 }
+
+/* ============================================================
+   FIX 1 : LARGEUR TOTALE DU FOOTER
+   ============================================================ */
+.site-footer {
+  display: block !important;
+  width: 100vw !important;      /* Force à prendre 100% de la largeur de la fenêtre */
+  max-width: 100vw !important;  /* Casse toute restriction héritée */
+  margin-left: calc(-50vw + 50%) !important;  /* Astuce ultime pour sortir d'un container bloqué */
+  margin-right: calc(-50vw + 50%) !important; /* Centrage parfait sur tout l'écran */
+  box-sizing: border-box !important;
+}
+
+/* ============================================================
+   FIX 2 : CONTRASTE LISIBLE POUR LA SECTION CONTACT
+   ============================================================ */
+
+/* Ciblage de la section "Nous contacter" */
+.section[aria-labelledby*="contact"],
+.section[aria-label*="contact"],
+[id*="contact"] {
+  color: #f8f6f0 !important; /* Force le texte général en blanc cassé */
+}
+
+/* Change la couleur de la description de vert foncé à blanc cassé transparent */
+.section[aria-labelledby*="contact"] p,
+.section[aria-label*="contact"] p {
+  color: rgba(248, 246, 240, 0.85) !important;
+}
+
+/* Force les intitulés des coordonnées (Téléphone, Email, WhatsApp) à ressortir */
+.section[aria-labelledby*="contact"] h3,
+.section[aria-labelledby*="contact"] h4,
+.section[aria-label*="contact"] h4 {
+  color: var(--color-gold, #d4af37) !important; /* En Or pour un rendu pro */
+}
+
+/* Force les liens et textes sous les icônes à être parfaitement visibles */
+.section[aria-labelledby*="contact"] a,
+.section[aria-labelledby*="contact"] span {
+  color: #f8f6f0 !important;
+}

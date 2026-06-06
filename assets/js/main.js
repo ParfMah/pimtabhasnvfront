@@ -451,7 +451,7 @@ document.addEventListener('click', (e) => {
 
 // ── WHATSAPP ─────────────────────────────────────────────────
 window.openWhatsApp = function(message = '') {
-  const phone = '+22901957111552'; // À remplacer
+  const phone = '+2290195711152'; // À remplacer
   const encoded = encodeURIComponent(message || 'Bonjour, je souhaite prendre contact avec PIMTABHAS.');
   window.open(`https://wa.me/${phone}?text=${encoded}`, '_blank');
 };
