@@ -681,22 +681,51 @@
 }
 
 /* ============================================================
-   FIX : SUPPRESSION DE LA MARGE VERTE SOUS LE FOOTER
+   FIX 3 : CENTRAGE PARFAIT ET LARGEUR OPTIMALE CARTE BLANCHE CONTACT
    ============================================================ */
-html, body {
-  margin: 0 !important;
-  padding: 0 !important;
-  height: 100%;
-}
+@media screen and (max-width: 768px) {
+  /* 1. On libère la section et son conteneur pour occuper tout l'écran */
+  .contact-section .container,
+  .section[aria-labelledby*="contact"] .container,
+  .section[aria-label*="contact"] .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: var(--space-4, 1rem) !important;  /* Marges de sécurité à gauche */
+    padding-right: var(--space-4, 1rem) !important; /* Marges de sécurité à droite */
+    box-sizing: border-box !important;
+  }
 
-/* On force le footer à coller au pixel près au bas de la page */
-.site-footer {
-  margin-bottom: 0 !important;
-  padding-bottom: var(--space-8, 2rem) !important; /* Garde de l'espace à l'intérieur, pas à l'extérieur */
-}
+  /* 2. On force la grille à s'aligner en colonne bien centrée */
+  .contact-section .grid,
+  .section[aria-labelledby*="contact"] .grid,
+  .section[aria-label*="contact"] .grid {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+  }
 
-/* Annule les marges des derniers éléments (ex: le copyright) qui poussent le footer vers le haut */
-.site-footer *:last-child {
-  margin-bottom: 0 !important;
-  padding-bottom: 0 !important;
+  /* 3. On libère le bloc d'animation de la carte blanche */
+  .section[aria-labelledby*="contact"] .reveal--right,
+  .section[aria-label*="contact"] .reveal--right,
+  .contact-section .reveal--right {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important; /* On enlève le bridage des 92% */
+    transform: none !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+
+  /* 4. La carte blanche prend enfin 100% du conteneur pour respirer */
+  .section[aria-labelledby*="contact"] .card,
+  .contact-section .card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    float: none !important;
+  }
 }
