@@ -597,41 +597,41 @@
 }
 
 /* ============================================================
-   CORRECTIF ALIGNEMENT FORMULAIRE MOBILE (SANS TOUCHER AU HTML)
+   CORRECTIF ALIGNEMENT FORMULAIRE MOBILE — ALIGNEMENT PARFAIT
    ============================================================ */
 
 @media (max-width: 768px) {
-  /* 1. On neutralise les comportements de grille asymétriques sur le parent */
-  .grid--2:has(.reveal--right),
-  .grid--3:has(.reveal--right) {
+  /* On force le conteneur global à ignorer le padding et à se centrer */
+  .grid:has(.reveal--right),
+  [class*="grid--"]:has(.reveal--right) {
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important; /* Force le centrage de tous les blocs enfants */
+    align-items: center !important;
     justify-content: center !important;
     width: 100% !important;
-    gap: var(--space-8) !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
   }
 
-  /* 2. On réinitialise proprement le conteneur d'animation */
   .reveal--right {
     display: block !important;
     width: 100% !important;
     max-width: 100% !important;
-    transform: none !important; /* Supprime définitivement la translation */
+    transform: none !important;
     margin: 0 auto !important;
     padding: 0 !important;
   }
 
-  /* 3. On applique le centrage parfait à la carte */
+  /* La carte se centre au pixel près */
   .reveal--right .card--glass {
     display: block !important;
     width: 100% !important;
-    /* On lui donne une taille maximale adaptée aux écrans de smartphones */
-    max-width: min(100%, 390px) !important; 
-    margin: 0 auto !important; /* Les marges automatiques gauche/droite égalisent l'espace */
+    max-width: 360px !important; /* Légèrement réduit pour être parfaitement au centre sans déborder */
+    margin-left: auto !important;
+    margin-right: auto !important;
+    float: none !important;
   }
 
-  /* 4. Légère réduction du rembourrage interne pour que le formulaire respire */
   .reveal--right .card__body {
     padding: var(--space-5) !important;
   }
