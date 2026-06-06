@@ -597,28 +597,17 @@
 }
 
 @media (max-width: 768px) {
-  /* On cible le conteneur principal pour activer Flexbox et centrer au pixel près */
-  .reveal--right {
+  .mon-formulaire {
     display: flex !important;
-    justify-content: center !important; /* Centre horizontalement l'enfant (la carte) */
-    align-items: center !important;
+    justify-content: center !important;
     width: 100% !important;
-    max-width: 100% !important;
-    transform: none !important; /* Annule définitivement le décalage de l'animation */
-    padding: 0 var(--space-4) !important; /* Marge de sécurité à gauche et à droite */
+    padding: 0 var(--space-4) !important;
     box-sizing: border-box !important;
   }
 
-  /* On ajuste la carte à l'intérieur pour qu'elle respire et reste centrée */
-  .reveal--right .card--glass {
+  .mon-formulaire .card--glass {
     width: 100% !important;
-    max-width: 380px !important; /* Taille parfaite pour mobile qui empêche de coller aux bords */
-    margin: 0 auto !important; /* Double sécurité pour le centrage */
-    box-sizing: border-box !important;
-  }
-
-  /* On réduit le rembourrage interne pour que les champs ne soient pas étouffés */
-  .reveal--right .card__body {
-    padding: var(--space-5) !important; 
+    max-width: 380px !important;
+    margin: 0 auto !important;
   }
 }
