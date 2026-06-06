@@ -606,6 +606,7 @@
   margin-left: calc(-50vw + 50%) !important;  /* Astuce ultime pour sortir d'un container bloqué */
   margin-right: calc(-50vw + 50%) !important; /* Centrage parfait sur tout l'écran */
   box-sizing: border-box !important;
+  bottom : 0;
 }
 
 /* ============================================================
@@ -636,4 +637,66 @@
 .section[aria-labelledby*="contact"] a,
 .section[aria-labelledby*="contact"] span {
   color: #f8f6f0 !important;
+}
+
+/* ============================================================
+   FIX : CENTRAGE PARFAIT DE LA CARTE CONTACT BLANCHE SUR MOBILE
+   ============================================================ */
+@media screen and (max-width: 768px) {
+  /* On cible le parent direct qui gère la grille de contact */
+  .contact-section .grid,
+  .section[aria-labelledby*="contact"] .grid,
+  .section[aria-label*="contact"] .grid {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; /* Force l'alignement au centre horizontal */
+    justify-content: center !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+  }
+
+  /* On cible le bloc animé qui contient la carte blanche */
+  .section[aria-labelledby*="contact"] .reveal--right,
+  .section[aria-label*="contact"] .reveal--right,
+  .contact-section .reveal--right {
+    display: block !important;
+    width: 100% !important;
+    max-width: 92% !important; /* Laisse un espace de sécurité identique à gauche et à droite */
+    transform: none !important; /* Neutralise le décalage de l'animation JS */
+    margin: 0 auto !important; /* Centre parfaitement le bloc */
+    padding: 0 !important;
+  }
+
+  /* On s'assure que la carte blanche elle-même n'a pas de marges parasites */
+  .section[aria-labelledby*="contact"] .card,
+  .contact-section .card {
+    width: 100% !important;
+    margin: 0 auto !important;
+    float: none !important;
+    position: relative !important;
+    left: 0 !important;
+    right: 0 !important;
+  }
+}
+
+/* ============================================================
+   FIX : SUPPRESSION DE LA MARGE VERTE SOUS LE FOOTER
+   ============================================================ */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100%;
+}
+
+/* On force le footer à coller au pixel près au bas de la page */
+.site-footer {
+  margin-bottom: 0 !important;
+  padding-bottom: var(--space-8, 2rem) !important; /* Garde de l'espace à l'intérieur, pas à l'extérieur */
+}
+
+/* Annule les marges des derniers éléments (ex: le copyright) qui poussent le footer vers le haut */
+.site-footer *:last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
 }
