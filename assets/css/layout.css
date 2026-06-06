@@ -725,8 +725,8 @@
   .contact-section .card,
   .section[aria-label*="contact"] .card,
   .section[aria-labelledby*="contact"] .card {
-    width: 99vw !important; /* 99% de l'écran = très large */
-    max-width: 99vw !important;
+    width: 94vw !important; /* 94% de l'écran = très large */
+    max-width: 94vw !important;
     margin: 0 auto !important; /* Centre parfaitement (laisse 3% de vide de chaque côté) */
     box-sizing: border-box !important;
     float: none !important;
