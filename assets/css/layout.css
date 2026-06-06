@@ -596,29 +596,31 @@
   .btn--xl { padding: var(--space-4) var(--space-8); }
 }
 
-/* Styles appliqués uniquement sur les écrans mobiles (moins de 768px) */
 @media (max-width: 768px) {
-  
-  /* 1. On force le conteneur d'animation à occuper toute la largeur sans décalage */
-  .reveal--right {
-    transform: none !important; /* Annule la translation qui pousse vers la droite */
+  /* On force TOUS les parents directs de la carte à ne pas déborder et à se centrer */
+  .reveal--right, 
+  .reveal--right > div {
+    display: block !important;
     width: 100% !important;
     max-width: 100% !important;
-    display: flex;
-    justify-content: center;
-    padding: 0 var(--space-4); /* Ajoute une légère marge de sécurité à gauche et à droite */
-    box-sizing: border-box;
+    transform: none !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
   }
 
-  /* 2. On ajuste la carte pour qu'elle se centre et ne déborde pas */
-  .reveal--right .card--glass {
-    width: 100% !important;
-    max-width: 400px; /* Taille maximale idéale pour que le formulaire reste élégant sur mobile */
-    margin: 0 auto !important; /* Centre horizontalement la carte */
+  /* On cible la carte en verre pour la formater de force sur mobile */
+  .card--glass {
+    width: calc(100% - 32px) !important; /* Prend toute la largeur moins 16px de chaque côté */
+    max-width: 100% !important;
+    margin: 0 auto !important; /* Centre la carte au milieu de l'écran */
+    left: 0 !important;
+    right: 0 !important;
+    box-sizing: border-box !important;
   }
 
-  /* 3. On réduit le padding interne qui est trop grand pour un écran de téléphone */
-  .reveal--right .card__body {
-    padding: var(--space-4) !important; /* Réduit le padding pour donner de l'espace aux champs */
+  /* On réduit l'espace interne de la carte pour gagner de la place */
+  .card--glass .card__body {
+    padding: var(--space-4) !important; 
   }
 }
