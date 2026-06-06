@@ -597,24 +597,28 @@
 }
 
 @media (max-width: 768px) {
-  /* 1. On force le conteneur d'animation à s'aligner au centre de son propre parent */
+  /* On cible le conteneur principal pour activer Flexbox et centrer au pixel près */
   .reveal--right {
-    display: block !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    float: none !important;
+    display: flex !important;
+    justify-content: center !important; /* Centre horizontalement l'enfant (la carte) */
+    align-items: center !important;
     width: 100% !important;
     max-width: 100% !important;
+    transform: none !important; /* Annule définitivement le décalage de l'animation */
+    padding: 0 var(--space-4) !important; /* Marge de sécurité à gauche et à droite */
+    box-sizing: border-box !important;
   }
 
-  /* 2. On ajuste la carte pour qu'elle se cale pile au milieu de l'écran avec des marges égales */
+  /* On ajuste la carte à l'intérieur pour qu'elle respire et reste centrée */
   .reveal--right .card--glass {
-    display: block !important;
-    width: 90% !important; /* Occupe 90% de la largeur de l'écran */
-    max-width: 380px !important; /* Limite la taille pour garder un beau rendu */
-    margin: 0 auto !important; /* AUTO à gauche et à droite égalise les espaces parfaitement */
-    position: relative !important;
-    left: 0 !important;
-    right: 0 !important;
+    width: 100% !important;
+    max-width: 380px !important; /* Taille parfaite pour mobile qui empêche de coller aux bords */
+    margin: 0 auto !important; /* Double sécurité pour le centrage */
+    box-sizing: border-box !important;
+  }
+
+  /* On réduit le rembourrage interne pour que les champs ne soient pas étouffés */
+  .reveal--right .card__body {
+    padding: var(--space-5) !important; 
   }
 }
