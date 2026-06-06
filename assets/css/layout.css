@@ -595,3 +595,30 @@
 
   .btn--xl { padding: var(--space-4) var(--space-8); }
 }
+
+/* Styles appliqués uniquement sur les écrans mobiles (moins de 768px) */
+@media (max-width: 768px) {
+  
+  /* 1. On force le conteneur d'animation à occuper toute la largeur sans décalage */
+  .reveal--right {
+    transform: none !important; /* Annule la translation qui pousse vers la droite */
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex;
+    justify-content: center;
+    padding: 0 var(--space-4); /* Ajoute une légère marge de sécurité à gauche et à droite */
+    box-sizing: border-box;
+  }
+
+  /* 2. On ajuste la carte pour qu'elle se centre et ne déborde pas */
+  .reveal--right .card--glass {
+    width: 100% !important;
+    max-width: 400px; /* Taille maximale idéale pour que le formulaire reste élégant sur mobile */
+    margin: 0 auto !important; /* Centre horizontalement la carte */
+  }
+
+  /* 3. On réduit le padding interne qui est trop grand pour un écran de téléphone */
+  .reveal--right .card__body {
+    padding: var(--space-4) !important; /* Réduit le padding pour donner de l'espace aux champs */
+  }
+}
