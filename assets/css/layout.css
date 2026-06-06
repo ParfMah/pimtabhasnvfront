@@ -597,30 +597,24 @@
 }
 
 @media (max-width: 768px) {
-  /* On force TOUS les parents directs de la carte à ne pas déborder et à se centrer */
-  .reveal--right, 
-  .reveal--right > div {
+  /* 1. On force le conteneur d'animation à s'aligner au centre de son propre parent */
+  .reveal--right {
     display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    float: none !important;
     width: 100% !important;
     max-width: 100% !important;
-    transform: none !important;
-    margin: 0 auto !important;
-    padding: 0 !important;
-    box-sizing: border-box !important;
   }
 
-  /* On cible la carte en verre pour la formater de force sur mobile */
-  .card--glass {
-    width: calc(100% - 32px) !important; /* Prend toute la largeur moins 16px de chaque côté */
-    max-width: 100% !important;
-    margin: 0 auto !important; /* Centre la carte au milieu de l'écran */
+  /* 2. On ajuste la carte pour qu'elle se cale pile au milieu de l'écran avec des marges égales */
+  .reveal--right .card--glass {
+    display: block !important;
+    width: 90% !important; /* Occupe 90% de la largeur de l'écran */
+    max-width: 380px !important; /* Limite la taille pour garder un beau rendu */
+    margin: 0 auto !important; /* AUTO à gauche et à droite égalise les espaces parfaitement */
+    position: relative !important;
     left: 0 !important;
     right: 0 !important;
-    box-sizing: border-box !important;
-  }
-
-  /* On réduit l'espace interne de la carte pour gagner de la place */
-  .card--glass .card__body {
-    padding: var(--space-4) !important; 
   }
 }
